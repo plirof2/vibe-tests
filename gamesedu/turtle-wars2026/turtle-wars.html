@@ -1,8 +1,13 @@
 <!doctype html>
 <html>
+<!--
+Changes :
+v005-250108 - fixed buttons
+
+-->
   <head>
     <meta charset="utf-8">
-	<TITLE>Turtle Wars Greek v001b </TITLE>
+	<TITLE>Turtle Wars Greek v005-250108 </TITLE>
     <link rel="stylesheet" href="turtle-wars.css"></link>
     <script src="jquery.min.js"></script>
     <script src="turtle-lang.js"></script>
@@ -114,13 +119,13 @@
   <div class="control-section">
     <div class="control-item">
       <div class="preset-buttons">
-        <button data-ratio="90">Arena Focus</button>
+        <button data-ratio="100">Arena Focus</button>
         <button data-ratio="70">Balanced</button>
         <button data-ratio="50">Code Focus</button>
       </div>
       <div class="slider-control">
-        <label>Arena Size: <span id="arenaRatio">85%</span></label>
-        <input type="range" id="resizeSlider" min="30" max="90" value="85">
+        <label>Arena Size: <span id="arenaRatio">85%</span> <span id="turtleWarning" style="display:none; color: #ff6b6b; font-size: 0.8em; margin-left: 10px;">⚠️ Turtles at minimum size</span></label>
+        <input type="range" id="resizeSlider" min="30" max="100" value="85">
       </div>
     </div>
   </div>

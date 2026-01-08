@@ -15,27 +15,27 @@ body {
 
 /* Left Panel - Game Controls */
 #leftPanel {
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
     width: 200px;
-    height: 100%;
+    height: 85%; /* Controlled by slider, matches arena */
     background: rgba(0,0,0,0.95);
     border-right: 3px solid #00ff88;
-    z-index: 1001;
+    z-index: 100;
     overflow-y: auto;
 }
 
 /* Right Panel - Arena Controls */
 #rightPanel {
-    position: fixed;
+    position: absolute;
     right: 0;
     top: 0;
     width: 200px;
-    height: 100%;
+    height: 85%; /* Controlled by slider, matches arena */
     background: rgba(0,0,0,0.95);
     border-left: 3px solid #00ff88;
-    z-index: 1001;
+    z-index: 100;
     overflow-y: auto;
 }
 
@@ -182,6 +182,7 @@ div#arena {
     background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);
     border: 3px solid #00ff88;
     box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+    z-index: 10;
 }
 
 div#arena canvas {
@@ -201,7 +202,7 @@ div#turtle1,
 div#turtle2 {
     position: absolute;
     width: 50%;
-    height: 15%;  /* Fixed bottom area */
+    height: 15%;  /* Controlled by slider */
     bottom: 0;
     background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,40,0.9) 100%);
     padding: 1em;
@@ -209,18 +210,7 @@ div#turtle2 {
     border-top: 2px solid #00ff88;
     box-shadow: 0 -4px 20px rgba(0, 255, 136, 0.2);
     transition: all 0.3s ease;
-}
-
-/* Account for side panels */
-div#turtle1 {
-    left: 0;
-    border-right: 1px solid rgba(0, 255, 136, 0.3);
-}
-
-div#turtle2 {
-    right: 200px;  /* Account for right panel */
-    left: auto;
-    border-left: 1px solid rgba(0, 255, 136, 0.3);
+    z-index: 10;
 }
 
 div#turtle1 {
@@ -229,13 +219,26 @@ div#turtle1 {
 }
 
 div#turtle2 {
-    right: 0;
+    left: 50%;
     border-left: 1px solid rgba(0, 255, 136, 0.3);
 }
 
 div#turtle1:hover,
 div#turtle2:hover {
     background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(30,30,50,0.95) 100%);
+}
+
+/* Minimum size indicator for turtle areas */
+div#turtle1.min-size,
+div#turtle2.min-size {
+    border-top-color: #ff6b6b;
+    border-top-width: 3px;
+    box-shadow: 0 -4px 20px rgba(255, 107, 107, 0.4);
+}
+
+div#turtle1.min-size .turtle-label,
+div#turtle2.min-size .turtle-label {
+    color: #ff6b6b;
 }
 
 .turtle-label {
@@ -537,10 +540,6 @@ textarea::placeholder {
     #rightPanel .control-item > div:first-child {
         font-size: 1.2em;
     }
-    
-    div#turtle2 {
-        right: 150px;
-    }
 }
 
 @media (max-width: 768px) {
@@ -574,10 +573,6 @@ textarea::placeholder {
     
     div#turtle1, div#turtle2 {
         height: 30%; /* Larger code area on mobile */
-    }
-    
-    div#turtle2 {
-        right: 120px;
     }
 }
 
@@ -615,17 +610,15 @@ textarea::placeholder {
     }
     
     div#turtle1, div#turtle2 {
-        width: 100%;
+        width: 50%;
         height: 40%; /* Much larger code areas */
     }
     
     div#turtle1 {
-        top: 10%;
+        left: 0;
     }
     
     div#turtle2 {
-        top: 55%;
-        right: 0;
-        left: 0;
+        left: 50%;
     }
 }

@@ -5,7 +5,6 @@ $(function () {
     var startArenaWidth = 0;
     var startArenaHeight = 85;
     var currentRatio = 85;
-    var headerHeight = 0;
     
     // Browser compatibility detection
     function isOldChrome() {
@@ -46,6 +45,9 @@ $(function () {
         var leftPanelWidth = getLeftPanelWidth();
         var rightPanelWidth = getRightPanelWidth();
         
+        // Update panel heights to match arena
+        $('#leftPanel, #rightPanel').css('height', arenaPercent + '%');
+        
         // Update arena position and height
         $('#arena').css({
             'left': leftPanelWidth + 'px',
@@ -54,12 +56,17 @@ $(function () {
         });
         
         // Calculate code area position (below arena)
-        var codeHeight = Math.max(15, 100 - arenaPercent - 2); // 2% buffer
+        var codeHeight = Math.max(5, 100 - arenaPercent);
         $('#turtle1, #turtle2').css('height', codeHeight + '%');
         
-        // Position code areas accounting for side panels
-        $('#turtle1').css('left', '0');
-        $('#turtle2').css('right', rightPanelWidth + 'px');
+        // Show visual indicators if turtles are at minimum size
+        if (arenaPercent >= 95 && codeHeight === 5) {
+            $('#turtleWarning').show();
+            $('#turtle1, #turtle2').addClass('min-size');
+        } else {
+            $('#turtleWarning').hide();
+            $('#turtle1, #turtle2').removeClass('min-size');
+        }
         
         // Update slider and display
         $('#resizeSlider').val(arenaPercent);
@@ -94,14 +101,11 @@ $(function () {
     
     // Window resize handler
     $(window).on('resize', function() {
-        // Recalculate header height and layout
-        headerHeight = getHeaderHeight();
         updateLayout(currentRatio);
     });
     
     // Initialize layout after a small delay to ensure DOM is ready
     setTimeout(function() {
-        headerHeight = getHeaderHeight();
         updateLayout(currentRatio);
     }, 100);
 });
