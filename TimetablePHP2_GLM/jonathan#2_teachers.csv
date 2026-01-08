@@ -1,0 +1,10 @@
+teacher_id,name,max_hours,unavailable_days,color,eidikotita
+T01,"John Smith",11,Tue|Wed,blue,Math
+T02,"Mary Johnson",3,Fri,green,English
+T03,"James Brown",11,,red,Physics
+T04,"Δασκάλα Γ",20,,orange,ΠΕ70
+T05,"Robert Wilson",11,Wed|Fri,cyan,History
+T06,"Teacher E",20,,blue,ΠΕ70
+Τ07b,"Δασκαλος ΣΤ",20,,blue,ΠΕ70
+T08,"ΓΥΜΝΑΣΤΗΣ 01",6,Wed|Fri,cyan,ΠΕ11
+T09,"ΑΓΓΛΙΚΑ 01",22,Mon,red,PE16

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batoco.js - Sinclair BASIC to TAP Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+        .left-panel {
+            flex: 1;
+        }
+        .right-panel {
+            flex: 1;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: monospace;
+        }
+        textarea {
+            height: 400px;
+            resize: vertical;
+        }
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .options-group {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+        .checkbox-group label {
+            display: inline;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Batoco.js - Sinclair BASIC to TAP Converter</h1>
+    
+    <div class="container">
+        <div class="left-panel">
+            <div class="form-group">
+                <label for="inputCode">Sinclair BASIC Code:</label>
+                <textarea id="inputCode" placeholder="Enter your Sinclair BASIC code here...">
+10 PRINT "Hello World"
+20 GOTO 10
+</textarea>
+            </div>
+            
+            <button onclick="window.convertBasic()">Convert & Download</button>
+        </div>
+        
+        <div class="right-panel">
+            <div class="options-group">
+                <h2>Conversion Options</h2>
+                
+                <div class="form-group">
+                    <label for="spectrumFilename">Spectrum Filename:</label>
+                    <input type="text" id="spectrumFilename" value="program" placeholder="program">
+                </div>
+                
+                <div class="form-group">
+                    <label for="outputFormat">Output Format:</label>
+                    <select id="outputFormat">
+                        <option value="TAP">TAP (Tape)</option>
+                        <option value="RAW">RAW (Headerless)</option>
+                        <option value="+3">+3DOS</option>
+                        <option value="P81">ZX81 (.P)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="autostartLine">Auto-start Line:</label>
+                    <input type="number" id="autostartLine" value="0x8000" placeholder="0x8000" min="0" max="9999">
+                </div>
+                
+                <div class="options-group" style="margin-top: 20px;">
+                    <h3>Label Mode Options</h3>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="useLabels">
+                        <label for="useLabels">Use Labels instead of Line Numbers</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="labelStart">Label Start Line Number:</label>
+                        <input type="number" id="labelStart" value="10" min="1" max="9999">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="labelIncrement">Label Increment:</label>
+                        <input type="number" id="labelIncrement" value="2" min="1" max="1000">
+                    </div>
+                </div>
+            </div>
+            
+            <div id="status"></div>
+            
+            <div class="options-group" style="margin-top: 20px;">
+                <h3>URL Parameters</h3>
+                <p>You can use URL parameters to auto-convert:</p>
+                <ul>
+                    <li><code>?input=programs/game.bas</code> - Fetch code from URL</li>
+                    <li><code>&n=MyGame</code> - Set Spectrum filename</li>
+                    <li><code>&a=10</code> - Set auto-start line</li>
+                    <li><code>&l=on</code> - Enable label mode</li>
+                    <li><code>&i=10</code> - Set label increment</li>
+                    <li><code>&s=100</code> - Set label start</li>
+                    <li><code>&3=on</code> - Set output to +3DOS</li>
+                    <li><code>&r=on</code> - Set output to RAW</li>
+                    <li><code>&p=on</code> - Set output to ZX81 (.P)</li>
+                    <li><code>&o=output.tap</code> - Override output filename</li>
+                    <li><code>&v=on</code> - Verbose mode</li>
+                </ul>
+                <p><strong>Example:</strong></p>
+                <code>?input=programs/game.bas&n=MyGame&a=10&l=on&i=10&s=100&3=on&o=output.tap</code>
+            </div>
+        </div>
+    </div>
+    
+    <script src="batoco.js"></script>
+</body>
+</html>

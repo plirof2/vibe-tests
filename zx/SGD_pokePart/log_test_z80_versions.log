@@ -1,0 +1,47 @@
+Timestamp: 2026-01-01 08:09:17
+Scanning: /mnt/sda1/downloads_linux/USB_fun/DEVL_php/VIBECode_Updates/SGD_pokePart/ROMSMINE
+========================================================================================================================
+File                                     | Version  | Compression     | Status         
+------------------------------------------------------------------------------------------------------------------------
+ROMSMINE/A/AcE2.Z80                      | v1.45    | Compressed      | OK             
+ROMSMINE/A/Ace2.Z80                      | v1.45    | Compressed      | OK             
+ROMSMINE/A/ARKNOID2.Z80                  | v2.01    | Uncompressed (raw) | OK             
+ROMSMINE/A/arknoid2.z80                  | v2.01    | Uncompressed (raw) | OK             
+ROMSMINE/B/BENNHILL.Z80                  | v1.45    | Compressed      | OK             
+ROMSMINE/B/Bennyhil.z80                  | v1.45    | Compressed      | OK             
+ROMSMINE/B/bubblebo.z80                  | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/C/CYBERNO2.Z80                  | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/C/CyberNO2.Z80                  | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/F/FIRELORD.Z80                  | v1.45    | Compressed      | OK             
+ROMSMINE/F/FireLorD.Z80                  | v1.45    | Compressed      | OK             
+ROMSMINE/L/LASTDUEL.Z80                  | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/L/LASTVAMP.Z80                  | v3       | Compressed (RLE) | OK             
+ROMSMINE/L/LIGHT128.Z80                  | v3       | Compressed (RLE) | OK             
+ROMSMINE/L/LILALIEN.Z80                  | v1.45    | Compressed      | OK             
+ROMSMINE/L/LITTLEPU.Z80                  | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/M/!MASK.Z80                     | v3       | Compressed (RLE) | OK             
+ROMSMINE/M/MASK.Z80                      | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/M/Mask1.z80                     | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/M/MASK2_48.Z80                  | v2.01    | Compressed (RLE) | OK             
+------------------------------------------------------------------------------------------------------------------------
+
+Summary:
+--------
+Total Z80 files found: 20
+
+Versions detected:
+  - v1.45: 7 files
+  - v2.01: 10 files
+  - v3: 3 files
+
+Compression breakdown:
+  v1.45:
+    - Compressed: 7 files
+    - Uncompressed: 0 files
+  v2.01:
+    - Compressed: 8 files
+    - Uncompressed: 2 files
+  v3.00:
+    - Compressed: 3 files
+    - Uncompressed: 0 files
+

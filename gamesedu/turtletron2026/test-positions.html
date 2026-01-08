@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Player Position Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .info { padding: 15px; margin: 10px; background: #f0f8ff; border-radius: 5px; }
+        canvas { border: 2px solid #333; margin: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Turtle Position Verification</h1>
+    
+    <div class="info">
+        <h3>Current Player Positions:</h3>
+        <p>Player 1 (Green): <span id="p1-pos"></span></p>
+        <p>Player 2 (Red): <span id="p2-pos"></span></p>
+        <p>Canvas Size: 600x600</p>
+    </div>
+    
+    <canvas id="testCanvas" width="600" height="600"></canvas>
+    
+    <script>
+        const canvas = document.getElementById('testCanvas');
+        const ctx = canvas.getContext('2d');
+        const scale = 2;
+        
+        // Player positions from main game
+        const player1 = {
+            x : 100 * scale,  // 200
+            y : 100 * scale,  // 200
+            angle : 0,
+            color: '#00FF00'
+        };
+        
+        const player2 = {
+            x : 450,  // Fixed position
+            y : 450,  // Fixed position
+            angle : 180,
+            color: '#FF0000'
+        };
+        
+        // Draw grid
+        function drawGrid() {
+            ctx.strokeStyle = '#e0e0e0';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 600; i += 50) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, 600);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(600, i);
+                ctx.stroke();
+            }
+        }
+        
+        // Draw turtle
+        function drawTurtle(player, label) {
+            ctx.save();
+            ctx.translate(player.x, player.y);
+            ctx.rotate(player.angle * Math.PI / 180);
+            
+            // Draw triangle
+            ctx.fillStyle = player.color;
+            ctx.strokeStyle = player.color;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(15, 0);
+            ctx.lineTo(-10, -12);
+            ctx.lineTo(-10, 12);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            
+            ctx.restore();
+            
+            // Draw label
+            ctx.fillStyle = '#333';
+            ctx.font = '14px Arial';
+            ctx.fillText(label, player.x - 20, player.y - 25);
+        }
+        
+        // Render test
+        function render() {
+            ctx.clearRect(0, 0, 600, 600);
+            drawGrid();
+            drawTurtle(player1, 'P1');
+            drawTurtle(player2, 'P2');
+            
+            // Update position display
+            document.getElementById('p1-pos').textContent = `(${player1.x}, ${player1.y})`;
+            document.getElementById('p2-pos').textContent = `(${player2.x}, ${player2.y})`;
+        }
+        
+        render();
+        
+        console.log('Player 1 position:', player1.x, player1.y);
+        console.log('Player 2 position:', player2.x, player2.y);
+        console.log('Canvas bounds: 0-600 for both x and y');
+    </script>
+    
+    <div class="info">
+        <h3>Verification Results:</h3>
+        <p>✓ Both turtles should be visible within the 600x600 canvas</p>
+        <p>✓ Player 1 (Green) at top-left area</p>
+        <p>✓ Player 2 (Red) at bottom-right area</p>
+        <p><a href="turtletron.html">Back to Game</a></p>
+    </div>
+</body>
+</html>

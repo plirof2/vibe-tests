@@ -1,0 +1,3 @@
+In batoco.html I enter a ZX Spectrum BASIC program. Batoco.js converts it to .TAP file (ZX Spectrum emulator file/tape). Then I can open this .TAP with an ZX Spectrum Emulator (eg qaop). I have included qaop emulator in "qaop" folder. Can you make qaop execute the generated TAP file without having to save anything on local disk or server? 
+
+------------

@@ -1,0 +1,52 @@
+
+-------------------------
+-I want the game to support different countries leagues and up to 4 country divisions .
+In the first game screen ("Create your footballer and lead them to glory!") I want the player to select country, then division (of that country) and then select the team to start. 
+-Now, club names are static in const clubs = [ ... ] . I have in the file to store a set of default teams. This set will be used when no teams.txt file is found. Teams.txt will contain the Countries , their divisions and the team per division
+
+-I want to generate a teams.txt file. This file will contain the Countries , their divisions and the team per division . When this file is detected these teams will be used in the game instead of the static default ones. The team names to be real and the divisions and I also want each team to have some kind of rating so good team perform better than bad teams. This will be used later from the footballer script.
+-The modified script will be saved as foorballer_v009a_realleagues.html
+-------------------------
+1. I want when the user exits the "play match" to move to next week (if this is done already ignore this).
+2. In the League Standings I want to be able to see the other divisions too
+
+-------------------------
+How does the League table works? When I see the league table eg for week 9, I see results of my team of another week which is wrong (=usually with a team I haven't played).
+I want the game at start to generate a real league with standings (for all countries/categories) and each week to follow that schedule. The results each week will be calculated based of that schedule. 
+
+
+
+---
+save new file to footballer_v008f_league.php
+issue1: promotion/denotion should be done for teams not players. issue2: The first 2 and last 2 teams from each division should go up/down divisions in the end of the league. issue3: Transfers. I want to have the option read the transfer offer and then accept/decline. At the end of the league seassion I would like to be offered one or two transfer options from different clubs (maybe and different divisions/countries). The team interested should be related with the player results so far (good resutls : better team from same or higher division , worst results: same division or lower division).ransfer frequency: You could show an automatic transfer once near the middle of the seasson. The interested team divisions (higher or lower) should be depenteed on the results of the player. The new salary offers should be adjusted also. 3. Declining transfers: There should be only one offer. At end of seasson there could be two seperate offers from different teams (even from other countries). 
+
+
+-------------------------
+save new file to footballer_v008f_league.php .1. For transfer offers at season end: you could show a transfer offer at end of seasson.The team interested to get the player should be better or worst (depending on player individual results eg goals scored etc...). 2. Transfer frequency: You could show an automatic transfer once near the middle of the seasson. The interested team divisions (higher or lower) should be depenteed on the results of the player. The new salary offers should be adjusted also. 3. Declining transfers: There should be only one offer. At end of seasson there could be two seperate offers from different teams (even from other countries).
+
+-------------------------
+
+check footballer_v008f1_league.php  and save changes to footballer_v008f2_league.php
+issue1: promotion/denotion for teams seems not to work. The first 2 and last 2 teams from each division should go up/down divisions in the end of the league.
+At the end of league season the last 2 teams from division 1 should be swapped with the two first teams of division 2 and so on for the other divisions of all countries . after the league season is ended.Scan all all countries and all divisions. from all divisions move last two teams in the lower division (except 4th division). Then from all divisions move the first teams of each division to the higher division .Keep in mind to not promote the teams you just denoted.
+-------------------------
+-------------------------
+
+
+-------------------------
+if you check "footballer_v008f2_league2CHECK.php" there the league table worked correctly. Something changed in footballer_v008f3_chatgptLEAGUEtableProb.php that is still a problem.
+-------------------------
+-------------------------
+
+
+-------------------------
+-------------------------
+
+
+-------------------------
+-------------------------
+
+
+-------------------------
+
+-------------------------

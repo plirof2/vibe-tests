@@ -1,0 +1,17 @@
+Various thought and notes: IGNORE THEM:
+
+1)Emulator launching:: it will use JSSpeccy or QAOPjs to run games in browser , 2)Screen shots & inlays:  Extra files will be stored in subdirectories. 3) Backend choice: The database should be stored on the server (I've put a sample database named HAD_ZX.DAT in the project folder -check it).  4) Authentication/Multi-user: You could have some hardcoded users in tha main file. This will be used by 1-2 truted persons only. 5) Priority features:  First of all :  I've inserted an older attempt for creating a web version of SGD in file zxsgd_v0904b8d_251112_gamefile_case.php you could check it to get ideas -or you can use it as a base to build upon it. POKE system could be done later since it needs more discussion.
+
+
+
+
+SGD is an old DOS program written in C. What I want to do is build a modern version of SGD that runs on the web. It must still use the old .DAT .
+Some notes:
+1)Emulator launching: it will use JSSpeccy or QAOPjs to run games in browser. For start we will use QAOP (javascript) .
+2)Screen shots & inlays:  Extra files will be stored in the same subdirectories as the original SGD (/INLAYS,/SCRSHOT etc). 
+3) Backend choice: The database should be stored on the server in a single file and it will be in .DAT format .  
+4) Authentication/Multi-user: You could have some hardcoded users in the main file. This will be used by 1-2 truted persons only. So i don't want anything complex.
+
+To help you I have 2 files: 
+zxsgd_v0904b8d_251112_gamefile_case.php is an older attempt for creating a web version of SGD.You could check it to get ideas -or you can use it as a base to build upon it.
+HAD_ZX.DAT is a sample .DAT file. .DAT files are plain text files using old DOS encoding (ASCII).

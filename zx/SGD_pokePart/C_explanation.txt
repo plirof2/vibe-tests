@@ -1,0 +1,365 @@
+================================================================================
+ANALYSIS: Z80 POKE APPLICATION MECHANISM
+================================================================================
+
+PROJECT: SGD (Spectrum Game Database)
+MODULE: Game Poke Handler (dbpoke.c, dbtzxpok.c)
+AUTHOR: ThunderWare Research Center (Martijn van der Heide)
+DATE: 1995-2001
+
+
+================================================================================
+1. OVERVIEW
+================================================================================
+
+The program applies POKEs (memory modifications) to ZX Spectrum snapshot files
+(Z80 format) to enable cheats/training modes. The system supports multiple Z80
+versions and handles compressed data blocks.
+
+
+================================================================================
+2. DATA STRUCTURES
+================================================================================
+
+2.1 POKE ENTRY STRUCTURE (PokeEntry_s)
+---------------------------------------
+Located in: dbpoke.c:56-64, dbtzxpok.c:57-66
+
+struct PokeEntry_s {
+    struct PokeEntry_s *Next;     // Linked list next pointer
+    struct PokeEntry_s *Previous; // Linked list previous pointer
+    byte   Bank;                 // Memory bank (0-7 for 128K, 8 for 48K/unbanked)
+    word   Address;               // Memory address (16384-65535)
+    word   Set;                  // Value to set (0-255) or 256 for ASK
+    byte   Org;                  // Original value (for disable)
+    byte   Flags;                // Additional flags (TZX only)
+};
+
+Flags (TZX only):
+- FLAG_IGNBANK (0x08): Ignore bank paging
+- FLAG_ASK (0x10): Prompt user for value
+- FLAG_NOORG (0x20): No original value stored
+
+
+2.2 GAME POKES STRUCTURE (GamePokes_s)
+----------------------------------------
+Located in: dbpoke.c:66-72, dbtzxpok.c:68-74
+
+struct GamePokes_s {
+    struct GamePokes_s *Next;     // Linked list next
+    struct GamePokes_s *Previous; // Linked list previous
+    char   Name[MAXPOKNAME + 1];  // Description (e.g., "Infinite Lives")
+    struct PokeEntry_s *Pokes;    // List of poke entries for this trainer
+};
+
+
+2.3 Z80 FILE VERSIONS
+----------------------
+
+Z80 v1.45 Header (dbpoke.c:419, dbfile.h:47-79)
+- Single compressed/uncompressed 48KB memory block
+- Fixed header size: 30 bytes
+- Bit 5 of Stat1 indicates compression (0x20)
+- Memory size always 49152 bytes (48KB)
+
+Z80 v2.01 Header (dbpoke.c:622, dbfile.h:81-91)
+- Extended header with hardware mode detection
+- Supports 128K memory banking
+- Multiple 16KB memory blocks with individual compression
+- HWMode field indicates memory configuration:
+  * 0-2: 48K mode
+  * 3+: 128K mode
+
+Z80 v3.00 Header (dbpoke.c:628, dbfile.h:93-102)
+- Additional header with more hardware details
+- Builds on v2.01 structure
+
+
+================================================================================
+3. BANK DETECTION (AutoBank Function)
+================================================================================
+
+Located in: dbpoke.c:1146-1188
+
+The AutoBank() function determines the correct memory bank for a given address
+based on Z80 version and hardware mode:
+
+LOGIC FLOW:
+-----------
+1. Set Snap128K = FALSE (assume 48K initially)
+2. Check FileType and Z80Version:
+   - If not Z80/SLT and CurrentEntry.Memory == 48: return bank 0
+   - If Bank already provided: use that bank, set Snap128K = TRUE
+3. For Z80 files:
+   - v1.45: Always bank 0 (no banking)
+   - v2.01: Snap128K = TRUE if HWMode >= 3
+   - v3.00: Snap128K = TRUE if HWMode >= 4
+4. Calculate default bank based on address:
+
+   IF Snap128K (128K mode):
+     Address < 32768  -> Return bank 5 (ROM/RAM0)
+     Address < 49152  -> Return bank 2 (RAM2)
+     Address >= 49152 -> Return bank 0 (RAM5)
+
+   ELSE (48K mode):
+     Address < 32768  -> Return bank 5
+     Address < 49152  -> Return bank 1
+     Address >= 49152 -> Return bank 2
+
+BANK MAPPING:
+--------------
+48K Memory Model:
+- 0000-3FFF: Bank 5 (ROM/48K ROM)
+- 4000-7FFF: Bank 1 (Screen)
+- 8000-BFFF: Bank 2 (RAM)
+- C000-FFFF: Bank 0 (Variables/stack area for v2.01)
+
+128K Memory Model (banks are paged in):
+- 0000-3FFF: Bank 5 (ROM)
+- 4000-7FFF: Bank 2 (contended RAM)
+- 8000-BFFF: Bank 0 (non-contended RAM)
+
+
+================================================================================
+4. POKE APPLICATION PROCESS (InsertGamePokes Function)
+================================================================================
+
+Located in: dbpoke.c:1407-1757
+
+HIGH-LEVEL FLOW:
+----------------
+1. Read game pokes from file (ReadGamePokes)
+2. Display poke selection dialog to user
+3. User selects which pokes to apply
+4. For pokes marked "ASK", prompt user for value
+5. Build PokeSetup linked list of active pokes
+6. Read original Z80 file
+7. Decompress memory blocks
+8. Apply pokes to memory
+9. Recompress modified blocks
+10. Write new Z80 file to TMP directory
+
+
+4.1 Z80 v1.45 POKE APPLICATION (Lines 1591-1618)
+------------------------------------------------
+
+PROCESS:
+1. Read the single 49152-byte memory block
+2. Check Stat1 bit 5 for compression:
+   - If compressed: DecrunchZ80Block() to _BufferDecrunched
+   - If not compressed: Direct memcpy to _BufferDecrunched
+3. Apply pokes:
+   For each poke entry:
+     *(_BufferDecrunched + (Address - 16384)) = Set
+4. Recompress: CrunchZ80Block()
+5. Write modified block to output file
+
+ADDRESS CALCULATION:
+-------------------
+Z80 memory starts at address 16384 (0x4000)
+Array index = Address - 16384
+Example: Address 32768 -> Index 16384 (middle of array)
+
+
+4.2 Z80 v2.01+ POKE APPLICATION (Lines 1620-1675)
+-------------------------------------------------
+
+PROCESS:
+1. Read Z80201SnapshotHeader (additional header)
+2. If v3.00, also read Z80300SnapshotHeader
+3. Read memory blocks in sequence until marker (length 0):
+
+   WHILE (BlockInfo.Length != 0):
+     a. Read compressed block data
+     b. Decompress: DecrunchZ80Block() to _BufferDecrunched
+     c. Apply pokes for matching bank:
+        For each poke entry:
+          IF (poke.Bank + 3 == BlockInfo.Bank):
+            *(_BufferDecrunched + (poke.Address % 16384)) = poke.Set
+     d. Recompress: CrunchZ80Block()
+     e. Write block with updated size
+
+BANK MAPPING FOR Z80 v2.01+:
+-----------------------------
+BlockInfo.Bank values:
+- 3: 0000-3FFF (ROM area)
+- 4: 4000-7FFF (Screen area)
+- 5: 8000-BFFF (RAM area)
+- 8+: Additional 128K banks
+
+Offset within 16KB block: poke.Address % 16384
+Example: Address 49152 in bank 5 -> 49152 % 16384 = 0
+
+
+4.3 SNA FILE POKE APPLICATION (Lines 1698-1723)
+-----------------------------------------------
+
+SNA format is simpler:
+- 27-byte header (MMSnapshotHeader_s)
+- Fixed 49KB memory image (no compression)
+- Same poke application as Z80 v1.45 but without compression
+
+
+4.4 SP FILE POKE APPLICATION (Lines 1725-1747)
+----------------------------------------------
+
+SP (SPS format):
+- Header with start address and length
+- Variable length memory region
+- Pokes applied relative to start address:
+  *(_BufferDecrunched + Address - 16384) = Set
+
+
+================================================================================
+5. COMPRESSION/DECOMPRESSION
+================================================================================
+
+COMPRESSION INDICATOR:
+---------------------
+- Z80 v1.45: Stat1 bit 5 (0x20)
+- Z80 v2.01+: Each block header indicates length
+
+COMPRESSED BLOCK FORMAT:
+-----------------------
+When compressed, the block uses a simple run-length encoding scheme.
+DecompressZ80Block() function expands to 16KB (16384 bytes) per block.
+
+For Z80 v1.45:
+- Full 48KB decompressed to _BufferDecrunched (49152 bytes)
+
+For Z80 v2.01+:
+- Each 16KB page decompressed to 16KB buffer
+- Pokes applied within 16KB boundaries
+- Recompressed after modification
+
+
+================================================================================
+6. VERSION DETECTION
+================================================================================
+
+Z80 Version Detection: GetZ80Version() function
+-------------------------------------------------
+Reads first 30 bytes and checks:
+- If bytes 6-7 (PC) == 0: Z80 v1.45 format
+- If bytes 6-7 != 0: Read additional header length
+  - Additional length == 23: Z80 v2.01
+  - Additional length == 55: Z80 v3.00
+
+Hardware Mode (for v2.01+):
+---------------------------
+Z80201SnapshotHeader.HWMode:
+- 0-2: 48K mode
+- 3: 128K mode (SamRam)
+- 4+: 128K+ mode
+
+
+================================================================================
+7. SPECIAL FEATURES
+================================================================================
+
+7.1 ASK VALUES
+--------------
+If Set field == 256, the user is prompted to enter a value at runtime.
+Used for configurable cheats (e.g., "Set Lives to X").
+
+
+7.2 AUTO-CONVERSION
+-------------------
+When loading pokes from 48K snapshot to 128K or vice versa:
+- Banks are automatically converted using AutoBank()
+- User is notified: "Auto Conversion Succeeded"
+- Pokes adjusted based on memory model
+
+
+7.3 ORIGINAL VALUES
+-------------------
+Each poke stores the original value to allow disabling:
+- When poke not selected: use Org value
+- When poke selected: use Set value
+- Preserves original game state
+
+
+7.4 BANK FLAG HANDLING
+----------------------
+FLAG_IGNBANK (0x08):
+- When set, ignores bank paging
+- Displays as "-" in UI
+- Used for common memory areas
+
+FLAG_NOORG (0x20):
+- When set, no original value stored
+- Displays without "(xxx)" in UI
+- Used when original value unknown
+
+
+================================================================================
+8. SLT FILE SUPPORT
+================================================================================
+
+SLT (SLT extension) files contain additional metadata:
+- Pokes embedded as extension block type 0x0005 (SLT_POKES)
+- Offset stored in SLTMap.OffsetPokes
+- Read from SLT file instead of separate .PKT file
+
+
+================================================================================
+9. ERROR HANDLING
+================================================================================
+
+The system includes comprehensive error checking:
+- File I/O errors (open, read, write)
+- Decompression failures (invalid Z80 file)
+- Memory allocation failures
+- Out-of-range address/value checks
+- Partial patch cleanup (removes incomplete output file)
+
+CleanupPatch() function ensures:
+- All file handles closed
+- Partial output file deleted
+- Memory freed
+
+
+================================================================================
+10. TZX CUSTOM INFO SUPPORT
+================================================================================
+
+TZX files can contain a "Custom Info - POKEs block" handled by dbtzxpok.c:
+
+Format:
+- General description (length-prefixed string)
+- Number of trainers
+- For each trainer:
+  * Trainer name (length-prefixed)
+  * Number of pokes
+  * For each poke:
+    - Flags | Bank (byte)
+    - Address (word)
+    - Set value (byte)
+    - Original value (byte)
+
+EditTZXGamePokes() function provides UI for editing TZX-embedded pokes.
+
+
+================================================================================
+11. SUMMARY
+================================================================================
+
+The program implements a sophisticated POKE application system that:
+
+1. Handles multiple Z80 snapshot versions (1.45, 2.01, 3.00)
+2. Automatically detects and adjusts for 48K vs 128K memory models
+3. Manages banked memory in 128K systems
+4. Compresses/decompresses memory blocks efficiently
+5. Preserves original values for toggle functionality
+6. Supports user-configurable values (ASK mode)
+7. Handles edge cases (bank flags, missing originals)
+8. Provides robust error handling and cleanup
+9. Supports embedded pokes in SLT and TZX files
+
+The architecture uses linked lists for flexible poke management and applies
+modifications at the byte level after decompression, ensuring compatibility
+with all Z80 formats while maintaining file structure integrity.
+
+================================================================================
+END OF ANALYSIS
+================================================================================

@@ -1,0 +1,2354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footballer of the Year</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            border: 3px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #00ff00;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .btn {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #00cc00;
+            transform: scale(1.05);
+        }
+
+        .btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            background: rgba(0, 255, 0, 0.1);
+            padding: 15px;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .stat-label {
+            color: #00ff00;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .player-name {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #ffff00;
+        }
+
+        input {
+            background: #000;
+            color: #fff;
+            border: 2px solid #00ff00;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            width: 100%;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ffff00;
+        }
+
+        .match-result {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 0, 0.1);
+            border: 2px solid #ffff00;
+            border-radius: 5px;
+        }
+
+        .score {
+            font-size: 48px;
+            color: #ffff00;
+            margin: 10px 0;
+        }
+
+        .training-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .training-btn {
+            background: rgba(0, 255, 0, 0.2);
+            color: #fff;
+            border: 2px solid #00ff00;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .training-btn:hover {
+            background: rgba(0, 255, 0, 0.4);
+        }
+
+        .season-info {
+            background: rgba(255, 255, 0, 0.1);
+            padding: 15px;
+            border: 2px solid #ffff00;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .transfer-list {
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+        }
+
+        .transfer-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .transfer-item:hover {
+            background: rgba(0, 255, 0, 0.2);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .menu-btn {
+            background: rgba(0, 255, 0, 0.2);
+            color: #fff;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .menu-btn:hover {
+            background: rgba(0, 255, 0, 0.4);
+        }
+
+        .career-stats {
+            margin: 20px 0;
+        }
+
+        .career-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00ff00;
+            border-radius: 5px;
+        }
+
+        .goal-cards {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .goal-card {
+            background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+            color: #000;
+            padding: 15px 25px;
+            border: 3px solid #fff;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .shop-item {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .shop-item-info {
+            flex: 1;
+        }
+
+        .shop-item-price {
+            color: #ffd700;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .money-display {
+            text-align: center;
+            font-size: 24px;
+            color: #ffd700;
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 5px;
+        }
+
+        .penalty-game {
+            background: linear-gradient(180deg, 
+                #87CEEB 0%, 
+                #87CEEB 30%,
+                #228B22 30%,
+                #1e7a1e 50%,
+                #228B22 70%,
+                #1e7a1e 100%
+            );
+            border: 3px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .penalty-game::before {
+            content: '';
+            position: absolute;
+            top: 30%;
+            left: 0;
+            right: 0;
+            height: 70%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 50px,
+                rgba(255,255,255,0.03) 50px,
+                rgba(255,255,255,0.03) 51px
+            );
+            pointer-events: none;
+        }
+
+        .goal {
+            position: relative;
+            width: 300px;
+            height: 180px;
+            margin: 20px auto;
+        }
+
+        .goal-frame {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(200,200,200,0.8) 100%);
+            border: 8px solid #fff;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .goal-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #fff 0%, #f0f0f0 50%, #fff 100%);
+        }
+
+        .goal-net {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(90deg, transparent, transparent 14px, rgba(0,0,0,0.1) 14px, rgba(0,0,0,0.1) 15px),
+                repeating-linear-gradient(0deg, transparent, transparent 14px, rgba(0,0,0,0.1) 14px, rgba(0,0,0,0.1) 15px);
+            pointer-events: none;
+        }
+
+        .goalkeeper {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 70px;
+            transition: left 0.3s ease;
+        }
+
+        .gk-body {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 55px;
+            background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
+            border-radius: 5px 5px 0 0;
+            border: 2px solid #000;
+        }
+
+        .gk-jersey-num {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 16px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .gk-head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #FFDAB9;
+            border-radius: 50%;
+            border: 2px solid #000;
+        }
+
+        .gk-glove-left, .gk-glove-right {
+            position: absolute;
+            top: 15px;
+            width: 18px;
+            height: 22px;
+            background: #FFD700;
+            border: 2px solid #000;
+            border-radius: 5px;
+        }
+
+        .gk-glove-left {
+            left: -8px;
+        }
+
+        .gk-glove-right {
+            right: -8px;
+        }
+
+        .ball {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 28px;
+            background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+            border-radius: 50%;
+            border: 2px solid #000;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .ball::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 8px;
+            height: 8px;
+            background: #000;
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        .shot-zones {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            width: 320px;
+            margin: 20px auto;
+        }
+
+        .shot-zone {
+            background: rgba(0, 0, 0, 0.6);
+            border: 3px solid #00ff00;
+            padding: 12px 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            font-size: 11px;
+            transition: all 0.2s;
+            border-radius: 5px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .shot-zone:hover {
+            background: rgba(0, 255, 0, 0.3);
+            border-color: #ffff00;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        .shot-zone.shot {
+            background: rgba(100, 100, 100, 0.6);
+            border-color: #666;
+            cursor: not-allowed;
+            color: #999;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .penalty-result {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .penalty-result.goal {
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.3) 0%, rgba(0, 200, 0, 0.2) 100%);
+            color: #00ff00;
+            border: 3px solid #00ff00;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+
+        .penalty-result.miss {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.3) 0%, rgba(200, 0, 0, 0.2) 100%);
+            color: #ff6666;
+            border: 3px solid #ff6666;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .goal-celebration {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            animation: celebrate 1s ease-out forwards;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        @keyframes celebrate {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+        }
+
+        .events {
+            max-height: 150px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border: 1px solid #00ff00;
+            margin: 10px 0;
+        }
+
+        .event {
+            margin: 5px 0;
+            padding: 5px;
+            border-bottom: 1px solid #333;
+        }
+
+        .goal-event {
+            color: #00ff00;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>⚽ Footballer of the Year ⚽</h1>
+
+        <div id="startScreen" class="screen active">
+            <div style="text-align: center; margin: 30px 0;">
+                <p style="font-size: 18px; margin-bottom: 20px;">
+                    Create your footballer and lead them to glory!
+                </p>
+                <input type="text" id="playerName" placeholder="Enter your name" maxlength="20">
+                <p style="margin-top: 10px; font-size: 14px; color: #aaa;">Choose your position:</p>
+                <div class="training-options" style="margin-top: 10px;">
+                    <button class="training-btn" onclick="selectPosition('Forward')">
+                        <strong>Forward</strong><br>High shooting
+                    </button>
+                    <button class="training-btn" onclick="selectPosition('Midfielder')">
+                        <strong>Midfielder</strong><br>Balanced skills
+                    </button>
+                    <button class="training-btn" onclick="selectPosition('Defender')">
+                        <strong>Defender</strong><br>Strong defense
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mainMenu" class="screen">
+            <div class="player-name" id="menuPlayerName"></div>
+            <div class="season-info">
+                <p>Season: <span id="menuSeason">1</span> | Week: <span id="menuWeek">1</span></p>
+                <p>Division: <span id="menuDivision">Division 4</span></p>
+                <p>Club: <span id="menuClub"></span></p>
+                <p>Overall: <span id="menuOverall"></span></p>
+            </div>
+            <div class="money-display">
+                💰 £<span id="menuMoney">500</span> (Weekly: £<span id="menuSalary">50</span>)
+            </div>
+            <div class="goal-cards">
+                <div class="goal-card">🎯 Goal Cards: <span id="menuGoalCards">3</span></div>
+                <div class="goal-card" style="background: linear-gradient(135deg, #87CEEB 0%, #4169E1 100%);">🗳️ Votes: <span id="menuVotes">0</span></div>
+            </div>
+            <div id="incidentDisplay" class="match-result" style="display: none;"></div>
+            <div class="menu-grid">
+                <button class="menu-btn" onclick="showScreen('statsScreen')">
+                    📊 My Stats
+                </button>
+                <button class="menu-btn" onclick="showScreen('trainingScreen')">
+                    🏋️ Training
+                </button>
+                <button class="menu-btn" onclick="showScreen('leagueScreen')">
+                    📊 League Table
+                </button>
+                <button class="menu-btn" onclick="showScreen('matchSelectionScreen')">
+                    ⚽ Select Matches
+                </button>
+                <button class="menu-btn" onclick="showScreen('matchScreen')">
+                    ⚽ Play Match
+                </button>
+                <button class="menu-btn" onclick="showScreen('shopScreen')">
+                    🛒 Shop
+                </button>
+                <button class="menu-btn" onclick="showScreen('transferScreen')">
+                    🔄 Transfers
+                </button>
+                <button class="menu-btn" onclick="showScreen('cupScreen')">
+                    🏆 Cup Competitions
+                </button>
+                <button class="menu-btn" onclick="showScreen('careerScreen')">
+                    🏆 Career
+                </button>
+                <button class="menu-btn" onclick="showScreen('settingsScreen')">
+                    ⚙️ Settings
+                </button>
+                <button class="menu-btn" onclick="nextWeek()">
+                    📅 Next Week
+                </button>
+            </div>
+        </div>
+
+        <div id="statsScreen" class="screen">
+            <h2 style="text-align: center; color: #00ff00; margin-bottom: 20px;">Player Stats</h2>
+            <div class="player-name" id="statsPlayerName"></div>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-label">Overall</div>
+                    <div class="stat-value" id="statOverall">60</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Speed</div>
+                    <div class="stat-value" id="statSpeed">60</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Shooting</div>
+                    <div class="stat-value" id="statShooting">60</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Passing</div>
+                    <div class="stat-value" id="statPassing">60</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Defense</div>
+                    <div class="stat-value" id="statDefense">60</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Stamina</div>
+                    <div class="stat-value" id="statStamina">60</div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <p>Position: <span id="statPosition"></span></p>
+                <p>Age: <span id="statAge"></span></p>
+                <p>Energy: <span id="statEnergy"></span>%</p>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="showScreen('mainMenu')">Back</button>
+            </div>
+        </div>
+
+        <div id="trainingScreen" class="screen">
+            <h2 style="text-align: center; color: #00ff00; margin-bottom: 20px;">Training</h2>
+            <p style="text-align: center; margin-bottom: 20px;">Energy: <span id="trainingEnergy"></span>%</p>
+            <div class="training-options">
+                <button class="training-btn" onclick="train('speed')">
+                    <strong>Speed Training</strong><br>+2 Speed<br>-10 Energy
+                </button>
+                <button class="training-btn" onclick="train('shooting')">
+                    <strong>Shooting Practice</strong><br>+2 Shooting<br>-10 Energy
+                </button>
+                <button class="training-btn" onclick="train('passing')">
+                    <strong>Passing Drills</strong><br>+2 Passing<br>-10 Energy
+                </button>
+                <button class="training-btn" onclick="train('defense')">
+                    <strong>Defense Training</strong><br>+2 Defense<br>-10 Energy
+                </button>
+                <button class="training-btn" onclick="train('stamina')">
+                    <strong>Stamina Building</strong><br>+2 Stamina<br>-10 Energy
+                </button>
+                <button class="training-btn" onclick="train('rest')">
+                    <strong>Rest & Recover</strong><br>+30 Energy<br>No stat boost
+                </button>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="showScreen('mainMenu')">Back</button>
+            </div>
+        </div>
+
+        <div id="matchScreen" class="screen">
+            <h2 style="text-align: center; color: #00ff00; margin-bottom: 20px;">Match Day</h2>
+            <div class="season-info">
+                <p>Week <span id="matchWeek"></span></p>
+                <p><span id="homeTeam"></span> vs <span id="awayTeam"></span></p>
+            </div>
+            <div class="goal-cards">
+                <div class="goal-card">🎯 Goal Cards: <span id="matchGoalCards">3</span></div>
+            </div>
+            <div class="match-result" id="matchResult" style="display: none;">
+                <div class="score" id="finalScore">0 - 0</div>
+                <div id="matchOutcome"></div>
+            </div>
+            <div class="events" id="matchEvents"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" id="useCardBtn" onclick="useGoalCard()">Use Goal Card</button>
+                <button class="btn" id="endMatchBtn" onclick="endMatch()" style="display: none;">End Match</button>
+                <button class="btn" onclick="showScreen('mainMenu')">Back</button>
+            </div>
+        </div>
+
+        <div id="shopScreen" class="screen">
+            <h2 style="text-align: center; color: #00ff00; margin-bottom: 20px;">Shop</h2>
+            <p style="text-align: center; margin-bottom: 10px;">Division: <span id="shopDivision">Division 4</span></p>
+            <p style="text-align: center; margin-bottom: 10px; color: #ffd700;">Goal Card Price: £<span id="shopCardPrice">500</span></p>
+            <div class="money-display">
+                💰 £<span id="shopMoney">500</span>
+            </div>
+            <div id="shopItems"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="showScreen('mainMenu')">Back</button>
+            </div>
+        </div>
+
+        <div id="transferScreen" class="screen">
+            <h2 style="text-align: center; color: #00ff00; margin-bottom: 20px;">Transfer Market</h2>
+            <p style="text-align: center; margin-bottom: 20px;">Current Club: <span id="currentClub"></span></p>
+            <p style="text-align: center; margin-bottom: 10px;">Current Value: $<span id="currentValue">0</span>M</p>
+            <div class="transfer-list" id="transferList"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="showScreen('mainMenu')">Back</button>
+            </div>
+        </div>
+
+        <div id="careerScreen" class="screen">
+            <h2 style="text-align: center; color: #00ff00; margin-bottom: 20px;">Career Stats</h2>
+            <div class="player-name" id="careerPlayerName"></div>
+            <div class="career-stats">
+                <div class="career-stat">
+                    <span>Seasons Played:</span>
+                    <span id="careerSeasons">0</span>
+                </div>
+                <div class="career-stat">
+                    <span>Total Goals:</span>
+                    <span id="careerGoals">0</span>
+                </div>
+                <div class="career-stat">
+                    <span>Matches Played:</span>
+                    <span id="careerMatches">0</span>
+                </div>
+                <div class="career-stat">
+                    <span>Trophies Won:</span>
+                    <span id="careerTrophies">0</span>
+                </div>
+                <div class="career-stat">
+                    <span>Clubs Played For:</span>
+                    <span id="careerClubs">0</span>
+                </div>
+                <div class="career-stat">
+                    <span>Total Votes:</span>
+                    <span id="careerVotes">0</span>
+                </div>
+                <div class="career-stat">
+                    <span>Highest Division:</span>
+                    <span id="careerHighestDiv">Division 4</span>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="showScreen('mainMenu')">Back</button>
+            </div>
+        </div>
+
+        <div id="leagueScreen" class="screen">
+            <h2 style="text-align: center; color: #00ff00; margin-bottom: 20px;">League Standings</h2>
+            <p style="text-align: center; margin-bottom: 10px;">Division: <span id="leagueDivision">Division 4</span></p>
+            <div style="overflow-x: auto; margin-bottom: 20px;">
+                <table style="width: 100%; border-collapse: collapse; background: rgba(0, 0, 0, 0.5); border: 2px solid #00ff00;">
+                    <thead>
+                        <tr style="background: rgba(0, 255, 0, 0.2);">
+                            <th style="padding: 10px; border: 1px solid #00ff00; color: #fff;">Pos</th>
+                            <th style="padding: 10px; border: 1px solid #00ff00; color: #fff;">Team</th>
+                            <th style="padding: 10px; border: 1px solid #00ff00; color: #fff;">P</th>
+                            <th style="padding: 10px; border: 1px solid #00ff00; color: #fff;">W</th>
+                            <th style="padding: 10px; border: 1px solid #00ff00; color: #fff;">D</th>
+                            <th style="padding: 10px; border: 1px solid #00ff00; color: #fff;">L</th>
+                            <th style="padding: 10px; border: 1px solid #00ff00; color: #fff;">GF</th>
+                            <th style="padding: 10px; border: 1px solid #00ff00; color: #fff;">GA</th>
+                            <th style="padding: 10px; border: 1px solid #00ff00; color: #fff;">GD</th>
+                            <th style="padding: 10px; border: 1px solid #00ff00; color: #fff;">Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leagueTableBody"></tbody>
+                </table>
+            </div>
+            <div id="weekResults" style="max-height: 200px; overflow-y: auto; background: rgba(0, 0, 0, 0.5); padding: 10px; border: 1px solid #00ff00; margin-bottom: 20px;"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="showScreen('mainMenu')">Back</button>
+            </div>
+        </div>
+
+        <div id="settingsScreen" class="screen">
+            <h2 style="text-align: center; color: #00ff00; margin-bottom: 20px;">Settings</h2>
+            
+            <div class="season-info">
+                <h3 style="color: #00ff00; margin-bottom: 10px;">💾 Save & Load Game</h3>
+                <p id="saveStatus" style="text-align: center; margin-bottom: 10px; color: #aaa;">Checking for saved game...</p>
+                <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;">
+                    <button class="btn" onclick="saveGame()">Save Game</button>
+                    <button class="btn" onclick="loadGame()">Load Game</button>
+                    <button class="btn" onclick="exportGame()">Export to File</button>
+                    <button class="btn" onclick="document.getElementById('importFile').click()">Import from File</button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importGame(event)">
+                </div>
+            </div>
+            
+            <div class="season-info">
+                <h3 style="color: #00ff00; margin-bottom: 10px;">📝 Team Names</h3>
+                <p style="text-align: center; margin-bottom: 10px;">Export team names to JSON, edit them, and import back</p>
+                <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;">
+                    <button class="btn" onclick="exportTeamNames()">Export Teams</button>
+                    <button class="btn" onclick="document.getElementById('importTeamsFile').click()">Import Teams</button>
+                    <input type="file" id="importTeamsFile" accept=".json" style="display: none;" onchange="importTeamNames(event)">
+                </div>
+            </div>
+            
+            <div class="season-info">
+                <h3 style="color: #00ff00; margin-bottom: 10px;">⚠️ Danger Zone</h3>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <button class="btn" onclick="resetGame()" style="background: #ff0000;">Reset Game</button>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="showScreen('mainMenu')">Back</button>
+            </div>
+        </div>
+
+        <div id="matchSelectionScreen" class="screen">
+            <h2 style="text-align: center; color: #00ff00; margin-bottom: 20px;">Select Matches This Season</h2>
+            <p style="text-align: center; margin-bottom: 10px;">Division: <span id="selectDivision">Division 4</span></p>
+            <p style="text-align: center; margin-bottom: 20px;">Select up to 10 matches. Fewer matches = each goal card worth more votes!</p>
+            <div id="matchList" style="max-height: 400px; overflow-y: auto; margin-bottom: 20px;"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="confirmMatchSelection()">Confirm Selection</button>
+                <button class="btn" onclick="showScreen('mainMenu')">Back</button>
+            </div>
+        </div>
+
+        <div id="cupScreen" class="screen">
+            <h2 style="text-align: center; color: #00ff00; margin-bottom: 20px;">Cup Competitions</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-label">FA Cup</div>
+                    <div class="stat-value" id="faCupStatus">Not Qualified</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">European Cup</div>
+                    <div class="stat-value" id="euroCupStatus">Not Qualified</div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 20px; color: #aaa;">Cup competitions qualify at Division 2 and above</p>
+            <div id="cupActions" style="text-align: center; margin-top: 20px;"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" onclick="showScreen('mainMenu')">Back</button>
+            </div>
+        </div>
+
+        <div id="penaltyScreen" class="screen">
+            <h2 style="text-align: center; color: #00ff00; margin-bottom: 10px;">⚽ Penalty Shootout! ⚽</h2>
+            <p style="text-align: center; margin-bottom: 5px; font-size: 18px;">Shooting: <span id="penaltyShooting" style="color: #ffd700; font-weight: bold;">60</span></p>
+            <p style="text-align: center; margin-bottom: 15px; font-size: 14px; color: #aaa;">REFLEX ZONES - Click GREEN zone before it disappears!</p>
+            <p id="zoneTimer" style="text-align: center; font-size: 16px; color: #00ff00; margin-bottom: 10px;">Next zone in: 3.0s</p>
+            <div class="penalty-game" id="penaltyGame">
+                <div class="goal">
+                    <div class="goal-frame">
+                        <div class="goal-net"></div>
+                        <div class="goal-line"></div>
+                    </div>
+                    <div class="goalkeeper" id="goalkeeper">
+                        <div class="gk-head"></div>
+                        <div class="gk-body">
+                            <div class="gk-jersey-num">1</div>
+                        </div>
+                        <div class="gk-glove-left"></div>
+                        <div class="gk-glove-right"></div>
+                    </div>
+                    <div class="ball" id="ball"></div>
+                </div>
+                <div class="shot-zones" id="shotZones">
+                    <div class="shot-zone" id="zone0" data-zone="0">↖️</div>
+                    <div class="shot-zone" id="zone1" data-zone="1">⬆️</div>
+                    <div class="shot-zone" id="zone2" data-zone="2">↗️</div>
+                    <div class="shot-zone" id="zone3" data-zone="3">⬅️</div>
+                    <div class="shot-zone" id="zone4" data-zone="4">⏺️</div>
+                    <div class="shot-zone" id="zone5" data-zone="5">➡️</div>
+                    <div class="shot-zone" id="zone6" data-zone="6">↙️</div>
+                    <div class="shot-zone" id="zone7" data-zone="7">⬇️</div>
+                    <div class="shot-zone" id="zone8" data-zone="8">↘️</div>
+                </div>
+            </div>
+            <div class="penalty-result" id="penaltyResult" style="display: none;"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="btn" id="backToMatchBtn" onclick="backToMatch()" style="display: none;">Back to Match</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const clubs = [
+            'United FC', 'City Blues', 'Red Devils', 'Gunners', 
+            'Spurs FC', 'Liverpool Red', 'Chelsea Blue', 'Newcastle',
+            'Aston Villa', 'Everton FC', 'Leicester City', 'West Ham'
+        ];
+
+        let player = {
+            name: '',
+            position: '',
+            age: 17,
+            energy: 100,
+            stats: {
+                speed: 50,
+                shooting: 50,
+                passing: 50,
+                defense: 50,
+                stamina: 50
+            },
+            career: {
+                goals: 0,
+                matches: 0,
+                trophies: 0,
+                clubs: [],
+                votes: 0,
+                totalGoalsAllTime: 0
+            },
+            currentClub: '',
+            season: 1,
+            week: 1,
+            value: 1,
+            money: 500,
+            goalCards: 3,
+            division: 4,
+            weeklySalary: 50,
+            selectedMatches: [],
+            incidentCard: null,
+            injured: false,
+            weeksInjured: 0
+        };
+
+        const divisions = {
+            4: { name: 'Division 4', goalCardPrice: 500, teams: ['D4 Athletic', 'Rovers FC', 'United Div4', 'City Blues D4', 'Red Stars D4', 'Green FC', 'White Wanderers', 'Black Rovers'] },
+            3: { name: 'Division 3', goalCardPrice: 750, teams: ['D3 United', 'Metro FC', 'Capital City', 'Sporting D3', 'Athletic D3', 'Rangers D3', 'Celtic D3', 'Wolves D3'] },
+            2: { name: 'Division 2', goalCardPrice: 1000, teams: ['D2 United', 'FC Metro', 'Sporting D2', 'Rovers Elite', 'City Knights', 'Westside FC', 'Eastside United', 'North Stars'] },
+            1: { name: 'Division 1', goalCardPrice: 1000, teams: ['Mancaster United', 'London Gunners', 'Liverpool Reds', 'Chelsea Blues', 'Tottenham Spurs', 'Newcastle United', 'Aston Villa', 'Everton FC'] }
+        };
+
+        let leagueTables = {
+            1: [],
+            2: [],
+            3: [],
+            4: []
+        };
+
+        const incidentCards = [
+            { type: 'positive', text: 'TV Appearance bonus!', effect: () => { player.money += 1000; return '£1000 bonus!'; }, weight: 1 },
+            { type: 'positive', text: 'Sponsor deal offer!', effect: () => { player.money += 500; return '£500 bonus!'; }, weight: 2 },
+            { type: 'positive', text: 'Fan favorite!', effect: () => { player.career.votes += 5; return '+5 votes!'; }, weight: 2 },
+            { type: 'negative', text: 'Booked for diving!', effect: () => { player.money -= 200; player.career.votes -= 2; return '£200 fine, -2 votes'; }, weight: 1 },
+            { type: 'negative', text: 'Minor injury (1 week)', effect: () => { player.injured = true; player.weeksInjured = 1; return 'Injured for 1 week!'; }, weight: 0.3 },
+            { type: 'negative', text: 'Training injury (2 weeks)', effect: () => { player.injured = true; player.weeksInjured = 2; return 'Injured for 2 weeks!'; }, weight: 0.1 },
+            { type: 'neutral', text: 'No incidents this week', effect: () => { return ''; }, weight: 4 }
+        ];
+
+        let matchState = {
+            teamScore: 0,
+            opponentScore: 0,
+            playerGoals: 0,
+            playerGoalsThisMatch: 0,
+            isHome: true,
+            opponentName: '',
+            isPlaying: false
+        };
+
+        let selectedPosition = '';
+        let matchSchedule = [];
+        let cupState = {
+            faCup: { qualified: false, round: '', opponent: '' },
+            euroCup: { qualified: false, round: '', opponent: '' }
+        };
+
+        function selectPosition(position) {
+            selectedPosition = position;
+            createPlayer();
+        }
+
+        function generateMatchSchedule() {
+            matchSchedule = [];
+            const divTeams = divisions[player.division].teams.filter(t => t !== player.currentClub);
+            
+            for (let i = 0; i < 10; i++) {
+                const opponent = divTeams[Math.floor(Math.random() * divTeams.length)];
+                matchSchedule.push({
+                    week: i + 1,
+                    opponent: opponent,
+                    selected: false,
+                    played: false
+                });
+            }
+            player.selectedMatches = [];
+            console.log('Match schedule generated:', matchSchedule);
+        }
+
+        function initializeLeagueTables() {
+            for (let d = 1; d <= 4; d++) {
+                leagueTables[d] = divisions[d].teams.map(team => ({
+                    team: team,
+                    played: 0,
+                    won: 0,
+                    drawn: 0,
+                    lost: 0,
+                    goalsFor: 0,
+                    goalsAgainst: 0,
+                    points: 0
+                }));
+            }
+            console.log('League tables initialized for all divisions');
+            console.log('Current player division:', player.division, 'club:', player.currentClub);
+            console.log('Division', player.division, 'teams:', leagueTables[player.division]);
+        }
+
+        function getTeamStats(division, teamName) {
+            return leagueTables[division].find(t => t.team === teamName);
+        }
+
+        function simulateMatch(team1, team2, division) {
+            const stats1 = getTeamStats(division, team1);
+            const stats2 = getTeamStats(division, team2);
+            
+            const divStrength = (5 - division) * 0.5;
+            const baseGoals = 1 + divStrength;
+            
+            let goals1, goals2;
+            
+            if (team1 === player.currentClub) {
+                const shootingBonus = player.stats.shooting / 100;
+                goals1 = Math.floor(Math.random() * (baseGoals + shootingBonus * 2) + shootingBonus);
+                goals2 = Math.floor(Math.random() * (baseGoals + 1));
+            } else if (team2 === player.currentClub) {
+                const shootingBonus = player.stats.shooting / 100;
+                goals2 = Math.floor(Math.random() * (baseGoals + shootingBonus * 2) + shootingBonus);
+                goals1 = Math.floor(Math.random() * (baseGoals + 1));
+            } else {
+                goals1 = Math.floor(Math.random() * (baseGoals + 1));
+                goals2 = Math.floor(Math.random() * (baseGoals + 1));
+            }
+            
+            stats1.played++;
+            stats2.played++;
+            stats1.goalsFor += goals1;
+            stats1.goalsAgainst += goals2;
+            stats2.goalsFor += goals2;
+            stats2.goalsAgainst += goals1;
+            
+            if (goals1 > goals2) {
+                stats1.won++;
+                stats2.lost++;
+                stats1.points += 3;
+            } else if (goals2 > goals1) {
+                stats2.won++;
+                stats1.lost++;
+                stats2.points += 3;
+            } else {
+                stats1.drawn++;
+                stats2.drawn++;
+                stats1.points += 1;
+                stats2.points += 1;
+            }
+            
+            return { team1, team2, goals1, goals2 };
+        }
+
+        function simulateWeekMatches() {
+            const div = player.division;
+            const teams = divisions[div].teams;
+            const results = [];
+            
+            const otherTeams = teams.filter(t => t !== player.currentClub);
+            const shuffled = [...otherTeams].sort(() => Math.random() - 0.5);
+            
+            const playerOpponent = otherTeams[Math.floor(Math.random() * otherTeams.length)];
+            
+            if (matchState.isPlaying && matchState.teamScore > 0) {
+                const result = simulateMatchWithPlayerGoals(player.currentClub, playerOpponent, div, matchState.teamScore);
+                results.push(result);
+            } else {
+                const playerResult = simulateMatch(player.currentClub, playerOpponent, div);
+                results.push(playerResult);
+            }
+            
+            for (let i = 0; i < shuffled.length - 1; i += 2) {
+                const result = simulateMatch(shuffled[i], shuffled[i + 1], div);
+                results.push(result);
+            }
+            
+            return results;
+        }
+
+        function simulateMatchWithPlayerGoals(team1, team2, division, playerGoals) {
+            const stats1 = getTeamStats(division, team1);
+            const stats2 = getTeamStats(division, team2);
+            
+            const divStrength = (5 - division) * 0.5;
+            const opponentGoals = Math.floor(Math.random() * (2 + divStrength));
+            
+            stats1.played++;
+            stats2.played++;
+            stats1.goalsFor += playerGoals;
+            stats1.goalsAgainst += opponentGoals;
+            stats2.goalsFor += opponentGoals;
+            stats2.goalsAgainst += playerGoals;
+            
+            if (playerGoals > opponentGoals) {
+                stats1.won++;
+                stats2.lost++;
+                stats1.points += 3;
+            } else if (opponentGoals > playerGoals) {
+                stats2.won++;
+                stats1.lost++;
+                stats2.points += 3;
+            } else {
+                stats1.drawn++;
+                stats2.drawn++;
+                stats1.points += 1;
+                stats2.points += 1;
+            }
+            
+            return { team1, team2, goals1: playerGoals, goals2: opponentGoals };
+        }
+
+        function sortLeagueTable(division) {
+            leagueTables[division].sort((a, b) => {
+                if (b.points !== a.points) return b.points - a.points;
+                const gd1 = a.goalsFor - a.goalsAgainst;
+                const gd2 = b.goalsFor - b.goalsAgainst;
+                if (gd2 !== gd1) return gd2 - gd1;
+                return b.goalsFor - a.goalsFor;
+            });
+        }
+
+        function createPlayer() {
+            const nameInput = document.getElementById('playerName');
+            if (!nameInput.value.trim()) {
+                alert('Please enter your name!');
+                return;
+            }
+
+            player.name = nameInput.value.trim();
+            player.position = selectedPosition;
+            
+            switch(selectedPosition) {
+                case 'Forward':
+                    player.stats.shooting = 65;
+                    player.stats.speed = 60;
+                    break;
+                case 'Midfielder':
+                    player.stats.passing = 65;
+                    player.stats.stamina = 60;
+                    break;
+                case 'Defender':
+                    player.stats.defense = 65;
+                    player.stats.stamina = 60;
+                    break;
+            }
+
+            const div4Teams = divisions[4].teams;
+            player.currentClub = div4Teams[Math.floor(Math.random() * div4Teams.length)];
+            player.career.clubs.push(player.currentClub);
+            player.value = calculateValue();
+
+            initializeLeagueTables();
+            generateMatchSchedule();
+            updateAllDisplays();
+            showScreen('mainMenu');
+        }
+
+        function calculateOverall() {
+            const stats = player.stats;
+            let overall = Math.floor((stats.speed + stats.shooting + stats.passing + 
+                                       stats.defense + stats.stamina) / 5);
+            return Math.min(99, Math.max(1, overall));
+        }
+
+        function calculateValue() {
+            const overall = calculateOverall();
+            const base = Math.floor(overall / 10);
+            return Math.max(1, base + Math.floor(player.career.goals / 10));
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+            
+            if (screenId === 'statsScreen') updateStatsDisplay();
+            if (screenId === 'trainingScreen') updateTrainingDisplay();
+            if (screenId === 'leagueScreen') updateLeagueDisplay();
+            if (screenId === 'matchScreen') {
+                resetMatchState();
+                updateMatchDisplay();
+            }
+            if (screenId === 'matchSelectionScreen') updateMatchSelectionDisplay();
+            if (screenId === 'shopScreen') updateShopDisplay();
+            if (screenId === 'transferScreen') updateTransferDisplay();
+            if (screenId === 'careerScreen') updateCareerDisplay();
+            if (screenId === 'cupScreen') updateCupDisplay();
+            if (screenId === 'settingsScreen') updateSettingsDisplay();
+            if (screenId === 'penaltyScreen') setupPenaltyGame();
+        }
+
+        function updateAllDisplays() {
+            document.getElementById('menuPlayerName').textContent = player.name;
+            document.getElementById('menuSeason').textContent = player.season;
+            document.getElementById('menuWeek').textContent = player.week;
+            document.getElementById('menuDivision').textContent = divisions[player.division].name;
+            document.getElementById('menuClub').textContent = player.currentClub;
+            document.getElementById('menuOverall').textContent = calculateOverall();
+            document.getElementById('menuMoney').textContent = player.money;
+            document.getElementById('menuSalary').textContent = player.weeklySalary;
+            document.getElementById('menuGoalCards').textContent = player.goalCards;
+            document.getElementById('menuVotes').textContent = player.career.votes;
+
+            const incidentDiv = document.getElementById('incidentDisplay');
+            if (player.incidentCard) {
+                incidentDiv.style.display = 'block';
+                incidentDiv.innerHTML = `<p><strong>${player.incidentCard.text}</strong></p><p>${player.incidentCard.result || ''}</p>`;
+                if (player.injured) {
+                    incidentDiv.innerHTML += `<p style="color: #ff6666;">⚠️ Injured for ${player.weeksInjured} more week(s)!</p>`;
+                }
+            } else {
+                incidentDiv.style.display = 'none';
+            }
+        }
+
+        function updateStatsDisplay() {
+            document.getElementById('statsPlayerName').textContent = player.name;
+            document.getElementById('statOverall').textContent = calculateOverall();
+            document.getElementById('statSpeed').textContent = player.stats.speed;
+            document.getElementById('statShooting').textContent = player.stats.shooting;
+            document.getElementById('statPassing').textContent = player.stats.passing;
+            document.getElementById('statDefense').textContent = player.stats.defense;
+            document.getElementById('statStamina').textContent = player.stats.stamina;
+            document.getElementById('statPosition').textContent = player.position;
+            document.getElementById('statAge').textContent = player.age;
+            document.getElementById('statEnergy').textContent = player.energy;
+        }
+
+        function updateTrainingDisplay() {
+            document.getElementById('trainingEnergy').textContent = player.energy;
+        }
+
+        function resetMatchState() {
+            matchState = {
+                teamScore: 0,
+                opponentScore: 0,
+                playerGoals: 0,
+                playerGoalsThisMatch: 0,
+                isHome: true,
+                opponentName: '',
+                isPlaying: false,
+                isCupMatch: false,
+                cupType: ''
+            };
+        }
+
+        function updateMatchDisplay() {
+            document.getElementById('matchWeek').textContent = player.week;
+            
+            let opponent;
+            let canPlay = true;
+            
+            if (matchState.isCupMatch) {
+                const allTeams = [...divisions[1].teams, ...divisions[2].teams, ...divisions[3].teams];
+                opponent = allTeams[Math.floor(Math.random() * allTeams.length)];
+            } else {
+                if (!player.selectedMatches.includes(player.week - 1) && player.selectedMatches.length > 0) {
+                    addMatchEvent('This match is not in your schedule. Select matches first!', 'event');
+                    canPlay = false;
+                }
+                
+                const divTeams = divisions[player.division].teams.filter(t => t !== player.currentClub);
+                opponent = divTeams[Math.floor(Math.random() * divTeams.length)];
+            }
+            
+            matchState.isHome = Math.random() > 0.5;
+            matchState.opponentName = opponent;
+            
+            document.getElementById('homeTeam').textContent = matchState.isHome ? player.currentClub : opponent;
+            document.getElementById('awayTeam').textContent = matchState.isHome ? opponent : player.currentClub;
+            document.getElementById('matchGoalCards').textContent = player.goalCards;
+            document.getElementById('matchResult').style.display = 'none';
+            document.getElementById('matchEvents').innerHTML = '';
+            document.getElementById('useCardBtn').style.display = 'inline-block';
+            document.getElementById('endMatchBtn').style.display = 'none';
+            document.getElementById('useCardBtn').disabled = !canPlay || player.injured;
+            
+            if (player.injured) {
+                addMatchEvent('You are injured and cannot play!', 'event');
+            }
+            
+            if (matchState.isPlaying) {
+                document.getElementById('endMatchBtn').style.display = 'inline-block';
+            }
+        }
+
+        function updateShopDisplay() {
+            document.getElementById('shopMoney').textContent = player.money;
+            document.getElementById('shopDivision').textContent = divisions[player.division].name;
+            const cardPrice = divisions[player.division].goalCardPrice;
+            document.getElementById('shopCardPrice').textContent = cardPrice;
+            
+            const shopItems = document.getElementById('shopItems');
+            shopItems.innerHTML = '';
+
+            const items = [
+                { name: 'Goal Card (x1)', price: cardPrice, cards: 1, desc: 'Take a penalty shot' },
+                { name: 'Goal Cards (x3)', price: cardPrice * 3, cards: 3, desc: '3 penalty shots' },
+                { name: 'Goal Cards (x5)', price: cardPrice * 5, cards: 5, desc: '5 penalty shots' },
+                { name: 'Energy Drink', price: 150, cards: 0, energy: 30, desc: 'Restore 30 energy' },
+                { name: 'Premium Training', price: 400, cards: 0, statBoost: 3, desc: '+3 to all stats' }
+            ];
+
+            items.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'shop-item';
+                div.innerHTML = `
+                    <div class="shop-item-info">
+                        <strong>${item.name}</strong><br>
+                        <small>${item.desc}</small>
+                    </div>
+                    <div class="shop-item-price">£${item.price}</div>
+                    <button class="btn" onclick="buyItem(${index})">Buy</button>
+                `;
+                shopItems.appendChild(div);
+            });
+        }
+
+        function buyItem(index) {
+            const cardPrice = divisions[player.division].goalCardPrice;
+            const items = [
+                { price: cardPrice, cards: 1 },
+                { price: cardPrice * 3, cards: 3 },
+                { price: cardPrice * 5, cards: 5 },
+                { price: 150, energy: 30 },
+                { price: 400, statBoost: 3 }
+            ];
+
+            const item = items[index];
+            
+            if (player.money < item.price) {
+                alert('Not enough money!');
+                return;
+            }
+
+            player.money -= item.price;
+
+            if (item.cards) {
+                player.goalCards += item.cards;
+                alert(`Purchased ${item.cards} goal card(s)!`);
+            } else if (item.energy) {
+                player.energy = Math.min(100, player.energy + item.energy);
+                alert(`Energy restored by ${item.energy}!`);
+            } else if (item.statBoost) {
+                player.stats.speed = Math.min(99, player.stats.speed + item.statBoost);
+                player.stats.shooting = Math.min(99, player.stats.shooting + item.statBoost);
+                player.stats.passing = Math.min(99, player.stats.passing + item.statBoost);
+                player.stats.defense = Math.min(99, player.stats.defense + item.statBoost);
+                player.stats.stamina = Math.min(99, player.stats.stamina + item.statBoost);
+                alert(`All stats increased by ${item.statBoost}!`);
+            }
+
+            player.value = calculateValue();
+            updateAllDisplays();
+            updateShopDisplay();
+        }
+
+        function updateTransferDisplay() {
+            document.getElementById('currentClub').textContent = player.currentClub;
+            document.getElementById('currentValue').textContent = player.value;
+            
+            const transferList = document.getElementById('transferList');
+            transferList.innerHTML = '';
+            
+            const availableClubs = divisions[player.division].teams.filter(c => c !== player.currentClub);
+            availableClubs.forEach(club => {
+                const interest = Math.random();
+                if (interest > 0.5) {
+                    const offer = Math.max(1, player.value + Math.floor(Math.random() * 3));
+                    const item = document.createElement('div');
+                    item.className = 'transfer-item';
+                    item.innerHTML = `
+                        <strong>${club}</strong> (${divisions[player.division].name})<br>
+                        Offer: £${offer}M<br>
+                        <small>Interest: ${Math.floor(interest * 100)}%</small>
+                    `;
+                    item.onclick = () => transferToClub(club, offer);
+                    transferList.appendChild(item);
+                }
+            });
+        }
+
+        function updateCareerDisplay() {
+            document.getElementById('careerPlayerName').textContent = player.name;
+            document.getElementById('careerSeasons').textContent = player.season - 1;
+            document.getElementById('careerGoals').textContent = player.career.totalGoalsAllTime + player.career.goals;
+            document.getElementById('careerMatches').textContent = player.career.matches;
+            document.getElementById('careerTrophies').textContent = player.career.trophies;
+            document.getElementById('careerClubs').textContent = player.career.clubs.length;
+            document.getElementById('careerVotes').textContent = player.career.votes;
+            
+            let highestDiv = 4;
+            player.career.clubs.forEach(club => {
+                for (let d = 4; d >= 1; d--) {
+                    if (divisions[d].teams.includes(club)) {
+                        highestDiv = Math.min(highestDiv, d);
+                        break;
+                    }
+                }
+            });
+            document.getElementById('careerHighestDiv').textContent = divisions[highestDiv].name;
+        }
+
+        function train(type) {
+            if (player.energy < 10 && type !== 'rest') {
+                alert('Not enough energy! Rest first.');
+                return;
+            }
+
+            switch(type) {
+                case 'speed':
+                    player.stats.speed = Math.min(99, player.stats.speed + 2);
+                    player.energy -= 10;
+                    break;
+                case 'shooting':
+                    player.stats.shooting = Math.min(99, player.stats.shooting + 2);
+                    player.energy -= 10;
+                    break;
+                case 'passing':
+                    player.stats.passing = Math.min(99, player.stats.passing + 2);
+                    player.energy -= 10;
+                    break;
+                case 'defense':
+                    player.stats.defense = Math.min(99, player.stats.defense + 2);
+                    player.energy -= 10;
+                    break;
+                case 'stamina':
+                    player.stats.stamina = Math.min(99, player.stats.stamina + 2);
+                    player.energy -= 10;
+                    break;
+                case 'rest':
+                    player.energy = Math.min(100, player.energy + 30);
+                    break;
+            }
+
+            player.value = calculateValue();
+            updateAllDisplays();
+            updateTrainingDisplay();
+        }
+
+        function useGoalCard() {
+            if (player.goalCards <= 0) {
+                alert('No goal cards available! Visit the shop.');
+                return;
+            }
+
+            if (player.injured) {
+                alert('You are injured and cannot play!');
+                return;
+            }
+
+            if (!matchState.isPlaying) {
+                matchState.isPlaying = true;
+                document.getElementById('matchResult').style.display = 'block';
+                document.getElementById('finalScore').textContent = `${matchState.teamScore} - ${matchState.opponentScore}`;
+            }
+
+            player.goalCards--;
+            document.getElementById('matchGoalCards').textContent = player.goalCards;
+            showScreen('penaltyScreen');
+        }
+
+        let activeZone = null;
+        let zoneTimer = null;
+        let zoneTimeLeft = 3.0;
+        let zoneInterval = null;
+
+        function setupPenaltyGame() {
+            document.getElementById('penaltyShooting').textContent = player.stats.shooting;
+            document.getElementById('penaltyResult').style.display = 'none';
+            document.getElementById('backToMatchBtn').style.display = 'none';
+            
+            const goalkeeper = document.getElementById('goalkeeper');
+            goalkeeper.style.left = '50%';
+            
+            const ball = document.getElementById('ball');
+            ball.style.bottom = '-80px';
+            ball.style.left = '50%';
+            ball.style.transform = 'translateX(-50%) scale(1)';
+            ball.style.opacity = '1';
+            ball.style.filter = 'none';
+            
+            const zones = document.querySelectorAll('.shot-zone');
+            zones.forEach(zone => {
+                zone.className = 'shot-zone';
+                zone.style.background = 'rgba(0, 0, 0, 0.6)';
+                zone.style.opacity = '0.4';
+                zone.style.pointerEvents = 'none';
+                zone.onclick = null;
+            });
+            
+            startZoneCycle();
+            document.addEventListener('keydown', handleKeyDown);
+            document.addEventListener('keyup', handleKeyUp);
+            
+            window.currentPenaltyScreen = 'index4';
+        }
+        
+        function startZoneCycle() {
+            const zoneInterval = Math.max(1500, 3000 - (player.stats.speed * 10));
+            activateRandomZone();
+            zoneInterval = setInterval(() => {
+                zoneTimeLeft -= 0.1;
+                const timerDisplay = document.getElementById('zoneTimer');
+                timerDisplay.textContent = `Next zone in: ${zoneTimeLeft.toFixed(1)}s`;
+                
+                if (zoneTimeLeft <= 0) {
+                    clearInterval(zoneInterval);
+                    zoneInterval = null;
+                    deactivateAllZones();
+                    showMissedMessage();
+                }
+            }, 100);
+        }
+        
+        function activateRandomZone() {
+            const zones = document.querySelectorAll('.shot-zone');
+            const availableZones = Array.from(zones).filter(z => z.style.pointerEvents === 'none');
+            
+            if (availableZones.length > 0) {
+                const randomZone = availableZones[Math.floor(Math.random() * availableZones.length)];
+                randomZone.style.background = 'rgba(0, 255, 0, 0.8)';
+                randomZone.style.opacity = '1';
+                randomZone.style.pointerEvents = 'auto';
+                randomZone.style.cursor = 'pointer';
+                randomZone.onclick = () => takeZoneShot(randomZone);
+                
+                activeZone = randomZone;
+                zoneTimeLeft = 3.0;
+            }
+        }
+        
+        function deactivateAllZones() {
+            const zones = document.querySelectorAll('.shot-zone');
+            zones.forEach(zone => {
+                zone.style.background = 'rgba(0, 0, 0, 0.6)';
+                zone.style.opacity = '0.4';
+                zone.style.pointerEvents = 'none';
+                zone.style.cursor = 'default';
+                zone.onclick = null;
+            });
+            activeZone = null;
+        }
+        
+        function takeZoneShot(zoneElement) {
+            if (!activeZone) return;
+            
+            clearInterval(zoneInterval);
+            zoneInterval = null;
+            const timerDisplay = document.getElementById('zoneTimer');
+            timerDisplay.textContent = 'SHOT!';
+            
+            const shooting = player.stats.shooting;
+            const goalkeeper = document.getElementById('goalkeeper');
+            const ball = document.getElementById('ball');
+            const resultDiv = document.getElementById('penaltyResult');
+            const penaltyGame = document.getElementById('penaltyGame');
+            
+            const zoneNum = parseInt(zoneElement.dataset.zone);
+            
+            const goalkeeperZones = {
+                0: '20%', 1: '50%', 2: '80%',
+                3: '25%', 4: '50%', 5: '75%',
+                6: '30%', 7: '50%', 8: '70%'
+            };
+            
+            const gkDiveChance = (player.division * 0.15);
+            const willDive = Math.random() < gkDiveChance;
+            
+            if (willDive) {
+                goalkeeper.style.left = goalkeeperZones[zoneNum];
+            } else {
+                goalkeeper.style.left = '50%';
+            }
+            
+            setTimeout(() => {
+                ball.style.bottom = '120px';
+                ball.style.transform = 'translateX(-50%) scale(0.8)';
+            }, 50);
+            
+            setTimeout(() => {
+                const ballPositions = {
+                    0: { left: '15%', bottom: '70px' },
+                    1: { left: '50%', bottom: '90px' },
+                    2: { left: '85%', bottom: '70px' },
+                    3: { left: '20%', bottom: '50px' },
+                    4: { left: '50%', bottom: '40px' },
+                    5: { left: '80%', bottom: '50px' },
+                    6: { left: '25%', bottom: '20px' },
+                    7: { left: '50%', bottom: '15px' },
+                    8: { left: '75%', bottom: '20px' }
+                };
+                
+                ball.style.left = ballPositions[zoneNum].left;
+                ball.style.bottom = ballPositions[zoneNum].bottom;
+                ball.style.transform = 'translateX(-50%) scale(1.2)';
+            }, 150);
+            
+            const successChance = (shooting / 100 + 0.15) * (willDive ? 0.4 : 1.0);
+            const isGoal = Math.random() < successChance;
+            
+            setTimeout(() => {
+                resultDiv.style.display = 'block';
+                
+                if (isGoal) {
+                    resultDiv.className = 'penalty-result goal';
+                    resultDiv.textContent = '⚽ GOAL! ⚽ GOAL! ⚽';
+                    
+                    for (let i = 0; i < 3; i++) {
+                        setTimeout(() => {
+                            const celebration = document.createElement('div');
+                            celebration.className = 'goal-celebration';
+                            celebration.textContent = '⚽';
+                            celebration.style.animationDelay = `${i * 0.1}s`;
+                            penaltyGame.appendChild(celebration);
+                            
+                            setTimeout(() => {
+                                celebration.remove();
+                            }, 1200);
+                        }, i * 100);
+                    }
+                    
+                    matchState.teamScore++;
+                    matchState.playerGoals++;
+                    matchState.playerGoalsThisMatch++;
+                    addMatchEvent(`GOAL! ${player.name} scores from the penalty spot!`, 'goal-event');
+                    player.career.goals++;
+                    player.career.totalGoalsAllTime++;
+                    player.value = calculateValue();
+                    player.money += 100;
+                    
+                    const votesPerGoal = player.selectedMatches.length > 0 ? Math.max(1, Math.floor(10 / player.selectedMatches.length)) : 1;
+                    player.career.votes += votesPerGoal;
+                    addMatchEvent(`+${votesPerGoal} votes for the goal!`, 'goal-event');
+                } else {
+                    resultDiv.className = 'penalty-result miss';
+                    
+                    if (willDive) {
+                        resultDiv.textContent = '🧤 SAVED BY KEEPER!';
+                        addMatchEvent(`Penalty saved by goalkeeper!`, 'event');
+                    } else {
+                        resultDiv.textContent = '❌ MISSED THE TARGET!';
+                        addMatchEvent(`Penalty missed by ${player.name}!`, 'event');
+                    }
+                    
+                    ball.style.opacity = '0.5';
+                    ball.style.filter = 'grayscale(100%)';
+                }
+
+                document.getElementById('finalScore').textContent = `${matchState.teamScore} - ${matchState.opponentScore}`;
+                document.getElementById('useCardBtn').disabled = player.goalCards <= 0 || player.injured;
+                document.getElementById('backToMatchBtn').style.display = 'inline-block';
+                updateAllDisplays();
+            }, 600);
+        }
+        
+        function showMissedMessage() {
+            const resultDiv = document.getElementById('penaltyResult');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'penalty-result miss';
+            resultDiv.textContent = '⏰ TOO SLOW! CLICK TRY AGAIN!';
+            resultDiv.style.fontSize = '24px';
+            
+            setTimeout(() => {
+                resultDiv.style.display = 'none';
+                document.getElementById('backToMatchBtn').style.display = 'inline-block';
+                document.getElementById('useCardBtn').disabled = false;
+            }, 2000);
+        }
+        
+        function handleKeyDown(e) {
+            if (window.currentPenaltyScreen !== 'index4') return;
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (activeZone) {
+                    takeZoneShot(activeZone);
+                }
+            }
+        }
+        
+        function handleKeyUp(e) {
+            if (window.currentPenaltyScreen !== 'index4') return;
+        }
+        
+        function backToMatch() {
+            clearInterval(zoneInterval);
+            zoneInterval = null;
+            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keyup', handleKeyUp);
+            window.currentPenaltyScreen = null;
+            showScreen('matchScreen');
+            if (matchState.isPlaying) {
+                document.getElementById('endMatchBtn').style.display = 'inline-block';
+            }
+        }
+        
+        function hidePenaltyScreen() {
+            clearInterval(zoneInterval);
+            zoneInterval = null;
+            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keyup', handleKeyUp);
+            window.currentPenaltyScreen = null;
+        }
+
+        function backToMatch() {
+            showScreen('matchScreen');
+            if (matchState.isPlaying) {
+                document.getElementById('endMatchBtn').style.display = 'inline-block';
+            }
+        }
+
+        function updateMatchSelectionDisplay() {
+            document.getElementById('selectDivision').textContent = divisions[player.division].name;
+            
+            const matchList = document.getElementById('matchList');
+            matchList.innerHTML = '';
+            
+            matchSchedule.forEach((match, index) => {
+                const isSelected = player.selectedMatches.includes(index);
+                const div = document.createElement('div');
+                div.className = 'shop-item';
+                div.style.cursor = 'pointer';
+                div.innerHTML = `
+                    <div class="shop-item-info">
+                        <strong>Week ${match.week}</strong><br>
+                        ${match.opponent}
+                    </div>
+                    <div style="color: ${isSelected ? '#00ff00' : '#666'}; font-weight: bold;">
+                        ${isSelected ? '✓ Selected' : '○ Not Selected'}
+                    </div>
+                `;
+                div.onclick = () => toggleMatchSelection(index);
+                matchList.appendChild(div);
+            });
+        }
+
+        function toggleMatchSelection(matchIndex) {
+            const idx = player.selectedMatches.indexOf(matchIndex);
+            if (idx > -1) {
+                player.selectedMatches.splice(idx, 1);
+            } else if (player.selectedMatches.length < 10) {
+                player.selectedMatches.push(matchIndex);
+            } else {
+                alert('You can select up to 10 matches per season!');
+            }
+            updateMatchSelectionDisplay();
+        }
+
+        function confirmMatchSelection() {
+            if (player.selectedMatches.length === 0) {
+                alert('Please select at least 1 match!');
+                return;
+            }
+            player.selectedMatches.sort((a, b) => a - b);
+            alert(`${player.selectedMatches.length} matches selected for the season!`);
+            showScreen('mainMenu');
+        }
+
+        function updateCupDisplay() {
+            const faCupStatus = document.getElementById('faCupStatus');
+            const euroCupStatus = document.getElementById('euroCupStatus');
+            const cupActions = document.getElementById('cupActions');
+            
+            cupActions.innerHTML = '';
+
+            if (player.division <= 2) {
+                cupState.faCup.qualified = true;
+                if (cupState.faCup.round === '') {
+                    cupState.faCup.round = 'First Round';
+                }
+                faCupStatus.textContent = cupState.faCup.round;
+                faCupStatus.style.color = '#00ff00';
+                
+                if (!cupState.faCup.played) {
+                    const faCupBtn = document.createElement('button');
+                    faCupBtn.className = 'btn';
+                    faCupBtn.textContent = 'Play FA Cup Match';
+                    faCupBtn.onclick = () => playCupMatch('fa');
+                    cupActions.appendChild(faCupBtn);
+                } else {
+                    faCupStatus.textContent += ' (Completed)';
+                }
+            } else {
+                faCupStatus.textContent = 'Not Qualified';
+                faCupStatus.style.color = '#666';
+            }
+
+            if (player.division <= 1) {
+                cupState.euroCup.qualified = true;
+                if (cupState.euroCup.round === '') {
+                    cupState.euroCup.round = 'Group Stage';
+                }
+                euroCupStatus.textContent = cupState.euroCup.round;
+                euroCupStatus.style.color = '#00ff00';
+                
+                if (!cupState.euroCup.played) {
+                    const euroCupBtn = document.createElement('button');
+                    euroCupBtn.className = 'btn';
+                    euroCupBtn.textContent = 'Play European Match';
+                    euroCupBtn.onclick = () => playCupMatch('euro');
+                    cupActions.appendChild(euroCupBtn);
+                } else {
+                    euroCupStatus.textContent += ' (Completed)';
+                }
+            } else {
+                euroCupStatus.textContent = 'Not Qualified';
+                euroCupStatus.style.color = '#666';
+            }
+        }
+
+        function playCupMatch(cupType) {
+            const cupName = cupType === 'fa' ? 'FA Cup' : 'European Cup';
+            if (confirm(`Start ${cupName} match? This will use goal cards if available.`)) {
+                showScreen('matchScreen');
+                matchState.isCupMatch = true;
+                matchState.cupType = cupType;
+            }
+        }
+
+        function addMatchEvent(text, className = 'event') {
+            const eventsDiv = document.getElementById('matchEvents');
+            const event = document.createElement('div');
+            event.className = className;
+            event.textContent = text;
+            eventsDiv.appendChild(event);
+            eventsDiv.scrollTop = eventsDiv.scrollHeight;
+        }
+
+        function endMatch() {
+            if (!matchState.isPlaying) {
+                alert('Play the match first!');
+                return;
+            }
+
+            player.career.matches++;
+
+            const divStrength = (5 - player.division) * 0.5;
+            const baseGoals = 1 + divStrength;
+            const cupBonus = matchState.isCupMatch ? 0.5 : 0;
+            
+            let opponentGoals = 0;
+            if (matchState.teamScore > 0) {
+                opponentGoals = Math.floor(Math.random() * (baseGoals + 1) + cupBonus);
+            } else {
+                opponentGoals = Math.floor(Math.random() * (baseGoals + 2) + cupBonus);
+            }
+            
+            matchState.opponentScore = opponentGoals;
+
+            console.log('Ending match:', player.currentClub, 'vs', matchState.opponentName, 
+                        'Your Goals:', matchState.teamScore, 'Opponent Goals:', matchState.opponentScore,
+                        'Is Cup:', matchState.isCupMatch, 'Division Strength:', divStrength);
+
+            const matchOutcome = document.getElementById('matchOutcome');
+            const isCup = matchState.isCupMatch;
+
+            if (matchState.teamScore > matchState.opponentScore) {
+                matchOutcome.textContent = isCup ? '🏆 Cup Match Won!' : '🎉 Victory! Well played!';
+                matchOutcome.style.color = '#00ff00';
+                player.money += isCup ? 500 : 300;
+                
+                if (!isCup) {
+                    updateLeagueAfterMatch(true, false, matchState.teamScore, matchState.opponentScore);
+                }
+                
+                if (isCup) {
+                    const cup = matchState.cupType === 'fa' ? cupState.faCup : cupState.euroCup;
+                    const rounds = ['First Round', 'Second Round', 'Quarter Final', 'Semi Final', 'Final'];
+                    const currentIdx = rounds.indexOf(cup.round);
+                    if (currentIdx < rounds.length - 1) {
+                        cup.round = rounds[currentIdx + 1];
+                    } else if (cup.round === 'Final') {
+                        player.career.trophies++;
+                        cup.round = 'Champions!';
+                        player.money += 2000;
+                        alert(`🏆 Congratulations! You won the ${matchState.cupType === 'fa' ? 'FA Cup' : 'European Cup'}!`);
+                    }
+                    cup.played = true;
+                }
+            } else if (matchState.teamScore < matchState.opponentScore) {
+                matchOutcome.textContent = isCup ? '😢 Cup Match Lost' : '😢 Defeat. Better luck next time.';
+                matchOutcome.style.color = '#ff6666';
+                player.money += isCup ? 0 : 100;
+                
+                if (!isCup) {
+                    updateLeagueAfterMatch(false, true, matchState.teamScore, matchState.opponentScore);
+                }
+                
+                if (isCup) {
+                    const cup = matchState.cupType === 'fa' ? cupState.faCup : cupState.euroCup;
+                    cup.played = true;
+                }
+            } else {
+                matchOutcome.textContent = '🤝 Draw. Good effort!';
+                matchOutcome.style.color = '#ffff00';
+                player.money += 200;
+                
+                if (!isCup) {
+                    updateLeagueAfterMatch(false, false, matchState.teamScore, matchState.opponentScore);
+                }
+            }
+
+            matchOutcome.innerHTML += `<br><br>Your Goals: ${matchState.playerGoalsThisMatch}`;
+            document.getElementById('useCardBtn').style.display = 'none';
+            document.getElementById('endMatchBtn').style.display = 'none';
+            matchState.isCupMatch = false;
+            updateAllDisplays();
+            updateLeagueDisplay();
+            autoSaveGame();
+        }
+
+        function updateLeagueAfterMatch(isWin, isLoss, goalsFor, goalsAgainst) {
+            const teamStats = getTeamStats(player.division, player.currentClub);
+            if (!teamStats) {
+                console.error('Team stats not found for:', player.currentClub, 'in division:', player.division);
+                console.log('Available teams:', leagueTables[player.division]);
+                return;
+            }
+            teamStats.played++;
+            teamStats.goalsFor += goalsFor;
+            teamStats.goalsAgainst += goalsAgainst;
+            
+            if (isWin) {
+                teamStats.won++;
+                teamStats.points += 3;
+            } else if (isLoss) {
+                teamStats.lost++;
+            } else {
+                teamStats.drawn++;
+                teamStats.points += 1;
+            }
+            
+            const opponentStats = getTeamStats(player.division, matchState.opponentName);
+            if (opponentStats) {
+                opponentStats.played++;
+                opponentStats.goalsFor += goalsAgainst;
+                opponentStats.goalsAgainst += goalsFor;
+                
+                if (isLoss) {
+                    opponentStats.won++;
+                    opponentStats.points += 3;
+                } else if (isWin) {
+                    opponentStats.lost++;
+                } else {
+                    opponentStats.drawn++;
+                    opponentStats.points += 1;
+                }
+            }
+            console.log('League updated:', player.currentClub, 'played:', teamStats.played, 'points:', teamStats.points);
+        }
+
+        function transferToClub(club, offer) {
+            if (confirm(`Transfer to ${club} for £${offer}M?`)) {
+                player.currentClub = club;
+                player.career.clubs.push(club);
+                player.value = offer;
+                player.money += offer * 1000;
+                updateAllDisplays();
+                updateTransferDisplay();
+                alert(`Welcome to ${club}! Your transfer fee was £${offer}M!`);
+            }
+        }
+
+        function nextWeek() {
+            if (matchState.isPlaying) {
+                if (!confirm('End current match first?')) {
+                    return;
+                }
+                endMatch();
+            } else {
+                resetMatchState();
+            }
+
+            player.incidentCard = null;
+            
+            if (player.injured) {
+                player.weeksInjured--;
+                if (player.weeksInjured <= 0) {
+                    player.injured = false;
+                    alert('You have recovered from your injury!');
+                }
+            } else {
+                const totalWeight = incidentCards.reduce((sum, card) => sum + card.weight, 0);
+                let randomWeight = Math.random() * totalWeight;
+                let selectedIncident = incidentCards[incidentCards.length - 1];
+                
+                for (const incident of incidentCards) {
+                    randomWeight -= incident.weight;
+                    if (randomWeight <= 0) {
+                        selectedIncident = incident;
+                        break;
+                    }
+                }
+                
+                player.incidentCard = selectedIncident;
+                const result = selectedIncident.effect();
+                player.incidentCard.result = result;
+            }
+
+            const weekResults = simulateWeekMatches();
+            updateWeekResultsDisplay(weekResults);
+
+            player.week++;
+            player.energy = Math.min(100, player.energy + 10);
+            player.money += player.weeklySalary;
+
+            if (player.week > 10) {
+                endSeason();
+            }
+
+            if (player.age > 31) {
+                const isFootballerOfTheYear = checkFootballerOfTheYear();
+                alert(`🏆 Your career has come to an end at age ${player.age}!\n\nFinal Stats:\nGoals: ${player.career.goals}\nMatches: ${player.career.matches}\nTrophies: ${player.career.trophies}\nVotes: ${player.career.votes}\nHighest Division: ${document.getElementById('careerHighestDiv').textContent}\n\n${isFootballerOfTheYear ? '🌟 FOOTBALLER OF THE YEAR! 🌟' : ''}`);
+                location.reload();
+                return;
+            }
+
+            updateAllDisplays();
+            updateLeagueDisplay();
+            autoSaveGame();
+        }
+
+        function endSeason() {
+            player.week = 1;
+            player.season++;
+            player.age++;
+            
+            const seasonGoals = player.career.goals;
+            const seasonVotes = player.career.votes;
+            player.career.totalGoalsAllTime += seasonGoals;
+            
+            const promotionThreshold = 15 - (player.division * 2);
+            const relegationThreshold = 5 + (player.division * 2);
+            
+            let seasonSummary = `Season ${player.season - 1} Complete!\n\n`;
+            seasonSummary += `Goals Scored This Season: ${seasonGoals}\n`;
+            seasonSummary += `Votes Earned This Season: ${seasonVotes}\n`;
+            seasonSummary += `Total Career Goals: ${player.career.totalGoalsAllTime}\n`;
+            seasonSummary += `Total Career Votes: ${player.career.votes}\n\n`;
+            
+            if (seasonGoals >= promotionThreshold && player.division > 1) {
+                player.division--;
+                player.weeklySalary += 50;
+                seasonSummary += `🎉 PROMOTED to ${divisions[player.division].name}!\n`;
+                seasonSummary += `Salary increased to £${player.weeklySalary}/week`;
+                
+                const newDivTeams = divisions[player.division].teams;
+                player.currentClub = newDivTeams[Math.floor(Math.random() * newDivTeams.length)];
+                player.career.clubs.push(player.currentClub);
+                seasonSummary += `\nTransferred to ${player.currentClub} in the new division!`;
+            } else if (seasonGoals < relegationThreshold && player.division < 4) {
+                player.division++;
+                player.weeklySalary = Math.max(50, player.weeklySalary - 30);
+                seasonSummary += `😔 RELEGATED to ${divisions[player.division].name}\n`;
+                seasonSummary += `Salary decreased to £${player.weeklySalary}/week`;
+                
+                const newDivTeams = divisions[player.division].teams;
+                player.currentClub = newDivTeams[Math.floor(Math.random() * newDivTeams.length)];
+                player.career.clubs.push(player.currentClub);
+                seasonSummary += `\nTransferred to ${player.currentClub} in the new division!`;
+            } else {
+                seasonSummary += `You remain in ${divisions[player.division].name} with ${player.currentClub}`;
+            }
+            
+            alert(seasonSummary);
+            
+            player.career.goals = 0;
+            generateMatchSchedule();
+            initializeLeagueTables();
+            
+            cupState.faCup = { qualified: false, round: '', opponent: '', played: false };
+            cupState.euroCup = { qualified: false, round: '', opponent: '', played: false };
+        }
+
+        function checkFootballerOfTheYear() {
+            const totalGoals = player.career.totalGoalsAllTime + player.career.goals;
+            const avgGoalsPerSeason = totalGoals / Math.max(1, player.season - 1);
+            const avgVotesPerSeason = player.career.votes / Math.max(1, player.season - 1);
+            
+            return avgGoalsPerSeason >= 15 && avgVotesPerSeason >= 30 && player.division <= 2;
+        }
+
+        function updateLeagueDisplay() {
+            const div = player.division;
+            document.getElementById('leagueDivision').textContent = divisions[div].name;
+            
+            sortLeagueTable(div);
+            
+            console.log('Updating league display for division', div);
+            console.log('League table data:', leagueTables[div]);
+            
+            const tbody = document.getElementById('leagueTableBody');
+            tbody.innerHTML = '';
+            
+            leagueTables[div].forEach((team, index) => {
+                const row = document.createElement('tr');
+                if (team.team === player.currentClub) {
+                    row.style.background = 'rgba(255, 255, 0, 0.2)';
+                }
+                
+                const posColors = ['#ffd700', '#c0c0c0', '#cd7f32', '#fff'];
+                if (index < 3) {
+                    row.style.borderLeft = `4px solid ${posColors[index]}`;
+                } else if (index >= divisions[div].teams.length - 2) {
+                    row.style.borderLeft = '4px solid #ff0000';
+                }
+                
+                row.innerHTML = `
+                    <td style="padding: 8px; border: 1px solid #00ff00; text-align: center;">${index + 1}</td>
+                    <td style="padding: 8px; border: 1px solid #00ff00; text-align: left;">${team.team}</td>
+                    <td style="padding: 8px; border: 1px solid #00ff00; text-align: center;">${team.played}</td>
+                    <td style="padding: 8px; border: 1px solid #00ff00; text-align: center;">${team.won}</td>
+                    <td style="padding: 8px; border: 1px solid #00ff00; text-align: center;">${team.drawn}</td>
+                    <td style="padding: 8px; border: 1px solid #00ff00; text-align: center;">${team.lost}</td>
+                    <td style="padding: 8px; border: 1px solid #00ff00; text-align: center;">${team.goalsFor}</td>
+                    <td style="padding: 8px; border: 1px solid #00ff00; text-align: center;">${team.goalsAgainst}</td>
+                    <td style="padding: 8px; border: 1px solid #00ff00; text-align: center;">${team.goalsFor - team.goalsAgainst}</td>
+                    <td style="padding: 8px; border: 1px solid #00ff00; text-align: center; font-weight: bold; color: #00ff00;">${team.points}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateWeekResultsDisplay(results) {
+            const resultsDiv = document.getElementById('weekResults');
+            if (results && results.length > 0) {
+                resultsDiv.innerHTML = `<h3 style="color: #00ff00; margin-bottom: 10px;">Week ${player.week - 1} Results</h3>`;
+                results.forEach(match => {
+                    const resultText = document.createElement('p');
+                    resultText.style.margin = '5px 0';
+                    resultText.style.color = '#fff';
+                    
+                    if (match.team1 === player.currentClub || match.team2 === player.currentClub) {
+                        resultText.style.background = 'rgba(255, 255, 0, 0.2)';
+                        resultText.style.padding = '5px';
+                        resultText.style.borderRadius = '3px';
+                    }
+                    
+                    resultText.textContent = `${match.team1} ${match.goals1} - ${match.goals2} ${match.team2}`;
+                    resultsDiv.appendChild(resultText);
+                });
+            } else {
+                resultsDiv.innerHTML = '';
+            }
+        }
+
+        function updateSettingsDisplay() {
+            const hasSave = localStorage.getItem('footballerSave') !== null;
+            const saveStatus = document.getElementById('saveStatus');
+            if (hasSave) {
+                saveStatus.textContent = '✓ Saved game found';
+                saveStatus.style.color = '#00ff00';
+            } else {
+                saveStatus.textContent = '✗ No saved game found';
+                saveStatus.style.color = '#666';
+            }
+        }
+
+        function autoSaveGame() {
+            const saveData = {
+                player: player,
+                matchState: matchState,
+                matchSchedule: matchSchedule,
+                cupState: cupState,
+                leagueTables: leagueTables
+            };
+            localStorage.setItem('footballerSave', JSON.stringify(saveData));
+        }
+
+        function saveGame() {
+            const saveData = {
+                player: player,
+                matchState: matchState,
+                matchSchedule: matchSchedule,
+                cupState: cupState,
+                leagueTables: leagueTables
+            };
+            localStorage.setItem('footballerSave', JSON.stringify(saveData));
+            alert('Game saved successfully!');
+        }
+
+        function loadGame() {
+            const savedData = localStorage.getItem('footballerSave');
+            if (!savedData) {
+                alert('No saved game found!');
+                return;
+            }
+            
+            if (!confirm('Load saved game? Current progress will be lost!')) {
+                return;
+            }
+            
+            const data = JSON.parse(savedData);
+            Object.assign(player, data.player);
+            Object.assign(matchState, data.matchState);
+            matchSchedule = data.matchSchedule;
+            Object.assign(cupState, data.cupState);
+            leagueTables = data.leagueTables;
+            
+            updateAllDisplays();
+            alert('Game loaded successfully!');
+        }
+
+        function exportGame() {
+            const saveData = {
+                player: player,
+                matchState: matchState,
+                matchSchedule: matchSchedule,
+                cupState: cupState,
+                leagueTables: leagueTables
+            };
+            const blob = new Blob([JSON.stringify(saveData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `footballer_save_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importGame(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (!data.player || !data.divisions) {
+                        alert('Invalid save file!');
+                        return;
+                    }
+                    
+                    if (!confirm('Import save file? Current progress will be lost!')) {
+                        return;
+                    }
+                    
+                    Object.assign(player, data.player);
+                    Object.assign(matchState, data.matchState);
+                    matchSchedule = data.matchSchedule;
+                    Object.assign(cupState, data.cupState);
+                    leagueTables = data.leagueTables;
+                    
+                    updateAllDisplays();
+                    alert('Game imported successfully!');
+                } catch (error) {
+                    alert('Error importing file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        function exportTeamNames() {
+            const teamsData = {
+                division1: divisions[1].teams,
+                division2: divisions[2].teams,
+                division3: divisions[3].teams,
+                division4: divisions[4].teams
+            };
+            const blob = new Blob([JSON.stringify(teamsData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `team_names_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importTeamNames(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    if (!confirm('Import team names? This will replace all team names!')) {
+                        return;
+                    }
+                    
+                    if (data.division1 && Array.isArray(data.division1)) {
+                        divisions[1].teams = data.division1;
+                    }
+                    if (data.division2 && Array.isArray(data.division2)) {
+                        divisions[2].teams = data.division2;
+                    }
+                    if (data.division3 && Array.isArray(data.division3)) {
+                        divisions[3].teams = data.division3;
+                    }
+                    if (data.division4 && Array.isArray(data.division4)) {
+                        divisions[4].teams = data.division4;
+                    }
+                    
+                    initializeLeagueTables();
+                    generateMatchSchedule();
+                    updateAllDisplays();
+                    alert('Team names imported successfully!');
+                } catch (error) {
+                    alert('Error importing teams: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        function resetGame() {
+            if (!confirm('Are you sure you want to reset game? ALL progress will be lost!')) {
+                return;
+            }
+            localStorage.removeItem('footballerSave');
+            location.reload();
+        }
+
+        window.onload = function() {
+            const savedGame = localStorage.getItem('footballerSave');
+            if (savedGame) {
+                console.log('Found saved game');
+            }
+        };
+    </script>
+</body>
+</html>

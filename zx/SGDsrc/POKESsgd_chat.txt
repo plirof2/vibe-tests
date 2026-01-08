@@ -1,0 +1,5 @@
+pokesgd.php?file=ROMSMINE/F/FIRELORD.Z80&POKES=34509,0:34984,58
+pokesgd.phpfile=ROMSMINE/B/BUBBLEBO.SNA&POKES=43873,195:43929,16
+
+
+rewrite pokesgd.php using C poke handler source code.Files POKESGD_README.md and POKES_IMPLEMENTATION_SUMMARY.md might help. You may use /opt/lampp/htdocs/VIBECode_Updates/SGDsrc/ROMSMINE/F/FIRELORD.Z80 and /opt/lampp/htdocs/VIBECode_Updates/SGDsrc/ROMSMINE/F/POKES/FIRELORD.POK for your tests . Eg the script could be called like this : pokesgd.php?file=ROMSMINE/F/FIRELORD.Z80&POKES=34509,0:34984,58 . Also, 0_POKE_script_creation.txt is the start plan. I think we should start with one step at a time. For start lets try this: write a test.php script that will scan all the ROMSMINE folder for z80 files and output their version in log_test_z80_versions.log.

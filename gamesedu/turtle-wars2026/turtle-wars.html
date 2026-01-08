@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<TITLE>Turtle Wars Greek v001b </TITLE>
+    <link rel="stylesheet" href="turtle-wars.css"></link>
+    <script src="jquery.min.js"></script>
+    <script src="turtle-lang.js"></script>
+    <script src="turtle-game.js"></script>
+    <script src="resize.js"></script>
+<script>
+	   function translate_program(program){
+		
+		//alert("not tranlasted: "+program);
+		
+		program=program.replace(/ΔΕΞΙΑ/gi,"rt");
+		program=program.replace(/ΑΡΙΣΤΕΡΑ/gi, "lt");
+		program=program.replace(/ΜΠΡΟΣΤΑ/gi, "fd");
+
+		
+		program=program.replace(/ΕΑΝ/gi, "if");
+		program=program.replace(/ΚΟΙΤΑ/gi, "look");
+		program=program.replace(/ΟΥΡΑ/gi, "tail");
+		program=program.replace(/ΕΠΙΘΕΣΗ/gi, "shoot");
+		program=program.replace(/ΠΥΡ/gi, "shoot");
+		program=program.replace(/ΚΕΦΑΛΗ/gi, "head");
+		program=program.replace(/ΕΙΝΑΙΙΣΟ/gi, "eq");
+		program=program.replace(/ΕΙΝΑΙ=/gi, "eq");
+		program=program.replace(/ΕΙΝΑΙ>=/gi, "ge");
+		program=program.replace(/ΕΙΝΑΙ<=/gi, "le");
+		program=program.replace(/ΕΙΝΑΙ>/gi, "gt");
+		program=program.replace(/ΕΙΝΑΙ</gi, "lt");
+		program=program.replace(/ΓΙΑΠΑΝΤΑ/gi, "forever");
+		program=program.replace(/ΟΣΟ/gi, "while");
+		program=program.replace(/ΓΙΑΟΣΟ/gi, "while");
+		program=program.replace(/ΕΠΑΝΑΛΑΒΕ>/gi, "rep");
+		program=program.replace(/ΕΠΑΝΕΛΑΒΕ>/gi, "rep");
+		program=program.replace(/ΔΕ/gi,"rt");
+		program=program.replace(/ΑΡ/gi, "lt");
+		program=program.replace(/ΜΠ/gi, "fd");		
+		
+		//alert("tranlasted: "+program);
+		
+		return program;
+	   }
+</script>	
+    <script>
+      $(function () {
+          var game = null;
+          $("#fightbtn").click(function () {
+              if (game !== null) {
+                  game.stop();
+                  game = null;
+              }
+              var canvas = $("canvas#field").get(0);
+			  
+              // Reset health bars
+              $('#brownHealth').css('width', '100%');
+              $('#greenHealth').css('width', '100%');
+              $('#brownHp').text('50/50');
+              $('#greenHp').text('50/50');
+              $('#gameStatus').removeClass('show');
+			  
+			  var turtle_brown_program=translate_program($('#turtle1 textarea').val());
+			  
+			  //alert("tranlasted: "+turtle_brown_program);
+              var brown = new turtle_game.Turtle("brown", turtle_brown_program, 'rgb(80,40,0)');
+              brown.x = brown.r * 2;
+              brown.y = brown.r * 2;
+              brown.h = Math.random() * 2 * Math.PI;
+			  
+			  var turtle_green_program=translate_program($('#turtle2 textarea').val());
+              var green = new turtle_game.Turtle("green", turtle_green_program, 'rgb(0,128,0)');
+              green.x = canvas.width - green.r * 2;
+              green.y = canvas.height - green.r * 2;
+              green.h = Math.random() * 2 * Math.PI;
+
+              game = new turtle_game.Game([brown, green], canvas);
+              game.start();
+          });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Left side panel with game controls -->
+<div id="leftPanel">
+  <div class="control-section">
+    <div class="control-item">
+      <h1> turtle wars </h1>
+    </div>
+  </div>
+  
+  <div class="control-section">
+    <div class="control-item">
+      <button id="fightbtn">Fight!</button>
+    </div>
+  </div>
+  
+  <div class="control-section">
+    <div class="control-item">
+      <a href="https://github.com/jorendorff/turtle-wars/">readme/forkme</a>
+    </div>
+  </div>
+</div>
+
+<!-- Main arena area -->
+<div id="arena">
+  <canvas id="field" width="800" height="600"></canvas>
+  <div class="game-status" id="gameStatus"></div>
+</div>
+
+<!-- Right side panel with arena controls -->
+<div id="rightPanel">
+  <div class="control-section">
+    <div class="control-item">
+      <div class="preset-buttons">
+        <button data-ratio="90">Arena Focus</button>
+        <button data-ratio="70">Balanced</button>
+        <button data-ratio="50">Code Focus</button>
+      </div>
+      <div class="slider-control">
+        <label>Arena Size: <span id="arenaRatio">85%</span></label>
+        <input type="range" id="resizeSlider" min="30" max="90" value="85">
+      </div>
+    </div>
+  </div>
+</div>
+    <div id="turtle1">
+      <div class="turtle-label">
+        <span>🐢 Brown Turtle</span>
+        <div class="turtle-status">
+          <div class="health-bar">
+            <div class="health-fill" id="brownHealth" style="width: 100%"></div>
+          </div>
+          <span id="brownHp">50/50</span>
+        </div>
+      </div>
+      <textarea id="brown" cols="100" rows="40"
+>ΓΙΑΠΑΝΤΑ {
+    ΜΠΡΟΣΤΑ 10,
+    ΔΕΞΙΑ 2,
+    ΕΑΝ (ΑΡΙΣΤΕΡΑ? (ΟΥΡΑ (ΚΟΙΤΑ 0 90)) 50) {ΔΕΞΙΑ 20} {!},
+    ΠΥΡ!
+}
+      </textarea>
+    </div>
+    <div id="turtle2">
+      <div class="turtle-label">
+        <span>🐢 Green Turtle</span>
+        <div class="turtle-status">
+          <div class="health-bar">
+            <div class="health-fill" id="greenHealth" style="width: 100%"></div>
+          </div>
+          <span id="greenHp">50/50</span>
+        </div>
+      </div>
+      <textarea id="green" cols="100" rows="40"
+>ΓΙΑΠΑΝΤΑ {
+    ΟΣΟ { ΕΙΝΑΙ=? (ΚΕΦΑΛΗ (ΚΟΙΤΑ 0 5)) 1 } {ΔΕΞΙΑ 3},
+    ΔΕΞΙΑ 2,
+    ΠΥΡ!,
+    ΜΠΡΟΣΤΑ 25
+}
+</textarea>
+    </div>
+  </body>
+</html>

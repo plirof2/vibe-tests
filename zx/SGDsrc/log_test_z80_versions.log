@@ -1,0 +1,42 @@
+Timestamp: 2025-12-30 21:51:43
+Scanning: /opt/lampp/htdocs/VIBECode_Updates/SGDsrc/ROMSMINE
+========================================================================================================================
+File                                     | Version  | Compression     | Status         
+------------------------------------------------------------------------------------------------------------------------
+ROMSMINE/M/MASK2_48.Z80                  | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/M/Mask1.z80                     | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/M/MASK.Z80                      | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/M/!MASK.Z80                     | v3       | Compressed (RLE) | OK             
+ROMSMINE/F/FIRELORD.Z80                  | v1.45    | Compressed      | OK             
+ROMSMINE/F/FireLorD.Z80                  | v1.45    | Compressed      | OK             
+ROMSMINE/C/CyberNO2.Z80                  | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/C/CYBERNO2.Z80                  | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/B/bubblebo.z80                  | v2.01    | Compressed (RLE) | OK             
+ROMSMINE/B/Bennyhil.z80                  | v1.45    | Compressed      | OK             
+ROMSMINE/B/BENNHILL.Z80                  | v1.45    | Compressed      | OK             
+ROMSMINE/A/arknoid2.z80                  | v2.01    | Uncompressed (raw) | OK             
+ROMSMINE/A/ARKNOID2.Z80                  | v2.01    | Uncompressed (raw) | OK             
+ROMSMINE/A/Ace2.Z80                      | v1.45    | Compressed      | OK             
+ROMSMINE/A/AcE2.Z80                      | v1.45    | Compressed      | OK             
+------------------------------------------------------------------------------------------------------------------------
+
+Summary:
+--------
+Total Z80 files found: 15
+
+Versions detected:
+  - v1.45: 6 files
+  - v2.01: 8 files
+  - v3: 1 files
+
+Compression breakdown:
+  v1.45:
+    - Compressed: 6 files
+    - Uncompressed: 0 files
+  v2.01:
+    - Compressed: 6 files
+    - Uncompressed: 2 files
+  v3.00:
+    - Compressed: 1 files
+    - Uncompressed: 0 files
+

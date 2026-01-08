@@ -1,0 +1,4 @@
+username,password,date_regged,expirydate,realname,orgname
+admin,password123,2025-01-01,2026-12-31,Administrator,SchoolAdmin
+jonathan,secret456,2025-01-01,2026-12-31,Jonathan Smith,HighSchool
+teacher1,mypass789,2025-01-01,2026-12-31,Mary Johnson,MiddleSchool

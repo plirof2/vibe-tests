@@ -1,0 +1,1400 @@
+Spectrum Games Database v2.05                               (Release 09-12-2001)
+Copyleft 1995-2001 ThunderWare Research Center
+Written by Martijn van der Heide
+
+CHANGES AFTER v2.04 (Release 15-04-2001)
+----------------------------------------
+- Changed the program property from Freeware to GPL General Public License.
+
+CHANGES AFTER v2.03 (Release 03-10-1999)
+----------------------------------------
+- Added support for the 'RealSpectrum' Spectrum emulator from Ramsoft.
+
+CHANGES AFTER v2.02 (Release 30-05-1999)
+----------------------------------------
+- Linked Workbench! v2.71.8 with the following enhancements:
+  - Solved a severe window linking bug;
+  - Changeable mouse speed settings;
+- Rewrote small portions of the 'Search for Games' routine;
+- Added option 'MouseSpeedSetting' to SGD.INI
+- Increased stack size from 32Kb to 64Kb.
+- Added basic support for `.FDI' files;
+- Added support for the Russian Spectrum emulator from Vladimir Yudin.
+
+CHANGES AFTER v2.01 (Release 11-01-1999)
+----------------------------------------
+- Linked Workbench! v2.71.7 with the following enhancements:
+  - Two minor bugfixes;
+- Added database field `Author(s)' with a width of 100 characters.
+  !!! ALL DATABASES CREATED WITH EARLIER VERSIONS ARE INVALID NOW !!!
+  Added auto-conversion of databases;
+  This field gets criterion identifier `AU' and print object code `S';
+- The TZX Archive Info Block editor got import and export buttons for this new
+  Author(s) field.
+- Added combined criterion `BY' which searches both Publisher and Authors;
+- Transformed field `Improveable' into `Origin'. The search identifier for this
+  field has changed from (bool) `IM' to (single ASCII char) `OR'.
+  Old (bool) values `Y' are transformed into `B' (for Bad version);
+- Added option `Force Snap Joystick' to the configuration window;
+- Updated support for Z80:
+  - The new v4.00 accepts TZX files,
+  - It is now enough to copy the file Z80STUB.EXE from the SGD directory into
+    the directory where the DOS version of Z80 is installed. This stub will
+    automatically be selected when Windows 95 and up has been detected and this
+    behavior allows a single SGD.INI that runs correctly in both DOS/Windows.
+  - WinZ80 treats command line parameters entirely differently;
+- Typing a longer match string than the field length in a (alphanumeric) search
+  criterion could crash SGD;
+- Added existance support for .DSK files (X128 and ZX-32);
+- Several more optimizations;
+- (Full source is now over 2.91Mb and 46,000 lines of C/asm!)
+
+CHANGES AFTER v2.00 (Release 19-10-1998)
+----------------------------------------
+- Linked Workbench! v2.71.6 with the following enhancements:
+  - After calling an external program, SGD will continue, but the mouse is kept
+    hidden until it moves or a key is pressed (in the previous release, SGD
+    would be stopped until the mouse was moved);
+  - Error reporting when spawning an external application (eg. an emulator) was
+    incorrect. System errors weren't displayed at all anymore;
+  - Solved a new timer error, caused by a bug in Windows 98;
+  - Sometimes the timer would run wildly (Windows), resulting in hefty screen
+    FLASH rates;
+  - The video init tries to bypass a crash bug caused by the BIOS of some
+    video cards that badly behave under Windows (eg. S3 Trio64V+);
+  - Added check for WindowNT. If detected, all soundcard options are disabled;
+  - In EditButtons and InputBoxes, <CTRL><P> is remapped to a pound sign (`œ'),
+    since this character cannot otherwise be generated on non-English keyboards;
+- The `Save' function in the BASIC listing window would save in the wrong text
+  format (ComboWindow format rather than expanded format);
+- When selecting a language or emulator override, the drop-down window would be
+  partly overwritten if a FLASHing screen was displayed at that time;
+- The configuration option to select the ASCII editor did not start a
+  FileRequester anymore;
+- Spectrum header filenames with TABs in them would let the rest of the line in
+  a combo window clip out of the window;
+- All paths in SGD.INI are internally converted to upper case, otherwise DOS
+  won't find your screenshots, info files, etc.
+- Added option `AllFilesInOneDir' to the configuration file (default Off).
+  If turned on, all extra files (screenshots, info, pokes and inlays) are
+  searched for in the game's directory itself rather than the normal subdirs.
+  Useful for several emulation CD's!
+- Updated support for the emulator `R80'. You need at least v0.04 now!
+  Added support for .TRD files and joystick preselection;
+- Added (by popular demand) additional criterion (de)selection using '+' or '-'
+  as first character;
+- Added memory types `+2/+2A' (value 130), `+3' (value 131) and `Pentagon'
+  (value 228, printed as `Pentag'). Emulators that know these models (X128, R80
+  and Warajevo) are started up accordingly;
+- Added checks for reversed TZX version numbers (caused by a bug in an older
+  MakeTZX version) and added an option to repair the number;
+- (Full source is now over 2.90Mb and 45,900 lines of C/asm!)
+
+CHANGES AFTER v1.37 (Release 08-05-1998)
+----------------------------------------
+!!! IMPORTANT: THE 16-BIT VERSION HAS BEEN DISCONTINUED !!!
+- Linked Workbench! v2.71.5 with the following enhancements:
+  - Solved a very nasty crash bug, caused by a sometimes-not-initialized
+    variable!
+  - The TMP directory was stored incorrectly and used the current directory
+    instead, making the program very unsuitable to be used on CD or on a drive
+    with little space;
+  - The ReInitComboWindow routine did not reset the slider StepRate;
+    (load a large database, then a small one and the slider moved trash around)
+  - The timer value would fallover if a timer interrupt occured at the moment
+    the value was read. This affected mouse click handling and screen FLASHing;
+  - Empty lines in a file were skipped by the FileViewRequester;
+  - When restoring the startup video mode, mode bit 7 is forced 0 to make sure
+    the screen is cleared;
+  - Some other minor corrections;
+  - After spawning an application while running under Win95 and up, the mouse is
+    kept hidden until moved, to avoid the screen corruption caused by Windows's
+    bad (un)focus handling;
+  - Executables without preceeding path would not search the PATH variable
+    anymore;
+- Added memory type `USR0' (value 129), for 128K programs that must be loaded
+  in `USR 0' mode;
+- Turned the memory type selector from a sequence to a drop-down window;
+- Added option `QuitInTextMode' to the configuration file to force (color) text
+  mode on program exit (turned off per default);
+- Added option `AutoLoadTapes' to the configuration file and window, which will
+  automatically load tape files in emulators Z80, X128 and Warajevo;
+- Added files `LOAD48.Z80', `LOAD128.Z80' and `LOADUSR0.Z80' to the distribution
+  for this purpose;
+- Added option `Always Select Game' to the configuration window;
+- Added option `ZX-Editor Path' to the configuration file and window;
+- Added option `Always Use ZX-Editor' to the configuration file and window;
+- Your game info files may now be written with the ZX-Editor. Such files have
+  priority over ASCII (.TXT) files.
+- Reordered the configuration window for better grouping;
+- Added current entry number (line number) to the far right of the totals box
+  (in the `Selected Game' window, right below the entries);
+- TZX `Custom Info - Instructions' and `Custom Info - Spectrum Screen' blocks
+  can now be viewed;
+- TZX `Custom Info - POKEs' blocks can now be viewed/edited;
+- Added full support for the TZX v1.12 extensions;
+- Added options `GIFViewerPath', `GIFViewerOptions', `JPGViewerPath' and
+  `JPGViewerOptions' to the configuration file to handle the new TZX v1.12
+  block `Custom Info - Picture';
+- Added wizards to setup the above new configuration options;
+- Added button `Inlay' to the main screen to view a game's inlay in .JPG or
+  .GIF format (see SGD.DOC);
+- Added full support for the new Spectrum emulator `R80';
+- Added full support for the Russian Spectrum emulator `ZX Spectrum' from
+  Nikolay Shalayev;
+- Added very basic support for .TRD files (X128 and Russian only);
+- TAPER can now also be called on Z80 and SNA files! You need at least
+  TAPER v2.03 for this feature;
+- X128 and Warajevo also have the ability to load a snap and a tape at the same
+  time (for multi-part games that continue loading from the tape file);
+- Warajevo supports `Lunter-TAP' files natively since v2.0;
+- Warajevo can also load non-native image types .SNA, .VOC, .TZX, .SP and .LTP;
+- Z80 snapshots v3 reported the hardware types `48K + SamRam' and `48K + M.G.T.'
+  reversed due to an error in the documentation of Z80;
+- The configuration option `FollowSlider' was not set correctly at startup;
+- The `Extension Links' incorrectly had a higher priority than an emulator
+  override;
+- Block graphics were printed rotated by 1 when saving out BASIC listings;
+- Added files Z80STUB.EXE and Z80STUB.PIF to the distribution to work around
+  the crash problem of Z80 in Win95 and up (see SGD.DOC section 20.1);
+- (Full source is now over 2.90Mb and 45,600 lines of C/asm!)
+
+CHANGES AFTER v1.36 (Release 28-02-1998)
+----------------------------------------
+- Linked Workbench! vX.71.2 with the following enhancements:
+  - Watcom appeared to report system error messages from the wrong table.
+    This job has been taken over;
+  - A combo window could occasionally have a vertical slider that was drawn
+    through the bottom of the slider bar after resizing the window;
+  - The `Ok' button in the FileRequester is now (un)ghosted while editing the
+    filename field. No need to press <TAB> or <ENTER> afterward anymore!
+  - The `Refresh' button in the FileRequester will force a file system commit
+    before rereading the directory (appeared to be needed for Win95 and up);
+  - The FileViewRequester would go back to the start of the file when resizing;
+  - The FileViewRequester has been adjusted so that also text files created on a
+    Macintosh are displayed correctly (single CR as end-of-line delimiter);
+  - A view-only combo window (eg. the FileViewRequester) would generate a
+    General Protection Fault when <CURSOR UP> was pressed when at the top of the
+    file;
+  - Starting the menu strip while an edit button was active always started
+    the menu as through pressing <F9>.
+  - The LocalMouseHiding routine has been tightened, eliminating the possible
+    (small) screen corruption;
+  - A 3-button mouse can be simulated from a 2-button mouse using a
+    `chord middle' option as in several OSes;
+- Updated the entry sorting algorithm to allow multi-level sorting: the order is
+  game name, publisher, year, memory type, filename;
+- Entries that did not have a filename attached would stay red even if a
+  filename was provided at a later time (until reloading of the database);
+- The selection bar would be invalid if you did `Add' and then `Delete' again
+  without filling in a game name;
+- The selection criterion would not be reparsed when changing the boolean
+  buttons `Original Screen', `Improve' or `AY-Sound';
+- The EdPokes window did not work at all anymore and would create garbage files;
+- Changes in the BASIC listing window:
+  - The window lost its `Save' button when it was resized;
+  - The `Save' button starts a FileRequester, defaulting to the same directory
+    where the file is located;
+  - The listing would go back to the start when resizing;
+- The selection criterion `LN' (Language) did not work at all;
+- The option `ForceSnapJoystick' would generate an invalid path, making the
+  option useless;
+- The filetype of the currently selected game would occasionally be incorrect
+  when changing emulator in the configuration, until you reselected the game;
+- Added option `Emulate3rdMouseButton' to the configuration file;
+- (Full source is now over 2.74Mb and 43,100 lines of C/asm!)
+
+CHANGES AFTER v1.35 (Release 11-02-1998)
+----------------------------------------
+- Linked Workbench! vX.71.1 with the following enhancements:
+  - Solved a bug where characters were occasionally not printed in a combo
+    window if they ended at a byte boundary in video memory;
+  - Solved bug of the combo window slider bar when the mouse was released off
+    the slider while dragging;
+  - (32-bit) Full soundcard mixer support;
+  - (32-bit) Rewrote combo handling. Result is that there is no more maximum to
+    the number of entries in a combo window!
+- Added database field `Score', where you can give personal scores to games.
+  !!! ALL DATABASES CREATED WITH EARLIER VERSIONS ARE INVALID NOW !!!
+  Added auto-conversion of databases;
+- Added selection criterion `SC' to find certain scores;
+- Empty numerical fields are skipped during selection unless explicitely wanted;
+- The MultiLoad database field has actual use now.
+  See the new `MultiLoad Games' section in SGD.DOC;
+- (32-bit) No more maximum number of games in a database!
+- (32-bit) Added `Save' button to the BASIC listing window, where BASIC listings
+  can be saved out to an ASCII file;
+- (32-bit) Added soundcard detection info to the `SysInfo' window;
+- (32-bit) Added option `Sound volume' to the menu strip;
+- (32-bit) Added command line option `-s' to disable the soundcard routines;
+- (32-bit) Added command line option `-m' to disable the soundcard mixer
+  routines only;
+- (Full source is now over 2.72Mb and 42,750 lines of C/asm!)
+
+CHANGES AFTER v1.32 (Release 25-09-1997)
+----------------------------------------
+- Linked Workbench! vX.71.0 with the following enhancements:
+  - v1.71.0 is the usual 16-bit real mode version ('286 code, XMS based),
+    v2.71.0 is a conversion to 32-bit protected mode ('386+, DPMI based);
+  - Solved some major memory related bugs;
+  - Small increase of overall speed for the 16-bit version,
+    Major increase of overall speed for the 32-bit version;
+  - Own local mouse hiding routine works in Win95 as well and speeds up a lot;
+  - The 'NoLocalMouseHiding' flag is no longer needed for Win95;
+  - Win96 (OSR2) and up were incorrectly reported (but correctly detected);
+  - Rewrote window drag routine to gain some more speed;
+  - Added HardwareError button `Fail';
+  - HardwareError button `Abort' aborts the entire program rather than the
+    failing operation!
+    This only goes for the 32-bit version.
+  - Sometimes the global keyboard buffer was not cleared when a window where the
+    key came from was closed;
+  - Changes in the FileRequester:
+    - The FileRequester would produce a FatalError if an empty path was passed
+      (e.g. an unset configuration option);
+    - Deletion of a single file produced an error unless you explicitely
+      selected it first;
+    - Due to a problem in Watcom C, the drives (at the bottom of the list) do no
+      longer report their volume label, but are listed as `<Drive>' instead;
+      This only goes for the 32-bit version.
+    - <DEL> will delete the selected file(s) (same as the `Delete' button);
+  - Drop-down windows could not be controlled with the keyboard;
+  - (Combo window) <CTRL><INSRT> did not work at all;
+  - The menu strip is fully controlable with the keyboard;
+  - Added mechanism to bail out on recursed faults (reported as double faults).
+    This produced a complete crash of the entire machine before;
+  - Solved file handle leak in the font reader;
+- Since v1.35, SGD is available in both 16-bit real mode and 32-bit protected
+  mode. The 16-bit version no longer has the menu option `Call TAPER', as this
+  requires a '386 and up.
+- The (bogus) error return code from `X128' is ignored. You no longer have to
+  press a key to continue after running this emulator;
+- Major speed gain when loading databases under Win95. They load near instantly;
+- <DEL> will delete the currently selected game;
+- Games were not auto-selected (if that was turned on in the configuration) when
+  using <CTRL><CRUP> and <CTRL><CRDN> (browse selected entries);
+- Screenshot creation from the menu strip did not work for TZX files;
+- Solved file handle leak when handling TZX files;
+- An error line ">>>>> Missing datablock" would corrupt the next line;
+- The right (game information) window was not cleaned up if the last entry in a
+  database was deleted or a new database was started;
+- Added memory type `16', for 16K games;
+- Added option `PhonebookSorting' to the configuration file;
+- Added support for TZX up to v1.11;
+- Updated file HARDWARE.INC to suit TZX v1.11;
+- (Full source is now over 2.45Mb and 40,200 lines of C/asm!)
+
+CHANGES AFTER v1.31a (Release 24-09-1997)
+-----------------------------------------
+- A very small typing error in the configuration initialization routine set
+  empty strings to 0xFF in stead of 0x00 (string endmarker). Emulators didn't
+  like this as their path name or options string and you could not close the
+  configuration window anymore for this reason.
+  All SGD.INI files created with v1.31 or v1.31a are automatically cleaned up.
+
+CHANGES AFTER v1.31 (Release 22-09-1997)
+-----------------------------------------
+- Linked Workbench! v1.70.7 with the following enhancements:
+  - Major bug in the window destroy routine. This caused possible activation of
+    NULL windows, which would hang the system;
+All new drop-down windows (Emulator/Language selection) suffered from this bug!
+
+CHANGES AFTER v1.30 (Release 27-08-1997)
+-----------------------------------------
+- Linked Workbench! v1.70.6 with the following enhancements:
+  - Solved some video bugs;
+  - Added input box type;
+  - Fixed bug where carriage return characters were incorrectly printed in a
+    combo window;
+  - The <CURSOR LEFT> and <CURSOR RIGHT> keys moved the wrong slider bar in a
+    combo window. The window itself got updated ok though;
+  - None of the requesters would clear the keyboard buffer afterward;
+  - The edit handler would not handle the numerical keypad correctly;
+- Updated criterion matching to work with empty fields;
+- TZX files up to v1.10 can now be handled;
+- Added configuration option `ValidateAtEmulChange', which will also test if a
+  game is actually there when selecting another emulator in the configuration;
+- Added a drop-down list to the locations where an emulator must be selected
+  (Main Window - EmulOverride and Config Window - Emul Type). This works much
+  better than the radio button;
+- Added options to link a specific file type to a specific emulator;
+- Added possibility to insert/edit TZX `Hardware Type' blocks;
+- Added file `HARDWARE.INC' to the distribution for the above option;
+- Added possibility to insert/edit TZX `Archive Info' blocks;
+  You can even import/export field data from SGD's entry info!
+- Added option `AlwaysSelectGame' to the configuration file (permanent) and
+  option `Always select' to the menu strip under `System' (temporarily), to
+  select the appointed game when you use the keyboard to go up/down entries;
+- Added database field `Language' by very popular demand;
+  !!! ALL DATABASES CREATED WITH EARLIER VERSIONS ARE INVALID NOW !!!
+- Updated command line switch `-C':
+  C6 is the new convert flag (pre-1.30)
+  Auto-conversion is of course included, so this is not needed;
+- Added selection criterion `LN' for `Language';
+- Added option `AddLanguage' to the configuration file to add standard
+  languages to the drop-down list;
+- Updated CONVRAIN and CONVWARA, as these databases have a language field
+  as well;
+- (Full source is now over 2.35Mb and 38000 lines of C/asm!)
+
+CHANGES AFTER v1.29 (Release 19-06-1997)
+-----------------------------------------
+- Linked Workbench! v1.70.5 with the following enhancements:
+  - All graphics functions are now my own - any startup graphics mode is
+    supported and returned to;
+  - If the original video mode could not be restored, (color) text mode is used
+    as a last resort before reporting an error;
+  - Added some more diagnostics for unknown swap return codes;
+  - Removed crash bug in combo window <PAGE DOWN> key handling;
+  - Improved menu handling;
+  - Improved inter-process control messaging;
+- Added full support for the snapshot file type `.SP';
+- Added full support for the `Spanish Spectrum Emulator' (uses `.SP');
+- Added full support for the new Windows Spectrum emulator `ZX-32';
+- Added elementary support for the tape file type `.TZX';
+- Database field `Memory' can now hold `48', `128' or `48/128';
+- Added database fields `AY-Sound' and `MultiLoad'
+  !!! ALL DATABASES CREATED WITH EARLIER VERSIONS ARE INVALID NOW !!!
+- Updated command line switch `-C':
+  C5 is the new convert flag (pre-1.29)
+  Auto-conversion is of course included, so this is not needed;
+- Added selection criteria `AY' and `ML' for `AY-Sound' and `MultiLoad';
+- Added option `SwapInTextMode' to the configuration file;
+- (Full source is now over 2.2Mb and 35800 lines of C/asm!)
+
+CHANGES AFTER v1.28 (Release 20-05-1997)
+-----------------------------------------
+- Linked Workbench! v1.70.4 with the following enhancements:
+  - Improved inter-process control messaging;
+  - Percentage requesters with a Cancel button attached can also be cancelled
+    with the [ESC] key;
+  - Back-cycling through buttons went wrong when at the first button;
+  - Redid the FileRequester:
+    - Removed the 'Drives' button;
+    - All available drives are printed at the bottom of the files list;
+- Added external program CONVRAIN to the distribution. This program may be used
+  to convert a database created with the ZX-Rainbow project to SGD's database
+  format;
+
+CHANGES AFTER v1.27 (Release 04-03-1997)
+-----------------------------------------
+- Linked Workbench! v1.70.3 with the following enhancements:
+  - The hotkey <ALT><O> in the FileRequester was used for both Copy and Ok....
+    The Copy function now has hotkey <ALT><P>;
+  - Releasing the menu strip would corrupt memory;
+  - The mouse will also return to the current active video page on exit;
+  - Combo range-select would also select entries with ENT_NOSELECT-bit;
+  - Added support to call or be called from other Workbench! applications;
+- The file type checker didn't care for emulator overrides;
+- Added full support for the tape file type `.LTP';
+- Added full support for the snapshot file types `.SNP' and `.SEM';
+- Added (full) support for the "ZX Emulator" (uses `.LTP' and `.SNP');
+- Added option `View memory dump' to the menu strip under `Entry' to view a
+  program or TAP/MDR block as a memory dump in HEX and ASCII;
+- Added option `Call TAPER' to the menu strip under `Entry' to run TAPER when
+  the game is in a tape file;
+- Added external program CONVWARA to the distribution. This program may be used
+  to convert a database created with the Warajevo ZX Spectrum emulator to SGD's
+  database format;
+
+CHANGES AFTER v1.26a (Release 14-02-1997)
+-----------------------------------------
+- Linked Workbench! v1.70.2 with the following enhancements:
+  - TAB expansion in a combowindow crashed;
+  - Speeded the FileRequester file scan/sort routine by about 300% by moving it
+    back into conventional memory;
+  - Timed handlers were incorrectly released;
+  - Removed 'NULL pointer assignment' bug in system mouse shape handler;
+  - The combo window handling keys <HOME> and <END> moved the wrong slider;
+  - Added combo window handling keys <CTRL><HOME> (go to first entry) and
+    <CTRL><END> (go to last entry);
+- Relative paths may be used for 'GameDir' configuration entries;
+- Flashing characters in a TAP window did not flash very well;
+- Flashing parts in a combo window were always flashed, even if flashing has
+  been disabled in the configuration;
+- If too many color-items were in a combo entry, an XMS error would occur;
+- BASIC-list color expansion didn't work properly if the color was above 7;
+- The same page in a BASIC listing should be written after pressing the 'Drop
+  Colors' or 'Remap UDG's' rather than going back to the start;
+- The menu functions 'Validate Database', 'Resort Database', 'Find New Games'
+  and 'Search For Games' would corrupt the screen;
+- The Fix TAP-file menu function would corrupt the screen if the full path
+  wouldn't fit in the little window. Now only the filename is printed;
+- You can now either double-click on a PROG block in a TAP index, or click once
+  and use the menu entry 'View BASIC-part' instead. This feels more natural;
+- Added option `View SCREEN-part' to the menu strip under `Entry', which shows
+  the given file (TAP Block) as a screen image (as double-clicking on a CODE/
+  HEAD block in the TAP window, but now also for snapshots);
+- Resorting a game entry into the correct position would corrupt the database
+  in the Game Select Window (it was correct in the database itself);
+- You still couldn't view screen or BASIC parts from an .MDR file;
+
+CHANGES AFTER v1.26 (Release 13-02-1997)
+-----------------------------------------
+- Linked Workbench! v1.70.1 with the following enhancements:
+  - Slider locking didn't work at the bottom of a list;
+- ForceSnapJoystick created read-only files that it couldn't delete afterward...
+- There were some problems with Spectrum BASIC listings:
+  - CHR$ 6 (TAB) didn't work;
+  - CHR$ 13 (CR) didn't work;
+
+CHANGES AFTER v1.25 (Release 24-01-1997)
+-----------------------------------------
+- Linked Workbench! v1.70.0 with the following enhancements:
+  - Completely rewrote the combo window virtual memory handler. The entire
+    entry table now resides in XMS, so no matter how many entries are in a
+    combo window, all conventional memory is left alone!
+  - Adjusted PrintComboEntries to re-align the window when entries had been
+    deleted from the end of the combo list, so that an empty bottom would
+    appear;
+  - Exported mouse timers to allow user configuration;
+  - Gave the FileViewRequester resize properties;
+  - Moved the FollowSlider combo flag into the operating system - it now
+    adjusts all combo windows (e.g. in FileViewRequesters);
+  - Increased minimal SliderLength to 5 pixels (was 3);
+  - Solved some bugs in print attribute handling;
+  - Added print blink attributes '{L1' and '{L2' ('}L' to turn it off);
+- Reduced all memory constraints for combo windows. The maximum number of
+  games to handle is set to a vast 32767 per database.
+  This also means that you will always be able to see info files to their full
+  extent (no more truncation unless there are over 32767 lines :-);
+- You can now use `{L1' (ink-blink) and `{L2' (invert-blink) sequences in your
+  game info files.
+  This feature also works for game names and poke descriptions;
+  These entries are still sorted correctly and ignored when using the
+  typed-name feature or printing;
+- Colors in Spectrum token expansion were in VGA order rather than Spectrum;
+- Print attributes in info files are now active until you turn them off
+  (Previously, they were turned off when the end of the line was reached);
+- Added description of the (current) database format to SGD.DOC;
+- You weren't allowed to create a .GIF file from a screenshot inside an .SLT
+  file;
+- Boolean selection criteria with value 'N' were never true (e.g. 'OS=N');
+- Some Spectrum tokens had bad padding;
+- Spectrum UDG characters are now different from normal characters;
+- Added button `Help' to the main screen, which allows you to view SGD.DOC;
+- If you have exactly 1 entry in your database, SGD would produce a floating
+  point exception error when running some menu options;
+- Added extra checks so that device "C[none]:" (as in marked floppies) will no
+  longer occur;
+- Functions `ReadConfig' and `WriteConfig' didn't ask for your SGD floppy when
+  running off a floppy. Instead, the config was written on whatever floppy
+  happened to be in the drive (reading produced an error in that case);
+- You can now select which GameDir directories are to be searched when chosing
+  the menu entry `Find New Games';
+- Optionally, `Find New Games' will fill in the file name for a game name;
+- Added menu option `Search for new games', which automatically searches an
+  entire file tree;
+- Added options `DoubleClickInterval' and `InitialContPushDelay' to the
+  configuration file to allow adjustment of the mouse timers;
+- When using `Z80' or `Warajevo' with anything but .Z80 or .SLT files, the
+  selected joystick will be the (first) one you selected in the Game
+  Information Area;
+- Added option `ForceSnapJoystick' to the configuration file to patch the
+  selected game (into the TMP directory) to allow the above option for .Z80
+  and .SLT type files as well (all emulators);
+- Added possibility to select which fields (and in what order) will be
+  printed. This is done through a 'Select' button in the Print requester;
+- Added option `PrintedFields' to the configuration file to save this setup;
+- Added option `View BASIC-part' to the menu strip under `Entry', which shows
+  the BASIC part from a snapshot file;
+- You can now select a PROG block in a TAP window, in which case the BASIC
+  listing can be viewed;
+- 'Z80' appears to have a 'no sound' switch after all. I must have been blind;
+- (Full source is now over 2Mb and 32000 lines of C/asm!)
+
+CHANGES AFTER v1.24 (Release 05-01-1997)
+-----------------------------------------
+- Linked Workbench! v1.61.4 with the following enhancements:
+  - TAB (text) expansion _still_ didn't work correctly;
+  - If an emulator returns an error, the user must press a key to continue.
+    This allows to actually see the error message returned :-)
+  - If MS Windows has been detected, SGD will now always go full screen, as
+    this saves (a lot of) memory;
+  - If the mouse flag DisableLocalHiding is set, the mouse would not re-init
+    correctly after a swapout;
+  - Added mouse flag ForceMouseRelease, to be used only when the mouse is
+    really gone when you leave SGD;
+- Added option `ForceMouseRelease' to the configuration file, which enables
+  the new mouse flag;
+- SGD couldn't print at all anymore since version 1.21 (crashed occasionally);
+- If you used the Warajevo Spectrum emulator, the original game file would be
+  passed to the emulator in stead of the pre-poked one if you cheated;
+- Added support for the Windows Spectrum emulator "WSpecEm";
+- Determining the memory type for a game when starting a new pokes file didn't
+  work;
+- When creating a .SCR file from a .TAP file, the displayed screen would shift
+  up if it contained flashing characters (the .SCR file was correct though);
+- Updated functions CrunchZ80Block and DecrunchZ80Block to reflect the change
+  made in Z80 v3.05: if a bank (16384 bytes) to crunch results in a larger
+  block, don't crunch it, set length to -1;
+
+CHANGES AFTER v1.23 (Release 17-12-1996)
+-----------------------------------------
+- Linked Workbench! v1.61.3 with the following enhancements:
+  - Added 1 pixel at the end of a combo entry to correct the selection bar;
+  - Added out of memory checks in FileRequester routines;
+  - Any SliderLength is now always minimal 3 pixels;
+  - TAB (text) expansion didn't work correctly;
+  - The floppy marker didn't care for critical errors ;)
+  - It was not possible to run SGD itself from a floppy;
+  - Device selection from the FileRequester would sometimes corrupt the
+    'current directory' path for that device;
+  - Optimized all code for stack usage;
+- Reduced stack from 20Kb back to 16Kb;
+- Full source is now over 30,000 lines of C/Asm !!!
+
+CHANGES AFTER v1.22a (Release 15-11-1996)
+-----------------------------------------
+- Linked Workbench! v1.61.2 with the following enhancements:
+  - The GIF creation funtions no longer need any memory allocated;
+    (saved another 12Kb workspace)
+  - Better control of system mouse shape changes (sizers);
+- Increased stack from 16Kb to 20Kb;
+- Added option `Fix TAP-file' to the menu strip under `Edit';
+- Faster `.TAP' and `.MDR' indexing through combo window reuse;
+- The poke auto-bank mechanism didn't work on `.SLT' files properly;
+- The `Poke' button was always unghosted for `.SLT' files;
+- You can now have .SCR, .TXT and .POK files outside of an .SLT file. If one
+  of these is found as extension within a .SLT file, the .SLT file overrides;
+- Entering the first entry in a database would always set the number of
+  matches to 1;
+
+CHANGES AFTER v1.22 (Release 14-11-1996)
+----------------------------------------
+- The `Screen' button didn't work for `.TAP' files properly;
+
+CHANGES AFTER v1.21 (Release 21-10-1996)
+----------------------------------------
+- Linked Workbench! v1.61.1 with the following enhancements:
+  - The low memory handler is now doubled to be able to rescue stuff on most
+    other fatal errors as well;
+  - The swapout handler now also reports which file could not be found if the
+    `Could not run: File not found' error was received;
+  - The height for (auto)requesters is now always correct;
+- The `new, nonexisting database' flag would not be redetermined after an
+  `Open Database' from the menu strip, so no backups were made;
+- The `Backup Database' menu entry was not ghosted when choosing `New';
+- If `Always cheat' was turned on and you pressed the `Play' button, you were
+  asked to select pokes twice (the first one was ignored);
+- You could not `save' a pokes file after deleting the last entry (to remove it
+  completely), as the `Save' button would be ghosted;
+- The file-related error messages in the pre-poke handler were incorrect;
+- The pre-poker wasn't able to handle `.SNA' file properly;
+- The text in the window where you are asked for the poke value to be used
+  (poke field `ASK') when starting a game poked would sometimes be cut off
+  (simply too long line);
+- The compression batch file was written in the SGD directory rather than the
+  TMP directory;
+- The flash handler on the main screen would keep reloading the image if the
+  game was in a `.TAP' file;
+- Added options `StartInfoButton', `DisableSounds' and `DirectVideoControl' to
+  the configuration file;
+- Added database field `OverrideEmulator' to use a particular emulator for a
+  particular game;
+  !!! ALL DATABASES CREATED WITH EARLIER VERSIONS ARE INVALID NOW !!!
+  This addition does not cost a single byte of extra memory (apart from the
+  code to manage it of course)!
+- Updated command line switch `-C':
+  C1 is the old convert flag (pre-1.08)
+  C2 is the old convert flag (pre-1.10)
+  C3 is the old convert flag (pre-1.18)
+  C4 is the new convert flag (pre-1.22)
+- Added auto-conversion for databases, so the command line options `-C3' and
+  `-C4' are no longer required. Even imported databases can be converted!
+- Added option `GreyOutGhosting' to the configuration file, which disables the
+  inlay ghosting introduced in the previous version (too many people asked);
+- Added option `PickBestScreen' to the configuration file, which links the
+  `Screen' button to the `ScrShot' button if a screenshot was found;
+- The `CompressOptions' option in the configuration file was written without
+  quotes surrounding it. This caused an error if more than 1 option was present;
+- Added option `Best screen' to the menu strip under `System';
+- Complete reworked the configuration setup:
+  - Sorted options in the configuration file by type;
+  - Removed option `Snap Mouse Default' from the configuration window;
+  - Added options `Emulate Flash', `Slow Flash', `Confirm Overwrite',
+    `Always Validate', `Always Cheat', `Pick Best Screen', `Start Button' and
+    `Disable Sounds' to the configuration window;
+- Removed switches `-Q' (be Quiet) and `-D' (Direct video control) from the
+  command line options, as these are now handled through the configuration
+  file;
+- You can now use `{B' (bold), `{U' (Underline) and `{T' (italics) sequences
+  in your game names.
+  These entries are still sorted correctly and ignored when using the
+  typed-name feature or printing;
+  This feature also works for game poke descriptions;
+- Speeded up the database reader: reads 32 entries at a time;
+- `Find new games' would also find `.TAP' and `.VOC' files that were already
+  indirectly included through the `Z80SnapNeedsTape/VOC' mechanism;
+
+CHANGES AFTER v1.20 (Release 22-09-1996)
+----------------------------------------
+- Linked Workbench! v1.61.0 with the following enhancements:
+  - Enlarged mouse resize shapes;
+  - Enlarged window resize hotspots;
+  - Enlarged mouse window-drag shape;
+  - Corrected local mouse hiding square;
+  - Solved some bugs in window outline dragging;
+  - Solved color-selection bug in window printing (e.g. `{+a' didn't work);
+  - Solved a few other bugs in the printing mechanism;
+  - Ghosted items are no longer color-ghosted (greyed out), but inlay-ghosted
+    instead. This will provide better results on monochrone monitors;
+  - Greatly reduced memory needs of the GIF creation funtions
+    (saved 19Kb workspace);
+  - Reduced stack from 32Kb to 16Kb;
+- The file resolver would not signal that a game was found if that game was
+  already set to be not found earlier. So even if you changed a game's location,
+  it would still act as though it wasn't found. This caused the game to be
+  still written in red and the `Play' button kept ghosted;
+- A game was not passed to the selection criterion if you changed its path
+  through the file requester or toggled the memory type;
+- The `Delete selected' menu entry was incorrectly ghosted after reading a
+  database;
+- Of course you cannot `EdInfo' if the game was not found;
+- The Up and Down keys in a Z80 header were STILL printed reversed. Ooops...
+  `User Def' keys are now printed in the more sensible order
+  Up, Down, Left, Right, Fire. Most game descriptions (inlays) have it this way;
+- Added full support for a multiface pokes database for each game;
+- Added buttons `Pokes' and `EdPokes' to the main screen;
+- Added option `ConfirmOverwrite' and `PreLoadResources' to the configuration
+  file;
+- Added option `AlwaysCheat' to the configuration file, which links the `Play'
+  button to the `Pokes' button when appropriate;
+- Added option `Always cheat' to the menu strip under `System';
+- Added file `FORMAT.SLT' to the distribution, which outlines the format of the
+  SLT files.
+- Included new version of `LINUXWWW.TGZ' (instructions included)
+- (Full source is now over 1.82Mb and 29100 lines of C/asm)
+
+CHANGES AFTER v1.19 (Release 03-09-1996)
+----------------------------------------
+- Linked Workbench! v1.60.9 with the following enhancements:
+  - Optimized virtual memory handler;
+  - Memory heap consistency check dumps core when the heap is corrupted;
+- You would lose your work if you created a new database from the menu and did
+  not save it through the `Save As...' menu option. This behavior is now
+  enforced;
+- Both main windows are drawn before setting up the initial database;
+- Flash can now be emulated as well when drawing screens;
+- Added options `EmulateFlash' and `SlowFlash' to the configuration file;
+- Added options `Emulate flash' and `Slow flash' to the menu strip under
+  `System';
+- If memory gets low while reading a database, more entries are released
+  (was 50, is now 175). This should prevent SGD from generating another low
+  memory error too soon ;)
+- Added room and consistency check in the `Add' button handler. At least 8.5Kb
+  conventional memory must be free to add an entry;
+- The amount of allocateable conventional memory is now also reported in the
+  virtual memory part of `SysInfo';
+- If the database has been truncated, the database name (at the bottom of the
+  right window) is printed in red;
+- Spectrum screens are no longer surrounded by a black box, but by a shadow
+  box;
+- If an `Out of memory' error occurs while creating a GIF image file, the
+  incomplete file is now removed;
+- When you select a game that's not found, the entry is now reprinted marked
+  unplayable (red text), as it is done when you (re-)validate entries;
+- Added Spectrum logo to the about box;
+- An about box is also drawn while reading the initial database. This gives
+  SGD a `professional touch'!
+
+CHANGES AFTER v1.18 (Release 25-08-1996)
+----------------------------------------
+- The database will be written back immediately after a conversion took place.
+  This should take away some of the confusion about conversions;
+- The `Resort Database' menu entry would produce a fatal error;
+
+CHANGES AFTER v1.17 (Release 29-07-1996)
+----------------------------------------
+- Linked Workbench! v1.60.8 with the following enhancements:
+  - Removed ugly bug in PutChunkyToPlanar routine (eg. pictures in requesters);
+  - You could still activate menu entries with the shortcut keys even if the
+    entry was ghosted;
+  - Allows a systemwide pre-allocated filecopy buffer of 16Kb;
+  - Added full support for floppy numbering (marking);
+  - Changes in the FileRequester:
+    - Added button `Refresh' (re-read directory);
+    - Added button `MakeDir' (make subdirectory);
+    - Added button `Mark' (re-mark a floppy);
+    - When using the `Copy'/`Rename' button while multiple files are selected,
+      it is now enforced to give an existing directory name as result path;
+    - Solved a bug where filenames with a `_' character in it could not be
+      matched;
+  - You could crash the swapper by having too long paths or passing too many
+    extra options to your emulator. As it uses a normal exec system call,
+    the total command line may not exceed 127 characters;
+  - Minor code fix to be able to cleanly swapout in favor of dos4gw;
+- If the database was empty, SGD would produce a fatal XMS error if you
+  changed the emulator type (`Config' button);
+- The selection criteria `PB' (PlayBit) and `IM' (Improvable) didn't work;
+- The selection criterion was not reparsed if you left this field without
+  making a change. This setup is normally correct, but in this case annoying;
+- The `Play' button was not ghosted when the game path was not found;
+- Added check for file overwrite when creating a GIF file;
+- Added (elementary) support for the "Warajevo ZX Spectrum Emulator";
+- Added (full) support for the (DOS) "X128 Spectrum Emulator";
+- Converted the push buttons to fine-adjust a TAP Block Image into continuous
+  push buttons (just keep them pressed);
+- Now allows to shift past the end of a screen when adjusting in a TAP Block
+  Image window (some games miss the end of a screen);
+- The keys Up and Down in a Z80 header were printed reversed (how come no-one
+  noticed it?);
+- Tries to pre-allocate a filecopy buffer in upper memory if available. This
+  allows (fast) filecopies, such as a database backup, even if memory is low.
+- Added database field `DiskId'
+  !!! ALL DATABASES CREATED WITH EARLIER VERSIONS ARE INVALID NOW !!!
+  This addition does not cost a single byte of extra memory (apart from the
+  code to manage it of course)!
+- Added options `StableFloppies', `EmulatorPathWAR', `EmulatorOptionsWAR',
+  `EmulatorPathX128', `EmulatorOptionsX128', `Z80TapesOnly' and
+  `NextFloppyDiskId' to the configuration file;
+- Added command line switch `-?' (and `-H') which prints a syntax message;
+- Updated command line switch -C:
+  C1 is the old convert flag (pre-1.08)
+  C2 is the old convert flag (pre-1.10)
+  C3 is the new convert flag (pre-1.18)
+- Floppies are now numbered, so people can hold ALL their Spectrum software
+  on floppies. SGD will request for the correct floppy when needed.
+- Added selection criterion `FD', which finds all games on a particular
+  FloppyDisk;
+- (Full source is now over 1.65Mb and 26300 lines of C/asm)
+
+CHANGES AFTER v1.16 (Release 12-06-1996)
+----------------------------------------
+- Linked Workbench! v1.60.7 with the following enhancements:
+  - If UMBs were available but not enough, the allocation manager would still
+    keep a record of the block. For SGD this means that the virtual memory
+    count would say that an UMB was allocated even if this wasn't true.
+- It was not able to run your emulator if it was located in the root directory
+  of a drive. Fixed.
+- Sometimes, screens in a TAP file do not start at the start of the block.
+  I added a fine-adjustment set in the `TAP Block Image' window to re-allign
+  the shifted screen.
+
+CHANGES AFTER v1.15 (Release 25-05-1996)
+----------------------------------------
+- Linked Workbench! v1.60.6 with the following enhancements:
+  - Detects Windows95 faultlessly and adjusts interrupt behavior for it;
+  - If the `Disable MS Windows' flag is set, will ensure that SGD is running
+    full-screen (more speed and safer);
+  - The RIL is no longer needed. It will use Direct Video Register Control
+    (as in SGD v1.02 and below :) if the RIL is not found (e.g. Windows95) or
+    the user requested not to use it;
+  - Rewrote palette loader, so DeskView will not be able to override;
+  - Solved weird parsing bug in FileViewRequester that sometimes caused
+    trash-lines to be printed between the good lines;
+  - Added mouse flag `DisableLocalHiding', which will treat HideMouseRange
+    requests as HideMouse requests (i.e. ignores the given range) when set;
+  - Rewrote memory allocation handler to allow allocation of upper memory;
+  - Swap-files (used by the SwapOut handler if no XMS/EMS was available) are
+    now written in the `TMP' directory (or `TEMP' if `TMP' is not set or current
+    directory if none set) with a unique filename. Workbench is now always
+    re-entrant, even if called from its own shell with low memory!
+  - Optimized runtime code some more. Saved another 15Kb of precious
+    conventional memory;
+- Finally added the italics font (6x8.fni). Workbench had support for it since
+  the beginning, but I was too lazy to make the font....
+- Added option `NoLocalMouseHiding' to the configuration file, which will set
+  the new mouse flag. This improves Windows NT a bit;
+- Added command line option `-d' to force Direct Video Register Control,
+  whether a RIL is found or not;
+- Moved the 48K permanent screenbuffer to upper memory if it is available
+  (allows another 1000 entries in your list!);
+- Added command line option `-u' to disable use of upper memory;
+- Adjusted `SysInfo' so that it also reports upper memory info in the virtual
+  memory section;
+- Low-mem rescue handler did not rescue anymore; it created a file of 0 bytes.
+  Fixed;
+- If too many games were in the database, SGD would still produce a fatal error
+  in stead of the question to truncate. It now finally works.
+
+CHANGES AFTER v1.14 (Release 26-04-1996)
+----------------------------------------
+- Linked Workbench! v1.60.5 with the following enhancements:
+  - Exported virtual memory statistics;
+  - Blanker is now restarted after a DOS shell-out;
+  - A menu strip submenu is no longer expanded if it is ghosted;
+  - ClearMouseEventTable did not reset all tables. The result was for example
+    that when you selected `Retry' in a FatalErrorHandler, it would retry
+    forever until it succeeded (in this case until you inserted a floppy)...
+  - Added explicit check for MS Windows, with adjusted interrupt behavior if
+    it has been detected;
+  - Added possibility to disable MS Windows during an SGD session;
+- Added check in Z80 block decruncher to make sure it will not write past the
+  end of the buffer;
+- Included virtual memory usage in `SysInfo';
+- Included MS Windows info in `SysInfo' if it has been detected;
+  (STanDard, ENHanced, DISabled)
+- Added command line option `-w' to disable MS Windows if it has been
+  detected;
+- Set mouse to waiting cursor while initializing a newly loaded database, so
+  users with slower machines will know they have to wait a while longer ;)
+- If no entries are selected, all related menu strip options are now ghosted
+  as appropriate;
+- Forgot to select the game when you toggle the `selected' status - fixed;
+- The `Make SCR' button in the TAP block window used a corrupted buffer when
+  the window had been moved;
+- All QuestionRequesters from the main window now have sensible header texts;
+- Added option `Compress games' to the menu strip under `Database', which will
+  zip all entries in the database into seperate files. Useful only if you want
+  to maintain an internet archive;
+- Added options `Compressor' and `CompressOptions' to the configuration file,
+  which define the zip method used.
+- Added support for the brandnew filetype Super Level-loader Trap (.SLT).
+- Included new version of `LINUXWWW.TAR' (instructions included)
+- (Full source is now over 1.5Mb and 24400 lines of C/asm)
+
+CHANGES AFTER v1.13 (Release 25-04-1996)
+----------------------------------------
+- Linked Workbench! v1.60.4 with the following enhancements:
+  - Menu access would crash the system if any editbutton was still active;
+  - Pressing any button hotkey while an editbutton is active now works;
+  - CopyFile/MoveFile requester would print the wrong filename when asking for
+    file overwrite;
+- There's nothing to backup if you start a new database from the command line;
+- You cannot `Search New Games' while no directory to search has been defined
+  yet (that is, you must enter your very first game by hand);
+- The `ScrShot' button was not appropriately ghosted on startup;
+- Changed hotkey for `Open...' from <ALT><O> to <ALT><J> (makes more sense in
+  a Spectrum environment anyway :)
+- Gave button `ScrShot' the hotkey <ALT><O>;
+- Noticed that I forgot to mention the `ScrShot' button in `SGD.DOC';
+- Registration info (`About') does no longer include the username, as this info
+  is compiled in and I now have too many registered users to make custom
+  compilations (but I'm not complaining!)
+
+CHANGES AFTER v1.12 (Release 22-04-1996)
+----------------------------------------
+- Linked Workbench! v1.60.3 with the following enhancements:
+  - Updates keyboardbuffer while the menustrip is active;
+  - Removed bug where <ESC> would not cancel an InputRequester, but accept it;
+  - Removed bug where shrinked directory names were 1 character too long;
+  - Closing a window with <ESC> would not reset a system mouse shape - fixed;
+  - Removed bug in CopyFile requester which sometimes crashed the system;
+- Renamed menu option `View Z80 screendump' to `View screenshot';
+- Added subdirectory `SCRSHOT' to the game tree structure (like `INFO'), where
+  the created screenshots will reside;
+- Added option `Create SCR-file' to the menu strip under `Entry', which will
+  create a SCR file and works much the same as the `Create GIF' entry;
+- Added button `ScrShot' to the main screen which will display a game
+  screenshot file and links to the `Screen' and `List' buttons;
+- Added button `Make SCR' to the TAP block image viewer;
+- Noticed that I had added TAP and VOC support only for `.Z80' files. Added it
+  for `.SNA' files as well;
+
+CHANGES AFTER v1.11 (Release 20-04-1996)
+----------------------------------------
+- Added option `View Z80 screendump' to the menu strip under `Database', so
+  finally there's support for `.SCR' files as well;
+
+CHANGES AFTER v1.10 (Release 07-03-1996)
+----------------------------------------
+- Linked Workbench! v1.60.2 with the following enhancements:
+  - Added explicit DOS version >= 5.0 check; added error if this fails;
+  - Added system flag Quiet to disable all system sounds;
+  - Completely changed window and requester looks; more consistent now and
+    looks better;
+  - Added elementary window auto-activation;
+  - Added window dragging in both outline and full mode;
+  - Added window resizing in both outline and full mode;
+  - Added key <SHIFT><TAB> to cycle through the buttons in the opposite order;
+  - Added keys <CTRL><B>, <CTRL><E> and <CTRL><W> to editbuttons;
+  - Added check on return of edit buttons to see if the contents were changed;
+  - Reduced window buffer memory constraints;
+  - Completely rewrote memory optimization routines to allow greater speed and
+    better results;
+  - Changed default window header font to 6X8.FNT as well; removed 8X14.FNx
+    from the distribution;
+  - Changed hardware error when `drive not ready' into a nicer message;
+  - Corrected hot-spot location of the mouse waiting cursor;
+  - Added `non-selectable entry' flag to the combo entry table;
+  - Improved typed-name feature in the FileRequester;
+  - Added selection in the FileRequester to allow multiple `Copy' and `Rename';
+    I didn't add multiple `Delete', though!
+  - Removed bug in the FileRequester where copied or renamed files would
+    sometimes be written in the startup directory rather than the current;
+  - Gave (only) the FileRequester a resize gadget and resize properties;
+  - All requesters can now also be closed (cancelled) with the <ESC> key;
+  - Improved CopyFile and MoveFile requesters to allow `Overwrite All';
+  - Changed InputRequester so that the input box will automatically start up;
+  - Swapped meaning of <SHIFT> and <CTRL> for entry selection, so it will be
+    just like Windows (due to many requests, not my choise!): <CTRL> is used
+    for single selection, <SHIFT> for multiple. This also works for the key
+    equivalent: <CTRL><INS> selects from the keyboard;
+  - Changed slider-lock from <SHIFT> to <CTRL> as well;
+  - Fixed double-click bug in combo windows;
+  - Fixed problem where the first entry in a range was sometimes not handled
+    correctly when selecting a range of entries;
+- Added command line option `-q' to be quiet;
+- Added menu strip menu `System';
+- Added option `Disable sounds' to the menu strip under `System';
+- Added option `Quit' to the menu strip under `Database';
+- Added button `SysInfo' to the main screen;
+- Added option `Z80SnapNeedsTape' to the configuration file to be able to use
+  programs of which the first part is in a `.Z80' file and the rest is in a
+  `.TAP' file;
+- Added option `Z80SnapNeedsVOC' to the configuration file to be able to use
+  programs of which the first part is in a `.Z80' file and the rest is in a
+  `.VOC' file;
+- Added option `DragOutlineOnly' to the configuration file, which, if TRUE,
+  will update only a window's outline while it is being dragged;
+- Added option `ResizeOutlineOnly' to the configuration file, which does the
+  same, but when resizing a window;
+- Added possibility to put GIF files in a path relative to your games (with a
+  character `$' at the start of the `GIFPath' value);
+- Changed `Make GIF' handler to create the `GIFPath' before creating a GIF file
+  if the path didn't exist yet;
+- Added `database changed' checkmark after the database name at the bottom of
+  the information window;
+- Renamed button `Try' in the configuration window to `Use';
+- Pressing `Save' or `Reload' does no longer stop the configuration window;
+- Added check for <ESC> in main window for the typed-name feature, which will
+  clear the entire line;
+- Solved bug in wrong pagebreaks when printing the database;
+- Found that sometimes the wrong entry was deleted in XMS - major oops;
+- Changed `Exclamation mark' picture when reporting after `Find new games'
+  into an info sign;
+- Moved `save changed database' question in the `Open' menu entry to after a
+  new database has been selected;
+- Of course, the database must also be flagged `changed' when you import a
+  database, resort it or delete selected entries :)
+- Disabled typed-name feature when the database is empty, which caused the
+  `Invalid XMS handle' error;
+- Added check for file overwrite in `Save As' menu item, with possibility to
+  rechoose a database name;
+- Removed bug (introduced in previous release) where `Save As' produced an
+  error if the new file didn't exists yet, because it wanted to create a
+  backup first: turned off the backup bit for `Save As';
+- Removed the 48K buffer for creating a tape index, as I needed the memory :)
+  Creation is now a lot faster too;
+- Double-clicking on a game name now automatically starts the game (finally);
+- Converted TAP combo window from type VIEW to type SELECT;
+  This combo window cannot be handled from the keyboard though!
+- Added possibility to double-click on a CODE/HEAD block in a TAP index
+  window, which opens a window to view the block as a screen and even allows to
+  create a GIF file from it;
+- Gave the `Resort database' window a cancel button;
+- Reorganised the configuration file; added some comment in it as well;
+- (Full source is now over 1.4Mb and 22600 lines of C/asm)
+
+CHANGES AFTER v1.09 (Release 07-02-1996)
+----------------------------------------
+- Linked Workbench! v1.60.1 with the following enhancements:
+  - Added mouse flag `SwapLeftAndRightButton';
+  - Adjusted boolean menu entry handling to allow easier reference;
+  - Changed font filename handling to extension only. Normal bitmaps get
+    `.FNT', bold bitmaps get `.FNB'.
+  - Updated font 8X10.FNT: improved images of letters `e' and `s';
+  - Added system flag EditInsert to set the startup edit mode;
+  - Added MoveFile requester with check for target filename existence;
+  - Changed CopyFile and MoveFile requesters to support crossing filesystems
+    and using relative paths;
+  - Added check for target filename existence in CopyFile requester;
+  - Improved error-checking on CopyFile and MoveFile requesters;
+  - Updated length of maximum allowed path;
+  - Allowed characters `{', `}', `(' and `)' in a path name;
+  - Moved mouse waiting cursor handling into the PercentageRequester;
+  - Found a bug in UpdatePRequester - solved;
+  - Found that CopyFile would create a readonly file - oops;
+  - Changed file existence tests from `open' to `stat';
+- Renamed spectrum font from `SPECFNTN' to `SPECTRUM';
+- Changed file existence tests from `open' to `stat';
+- Removed command line option `-g' (for Genius mouse hiding);
+- Simplified configuration interface functions;
+- Added option `UseGeniusMouseHiding' to the configuration file;
+- Added option `SwapMouseButtons' to the configuration file;
+- Added option `EditInsert' to the configuration file;
+- Added option `EmulatorOptionsXXX' to the configuration file;
+- Added option `ValidateAfterLoad' to the configuration file;
+- Added option `Find new games' to the menu strip under `Database';
+- Added option `Backup database' to the menu strip under `Database';
+- Added option `Validate database' with submenu options `All' and `Selected' to
+  the menu strip under `Database';
+- Added option `Auto-Validate' to the menustrip under `Database';
+- Added options `Edit Insert', `Always Backup' and `Additional Switches' to the
+  configuration window;
+- Made the database backup function work :)
+- Shrinked printed entries when printing the database - field seperation is now
+  1 space in stead of 2; each line is now 126 characters;
+- Shrinked the databasefile itself as well; each line is now (always!) 129
+  characters;
+- Added database fields `FileSize', `Orig Scr' and `Improve';
+  !!! ALL DATABASES CREATED WITH EARLIER VERSIONS ARE INVALID NOW !!!
+- Added selection criterion `PB', which tests the `Play' bit of the game in
+  the entry table;
+- Added selection criteria `OS' and `IM' for `Orig Screen' and `IMprove';
+- Updated command line switch -C:
+  C1 is the old convert flag (pre-1.08)
+  C2 is the new convert flag (pre-1.10)
+- Renamed button `Ok' in configuration window to `Save';
+- Renamed button `Cancel' in configuration window to `Reload';
+- Added button `Try' in configuration window - is now the default button;
+- Reversed displayed order of `Save' and `Reload' - positive values right;
+- Improved corruption test when loading a database;
+- Spectrum Screen and List output is now explicitely removed when the
+  button is released;
+- When putting a screen returns an error, the black border is no longer
+  printed;
+- Non-crunched (v1.45) Z80 snapshots took the wrong buffer to display the
+  spectrum screen - fixed;
+- Added default paths for the emulators if no path was given in the
+  configuration: `Z80.EXE' for Z80 and `JPP.EXE' for JPP - both in the same
+  directory as SGD;
+- Forgot to remove tape/microdrive index on several more occations - fixed;
+- Introduced memory failure when drawing spectrum screen from a TAP file in
+  previous version - fixed;
+- Fixed CreateTAPCatalog, where HEAD blocks were now reported with length
+  2 bytes too much - blocks with length < 2 are now reported as being noise;
+- Added some sort of index in SGD.DOC;
+
+CHANGES AFTER v1.08 (Release 30-01-1996)
+----------------------------------------
+- Linked Workbench! v1.60.0 with the following enhancements:
+  - Added code to compact far heap on combo window reinitialization;
+  - Changed key <DEL> for toggling the selection for a combo entry into
+    <SHIFT><INS>, as it should have been :)
+  - Added check for <CTRL> key when selecting a combo entry with the mouse:
+    this will toggle the selection bit(s) for all entries in the range from
+    the last selected entry up to the currently selected entry;
+    Didn't add a keyequivalent (<CTRL><INS>) for it!
+  - Solved memory leak in ReInitComboWindow;
+  - Added some sanity checks to the SwapOut function;
+  - Put the cursor one pixel left in edit buttons, where it should be;
+  - Added percentage requester to the CopyFile requester;
+  - Solved problem where `Delete' in a FileRequester would sometimes remove
+    the wrong file from the list (but the correct one from disk);
+  - Adjusted SortEntry to re-align the window when entries had been deleted
+    from the end of the combo list, so that an empty bottom would appear;
+  - Removed stale function parameters and variables;
+- Decreased stack size 4K;
+- Decreased memory needs;
+- Streamlined memory usage when viewing screens;
+- Removed bug where the `Create GIF' menu entry was incorrectly unghosted
+  when you start a new or open an existing database;
+- Removed a bug where table pre-allocation for the game select window might
+  sometimes allocate room for -1 entries...
+- Changed meaning of an empty selection string - previously it meant that ALL
+  entries matched, it now means that NO entries match;
+- Inverted game selection colors: selected games are now with cyan background.
+  (I didn't like it from the beginning, but it was easier to implement then)
+- Forgot to remove a tape/microdrive index when one is on the screen and you
+  start a new or open an existing database;
+- Changed name handling of temporary database files - they are no longer always
+  called `GAMES.TMP', but keep their database name with extenion `.TMP';
+- Removed a bug where printfiles would always be placed in the current
+  directory, no matter where the database itself was;
+- Added option `BackupDatabase' to the configuration file, which will copy the
+  `old' database (once) to a backupfile before writing a new one;
+- Added menu option `Duplicate entry';
+- Adjusted Import function so that the first imported entry will be
+  automatically selected;
+- Added some more memory probes to allow a graceful FatalError in stead of a
+  system crash ;)
+
+CHANGES AFTER v1.07 (Release 26-11-1995)
+----------------------------------------
+- Linked Workbench! v1.59.1 with the following enhancements:
+  - Added code to allow graceful release of the mouse driver if the driver
+    version is 7.00 or up - the mouse is now `re-usable' as it should be :)
+  - Added default key to the window structure, which is selected if an edit
+    button is ended with an <ENTER> (<TAB> still does the same);
+  - Removed a bug in the delayed mouse event handler, which lost the button
+    if too much time had passed;
+  - Added check for RIL residence, added error if not;
+  - Added mouse flag `SnapToDefaultButton', which moves the mouse to the
+    default button together with the DefaultKey change;
+  - Added mouse flag `UseGeniusScreenUpdate', which uses the `old' style
+    Genius driver call to DefineScreenRegionForUpdating;
+  - Added code in DefineScreenRegionForUpdating to allow for a changed mouse
+    hotspot location - solves all remaining mouse hiding problems;
+  - Changed the QuestionRequester, so that the negative option is the default
+    rather than the positive option.
+  - Removed double-click timer overrun, which caused any next click after the
+    second to be treated as a double-click as well;
+  - Removed a bug in the BF_FITDIR flag at button startup, where it was simply
+    ignored;
+  - Changed the edit button handler, so that all buttons with the BF_FITDIR
+    flag set will convert all lower case keys to upper case;
+  - Removed a bug in the edit button handler, where <CTRL><DEL> would not
+    delete the contents, if the cursor was at the end of the string;
+  - Changed the FileRequester to stay in drives mode if you select a drive
+    which returns a hardware error and you choose abort;
+  - Changed printing of combo select entries: each entry is now one pixel
+    wider at both ends, the selection bar is printed while printing the
+    entries and is one pixel less high - improved in speed and no more flicker;
+  - Changed XMS allocation manager to (re)allocate XMS memory chunkwise - this
+    reduces allocation requests and speeds up the management;
+  - Changed conventional memory allocation manager to (re)allocate combo
+    window tables chunkwise - this solves most of the extreme memory
+    fragmentation and speeds up all memory related operations;
+  - Added code to keep the far heap optimized - solves the rest of the memory
+    fragmentation problems;
+  - Removed a bug in the mouse handler where it sometimes remembered a button
+    press but forgot the location;
+  - Removed `%' character expansion bug in the FileViewRequester;
+  - Changed newline-handling in the FileViewRequester, so that non-DOS files
+    (i.e. Unix-style) can be displayed as well;
+  - Adjusted ComboWindow key handler, so that cursor/page/<INS>/<DEL> keys are
+    no longer consumed if also a <CTRL> or <ALT> key was pressed;
+  - Removed a bug in low-memory handler, where the meaning of the buttons was
+    reversed;
+  - Added buttons `Rename', `Copy' and `Delete' to the FileRequester to allow
+    some simple file management;
+  - Added Requesters: InputRequester and CopyFile;
+  - Reprints edit button contents reformatted at button startup when the
+    button contains a path name;
+  - Removed printing bug in combo windows, where a byte was lost if the first
+    char started at bit 7 in video ram;
+  - Removed printing bug in combo windows, where empty `{' and `}' characters
+    were incorrectly expanded when sliding horizontally;
+  - Made XMSAllAllocated return the correct value :)
+  - Changed key <CTRL><ALT><F12> (for GIF screendump) to <CTRL><PRTSC>;
+  - Changed key <CTRL><ALT><F10> (for Panic shutdown) to <CTRL><ALT><ESC>;
+  - Optimized GIF creation algorithm some more;
+  - Rewrote ChunkyToPlanar routine (used for pictures in buttons/requesters);
+    major speed gain;
+  - Optimized menu system for better memory usage;
+  - Changed QuestionRequester to support 4 buttons (Yes/No/Cancel/All);
+  - Added combo entry selection with <SHIFT> or middle mouse button;
+  - Added key-equivalent <DEL> for it;
+  - Added middle button check in sliderset; does the same as pressing <SHIFT>
+    while on the slider;
+- Removed a bug when using a database on a different volume than SGD, which
+  caused the fatal error: `Could not install new database: Cross-link device'
+- Added field to each database entry, which holds the location of the latest
+  found location of this game (an index into the GamePath array). No extra
+  memory is needed for this - file resolvation is now A LOT quicker!
+  !!! ALL DATABASES CREATED WITH EARLIER VERSIONS ARE INVALID NOW !!!
+- Added command line switch `-c' to use compatibility mode, which converts the
+  database to this new format, to solve the above problem;
+- Added command line switch `-g' to activate the `old' style Genius driver
+  calls;
+- Added command line switch `-p' to disable the load/save percentage bar;
+- Added option `SnapMouseDefault' to the configuration file to activate the
+  new mouse parameter;
+- Added this option and the game editor path to the configuration window;
+- Added option `GIFPath' to the configuration file; this will be used as the
+  directory where Spectrum screen images will be stored;
+- Changed handling of the path to the emulator itself. The filename is now
+  also included in the path, so that you don't have to use the default
+  `Z80.EXE' or `JPP.EXE', but any executable (including batch files);
+- Reparses the selection criterion after reloading the database now;
+- Added variable to remember last used path in a FileRequester, to easier
+  add games from the same (new) directory to the database;
+- Removed FileRequester bug which ignored the change when the same filename
+  was returned, but in a different directory;
+- Stores current entry when parsing a changed criterion - this entry is now
+  also considered while parsing;
+- Adjusts count of matching games when deleting an entry;
+- Added keys <CTRL><CRUP> to move one selected game up and <CTRL><CRDN> to
+  move one selected game down;
+- Added LPT0: in the configuration, which prints the database to a file;
+- Solved memory leak in ReadConfig routine;
+- Removed bug in CreateTAPCatalog, where HEAD blocks were reported with length
+  2 bytes too little;
+- Added menuing system a la Amiga; The right mouse button is now used for the
+  menu and is no longer used to start the selected game;
+- Added font file `8X10N.FNT' for the menu strip;
+- Added possibility to partially print or save a database;
+- Added possibility to merge databases or change database;
+- Added possibility to start a new, empty, database;
+- Added possibility to resort the database;
+- Added possibility to invert or delete all selected entries at once;
+- Added possibility to create a GIF file of the current Spectrum screen image
+  (which will be stored in the `GIFPath' directory);
+- Renamed button `Write' to `Save'. It uses hot-key <ALT><S>;
+- Changed hot-key for button `Shell' to <ALT><H>;
+- Made some functions global to provide better code re-useability;
+- Removed a bug where on some error conditions a PercentageRequester was not
+  removed from the screen;
+- Added current databasename to the bottom of the information window;
+- (Full source is now over 1.2Mb and 19000 lines of C/asm)
+
+CHANGES AFTER v1.06 (Release 09-11-1995)
+----------------------------------------
+- Linked Workbench! v1.58.8 with the following enhancements:
+  - Finally, changed combo selection box into an inverted bar;
+  - Added auto-advance for edit buttons - pressing <TAB> while in an active
+    edit button does the same as pressing <ENTER>; the new contents are
+    accepted and the next button is elected (as the <TAB> handling before);
+  - Added auto-select for edit buttons - when an edit button is elected due to
+    the (new) <TAB> handler, the button is immediately started up;
+  - Added cursor-repositioning for edit buttons - click in an active edit 
+    button to set the cursor to that location (ignored previously);
+  - Removed cursor-init bug in edit buttons - if the button is activated by
+    the keyboard, the cursor is now always set at the end of the contents (it
+    was set at the mouse-x, as for mouse-activation, previously);
+  - Added typed-name feature to the FileRequester, linked to the filename box;
+  - Added FileRequester file pre-selection - if a filename is given, this name
+    will be auto-selected. If either no name is given or it is not found, the
+    first file in the list is selected;
+  - Changed QuestionRequester to support 3 buttons (Yes/No/Cancel);
+  - Changed blanker routine - display is no longer copied and blanked,
+    but the video refresh pin is disabled (if not supported (true EGA), the
+    palette is blanked). Saves XMS and provides instant blanking/restoring.
+  - Removed a bug in the FileRequester, which caused a void CustomPicture to
+    be drawn if the selected filename did not exist (and one had to);
+  - Removed some `changed directory' bugs;
+- Changed `EdInfo' handler to create the INFO directory before starting the
+  editor if the directory did not exist yet (omitting this caused random error
+  messages depending on the used editor);
+- Added Cancel possibility when pressing `Quit' and the database has been
+  changed;
+- When you press the `Delete' button, the name of the game is now also printed
+  in the confirmation box;
+- Added command line option to be able to use a different database than the
+  default `GAMES.DAT'
+- Action buttons are now all ghosted as appropriate;
+- Removed all XMS errors when dealing with an empty database;
+- Changing any entry field in an empty database now implicitely adds an entry;
+- Added a troubleshooting section in `SGD.DOC'
+
+CHANGES AFTER v1.05 (Release 15-10-1995)
+----------------------------------------
+- Linked Workbench! v1.58.7 with the following enhancements:
+  - Corrected hot-spot location of the mouse - 1 pixel left and 1 pixel up;
+  - Improved slider support:
+    - Removed slider pick-up delay - now instant pick-up;
+    - Added SHIFT-key check, to move the sliderbar to the mouse immediately if
+      you click above/below the slider while pressing <SHIFT>;
+    - Added initial delay when using page-scrolling. This enables the faster
+      machines (486DX/4 and Pentium) to scroll one page at a time in stead of
+      multiple;
+    - Removed ClearFirst on edit button handling - much too annoying!
+    - Added <CTRL><DEL> to clear an entire edit button field;
+  - Added keyboard selection support for combo view-windows;
+  - FileViewRequester now truncates the file in memory if memory is low
+    (produced a FatalError before);
+  - Improved SwapOut support:
+    - Accepts empty filenames, which starts a new command interpreter;
+    - Searches the PATH environment variable if the file is not in the current
+      directory;
+    - Accepts and runs batch (.BAT) files (produced a crash before ;)
+  - Added `Cancel' button to the percentage requester;
+  - Improved mouse support - now handles delayed events as well;
+  - Improved mouse double-click handler, which is faster and more accurate;
+  - Simplified (but increased its power) boolean button handling;
+  - Partly rewrote the GIF-creation function: creation is now 10 times faster!
+  - Added rescue handler for low-memory fatal errors;
+  - Reduced memory/hardware requirements, although DOS versions below 5.0 are
+    no longer supported.
+- Removed bug in selection routine - if you change an entry, the rematching
+  against the criterion now actually works :)
+- Removed bug in printer routine - printing the database now works;
+- When printing the database, on the last line of each page - where the page
+  number is printed - also the last modification date is printed;
+- Added `EDITOR' in the configuration file;
+- Added button 'EdInfo' to edit a game info file from within SGD;
+- If memory is low, the user is asked to attemp to make a rescue backup of the
+  database (if it had been changed) in `GAMES.SAV'
+
+CHANGES AFTER v1.04 (Release 30-09-1995)
+----------------------------------------
+- Linked Workbench! v1.58.6 with the following enhancements:
+  - Finally includes my own XMS routines - a lot faster!
+    Now works with XMS v2.0 as well;
+  - Rewrote SwapOut function - XMS memory leak solved;
+  - Removed bug in hotkey handling routine - finally, all hotkeys work;
+  - Removed bug in selection window, where the last character on a line was not
+    written correctly;
+  - Removed color bug in FileRequester - directories are now all in blue;
+  - Moved string-printing in buttons one pixel left too (sorry, forgot);
+  - Adjusted size of buttons - width is now one pixel less;
+  - Optimized percentage requester routine - speed increase of 400%
+  - Optimized drawing/removing speed of windows and requesters;
+  - Optimized source to reduce the size of the executable (Hmm, only 2K ;)
+  - Removed mouse problem with mouse drivers that are not fully Microsoft
+    compatible (Error `Cannot change mouse graphics mode');
+- Changed hot-key for `Print' button from `i' to `t', as `i' was already used
+  for the `Info' button;
+- (Full source is now ca. 1Mb and 15400 lines of C/asm - wow, impressive!)
+
+CHANGES AFTER v1.03 (Release 14-09-1995)
+----------------------------------------
+- Linked Workbench! v1.58.5 with the following enhancements:
+  - Removed horrible bug in video setup routine;
+  - Removed another bug in the edit-buttons;
+  - Removed a crash-bug in the hotkey handling routine;
+  - Fixed `Close' button in filerequester - it now works!
+  - Changed `close window' gadget shape - looks better now;
+  - Took over more graphics functions - faster again!
+  - Added mouse wait cursor - OK, it's ugly, so sue me!
+  - Removed some bugs in XMS functions;
+  - Moved string-printing in windows one pixel left, where is should be;
+- Moved history information to a new file: this file;
+- Added `Info' button and information file support;
+- Doesn't stop any longer if no configuration file was found - it now simply
+  creates a default configuration file.
+- Removed bug in `Add' routine;
+- Removed bug in handling files in root directory;
+- Improved error reporting;
+- Improved typed-name feature: ignores spaces etc. when matching;
+- Added support for `.MDR' files;
+- Added support for `.VOC' files;
+- Added selection criterion for select window;
+- Now passes switch `-128' to 128K games under Z80;
+- Recovers from file read errors in `.TAP' and `.MDR' files;
+- Reports empty tape files as being empty.
+
+CHANGES AFTER v1.02 (Release 15-08-1995)
+----------------------------------------
+- Linked Workbench! v1.58.4 with the following enhancements:
+  - Took over the timer;
+  - Took over critical error interrupt;
+  - Took over DOS interrupt - DOS is now secured in critical sections;
+  - Took over video interrupt and
+  - Video register addressing is now done through the VGA BIOS - solved all
+    video timing problems!
+  - Even faster screen handling though!
+  - Fixed mouse hiding problem;
+  - Added pictures in requesters;
+  - Added panic key <CTRL><ALT><F10>
+  - Added GIF dump key <CTRL><ALT><F12>
+  - Added initial delay for push buttons. This enables the faster machines
+    (486DX/4 and Pentium) to scroll one line at a time in stead of multiple.
+  - Moved button selection box closer to the button;
+  - Adjusted sizes of requesters;
+  - Adjusted numerical input fields to accept numerical keyboard input only;
+  - Added support for jumping off active edit buttons;
+  - Added hotkey (<ALT><letter>) support for all push buttons;
+  - Added keyboard selection support for combo windows;
+  - Added slider follow mode for combo windows;
+  - Improved slider bar handling: you can now keep sliding even if you leave
+    the slider bar with the mouse - just keep the left button pressed;
+  - Re-arranged call and GUI memory management and removed all unneeded calls
+    Improved on memory requirements and speed;
+  - Re-arranged memory management on combo entries: maximum number of entries
+    is no longer so low (now 16383), but depends on available memory only.
+  - Added filedate/time to filerequester entries;
+  - Adjusted percentage bar in percentage requester;
+  - Changed beeper to support 3 beep-lengths;
+  - Added recognition of color/monochrome display adapter/monitor;
+- The maximum number of games in the database is no longer limited to 1684;
+- Added default values: 1 player and 48K game to `add game' routine;
+- Removed `Together' button bug;
+- Changed `Memory' edit button into radio button;
+- Added `FollowSlider' to configuration file;
+- Added `Follow Slider', `Printer' and `Lines Per Page' to configuration
+  window;
+- Doubled the `EmulatorPath' entries: now `EmulatorPathZ80' and
+  `EmulatorPathJPP' exist simultaneously (selected on `EmulatorType' selection);
+- Changed `EmulatorType' values: Z80 was 1, is now 0
+                                 JPP was 2, is now 1;
+- Re-arranged configuration window;
+- Changed color dark gray to a lighter gray;
+- Changed `ghosted' button color from bright white to dark gray;
+- Removed bug in configuration file parser.
+
+CHANGES AFTER v1.01 (Release 10-08-1995)
+----------------------------------------
+- Linked Workbench! v1.58.2 with the following enhancements:
+  - Improved XMS support;
+  - Faster screen handling;
+  - Better mouse handling;
+  - Removed edit-button bugs.
+
+CHANGES AFTER v1.00 (Internal release 24-07-1995)
+-------------------------------------------------
+- Added `Print' button;
+- Added options `LinesPerPage' and `Printer' to configuration file;
+- Linked Workbench! v1.58.1, which solved a lot of timing errors.

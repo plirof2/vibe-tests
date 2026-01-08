@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Management Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            background-color: #000;
+        }
+        
+        .pixel-text {
+            font-family: 'Press Start 2P', monospace;
+            color: #fff;
+            text-shadow: 2px 2px 0 #000;
+        }
+        
+        .control-menu {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .menu-title {
+            font-size: 36px;
+            margin-bottom: 40px;
+            background: linear-gradient(90deg, #00ffff, #ffff00, #00ffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 30px;
+            width: 400px;
+            height: 400px;
+        }
+        
+        .menu-item {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .menu-item:hover {
+            transform: scale(1.1);
+        }
+        
+        .menu-item.active {
+            transform: scale(1.2);
+            filter: brightness(1.5);
+        }
+        
+        .icon {
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        
+        .cursor {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #fff;
+            pointer-events: none;
+            z-index: 10;
+        }
+        
+        /* Pixel art styling for different icons */
+        .globe { background: linear-gradient(45deg, #00ffff 25%, #0080ff 25%, #0080ff 50%, #00ffff 50%, #00ffff 75%, #0080ff 75%, #0080ff 100%); }
+        .portrait { background: linear-gradient(45deg, #ffff00 25%, #ff8800 25%, #ff8800 50%, #ffff00 50%, #ffff00 75%, #ff8800 75%, #ff8800 100%); }
+        .contract { background: linear-gradient(45deg, #ffff00 25%, #ff8800 25%, #ff8800 50%, #ffff00 50%, #ffff00 75%, #ff8800 75%, #ff8800 100%); }
+        .question { background: linear-gradient(45deg, #ff00ff 25%, #ff0088 25%, #ff0088 50%, #ff00ff 50%, #ff00ff 75%, #ff0088 75%, #ff0088 100%); }
+        .shoe { background: linear-gradient(45deg, #ffffff 25%, #cccccc 25%, #cccccc 50%, #ffffff 50%, #ffffff 75%, #cccccc 75%, #cccccc 100%); }
+        .disk { background: linear-gradient(45deg, #00ffff 25%, #0080ff 25%, #0080ff 50%, #00ffff 50%, #00ffff 75%, #0080ff 75%, #0080ff 100%); }
+        .fallen { background: linear-gradient(45deg, #ff0000 25%, #880000 25%, #880000 50%, #ff0000 50%, #ff0000 75%, #880000 75%, #880000 100%); }
+        
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="control-menu" id="mainMenu">
+            <h1 class="menu-title">CONTROL MENU</h1>
+            <div class="menu-grid">
+                <div class="menu-item" data-position="up-left">
+                    <div class="icon globe"></div>
+                </div>
+                <div class="menu-item" data-position="up">
+                    <div class="icon portrait"></div>
+                </div>
+                <div class="menu-item" data-position="up-right">
+                    <div class="icon contract"></div>
+                </div>
+                <div class="menu-item" data-position="down-left">
+                    <div class="icon question"></div>
+                </div>
+                <div class="menu-item" data-position="down">
+                    <div class="icon shoe"></div>
+                </div>
+                <div class="menu-item" data-position="down-right">
+                    <div class="icon disk"></div>
+                </div>
+                <div class="menu-item hidden"></div>
+                <div class="menu-item hidden"></div>
+                <div class="menu-item" data-position="center">
+                    <div class="icon fallen"></div>
+                </div>
+            </div>
+            <div class="cursor" id="cursor"></div>
+        </div>
+    </div>
+
+    <script>
+        class FootballGameManager {
+            constructor() {
+                this.currentScreen = 'mainMenu';
+                this.cursorPosition = { x: 200, y: 400 };
+                this.init();
+            }
+            
+            init() {
+                this.setupEventListeners();
+                this.updateCursor();
+            }
+            
+            setupEventListeners() {
+                const menuItems = document.querySelectorAll('.menu-item');
+                menuItems.forEach(item => {
+                    if (!item.classList.contains('hidden')) {
+                        item.addEventListener('click', (e) => this.handleMenuClick(e));
+                        item.addEventListener('mouseenter', (e) => this.handleMenuItemHover(e));
+                    }
+                });
+                
+                document.addEventListener('keydown', (e) => this.handleKeyPress(e));
+            }
+            
+            handleKeyPress(e) {
+                const key = e.key;
+                const cursor = document.getElementById('cursor');
+                const step = 40;
+                
+                switch(key) {
+                    case 'ArrowUp':
+                        this.cursorPosition.y = Math.max(100, this.cursorPosition.y - step);
+                        break;
+                    case 'ArrowDown':
+                        this.cursorPosition.y = Math.min(500, this.cursorPosition.y + step);
+                        break;
+                    case 'ArrowLeft':
+                        this.cursorPosition.x = Math.max(100, this.cursorPosition.x - step);
+                        break;
+                    case 'ArrowRight':
+                        this.cursorPosition.x = Math.min(700, this.cursorPosition.x + step);
+                        break;
+                    case 'Enter':
+                        this.handleMenuClickAtPosition();
+                        break;
+                }
+                
+                this.updateCursor();
+            }
+            
+            handleMenuItemHover(e) {
+                const rect = e.target.getBoundingClientRect();
+                this.cursorPosition.x = rect.left - 20;
+                this.cursorPosition.y = rect.top;
+                this.updateCursor();
+            }
+            
+            handleMenuClick(e) {
+                const position = e.currentTarget.dataset.position;
+                this.handleMenuAction(position);
+            }
+            
+            handleMenuClickAtPosition() {
+                // Determine which menu item is at cursor position
+                const menuItems = document.querySelectorAll('.menu-item:not(.hidden)');
+                menuItems.forEach(item => {
+                    const rect = item.getBoundingClientRect();
+                    if (this.cursorPosition.x >= rect.left - 20 && 
+                        this.cursorPosition.x <= rect.right + 20 &&
+                        this.cursorPosition.y >= rect.top - 20 && 
+                        this.cursorPosition.y <= rect.bottom + 20) {
+                        this.handleMenuAction(item.dataset.position);
+                    }
+                });
+            }
+            
+            handleMenuAction(position) {
+                console.log(`Menu action: ${position}`);
+                // Add game logic for each menu position
+                switch(position) {
+                    case 'up-left':
+                        // Team standings
+                        this.showTeamStandings();
+                        break;
+                    case 'up':
+                        // Player status
+                        this.showPlayerStatus();
+                        break;
+                    case 'up-right':
+                        // Contract/Transfer
+                        this.showTransferSystem();
+                        break;
+                    case 'down-left':
+                        // Random incidents
+                        this.showRandomIncidents();
+                        break;
+                    case 'down':
+                        // Goal cards
+                        this.showGoalCards();
+                        break;
+                    case 'down-right':
+                        // Save/Load
+                        this.showSaveLoad();
+                        break;
+                    case 'center':
+                        // Quit game
+                        this.quitGame();
+                        break;
+                }
+            }
+            
+            updateCursor() {
+                const cursor = document.getElementById('cursor');
+                cursor.style.left = `${this.cursorPosition.x}px`;
+                cursor.style.top = `${this.cursorPosition.y}px`;
+            }
+            
+            showTeamStandings() {
+                console.log('Showing team standings...');
+                // Implementation for team standings screen
+            }
+            
+            showPlayerStatus() {
+                console.log('Showing player status...');
+                // Implementation for player status screen
+            }
+            
+            showTransferSystem() {
+                console.log('Showing transfer system...');
+                // Implementation for transfer system
+            }
+            
+            showRandomIncidents() {
+                console.log('Showing random incidents...');
+                // Implementation for random incidents
+            }
+            
+            showGoalCards() {
+                console.log('Showing goal cards...');
+                // Implementation for goal cards system
+            }
+            
+            showSaveLoad() {
+                console.log('Showing save/load...');
+                // Implementation for save/load system
+            }
+            
+            quitGame() {
+                if (confirm('Are you sure you want to quit the game?')) {
+                    console.log('Quitting game...');
+                    // Implementation for quitting game
+                }
+            }
+        }
+        
+        // Initialize game when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new FootballGameManager();
+        });
+    </script>
+</body>
+</html>

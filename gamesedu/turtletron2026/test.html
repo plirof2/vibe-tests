@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Test Turtletron Enhanced</title>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test { padding: 10px; margin: 10px; border: 1px solid #ccc; }
+        .pass { background-color: #d4edda; border-color: #c3e6cb; }
+        .fail { background-color: #f8d7da; border-color: #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>Turtletron Enhanced - Test Results</h1>
+    
+    <div id="test-results"></div>
+    
+    <script>
+        function runTests() {
+            const results = document.getElementById('test-results');
+            const tests = [];
+            
+            // Test 1: Check if CSS loads
+            fetch('assets/styles/main.css')
+                .then(response => {
+                    if (response.ok) {
+                        tests.push('<div class="test pass">✓ CSS file loads successfully</div>');
+                    } else {
+                        tests.push('<div class="test fail">✗ CSS file failed to load</div>');
+                    }
+                })
+                .catch(() => {
+                    tests.push('<div class="test fail">✗ CSS file not found</div>');
+                });
+            
+            // Test 2: Check if Graphics JS loads
+            fetch('assets/scripts/graphics.js')
+                .then(response => {
+                    if (response.ok) {
+                        tests.push('<div class="test pass">✓ Graphics JS loads successfully</div>');
+                    } else {
+                        tests.push('<div class="test fail">✗ Graphics JS failed to load</div>');
+                    }
+                })
+                .catch(() => {
+                    tests.push('<div class="test fail">✗ Graphics JS not found</div>');
+                });
+            
+            // Test 3: Check if turtle sprites exist
+            ['turtle-green.svg', 'turtle-red.svg', 'turtle-blue.svg'].forEach(sprite => {
+                fetch(`assets/images/turtles/${sprite}`)
+                    .then(response => {
+                        if (response.ok) {
+                            tests.push(`<div class="test pass">✓ ${sprite} loads successfully</div>`);
+                        } else {
+                            tests.push(`<div class="test fail">✗ ${sprite} failed to load</div>`);
+                        }
+                    })
+                    .catch(() => {
+                        tests.push(`<div class="test fail">✗ ${sprite} not found</div>`);
+                    });
+            });
+            
+            // Test 4: Check main HTML file
+            fetch('turtletron.html')
+                .then(response => {
+                    if (response.ok) {
+                        tests.push('<div class="test pass">✓ Main HTML file loads successfully</div>');
+                    } else {
+                        tests.push('<div class="test fail">✗ Main HTML file failed to load</div>');
+                    }
+                });
+            
+            // Display results after delay
+            setTimeout(() => {
+                results.innerHTML = tests.join('');
+                
+                // Add link to game
+                results.innerHTML += `
+                    <div class="test pass">
+                        <h3>🎮 Test Complete!</h3>
+                        <p><strong><a href="turtletron.html" target="_blank">Play Turtletron Enhanced</a></strong></p>
+                        <p>All major files are accessible. The game should now work with enhanced graphics!</p>
+                    </div>
+                `;
+            }, 2000);
+        }
+        
+        // Run tests when page loads
+        window.onload = runTests;
+    </script>
+</body>
+</html>

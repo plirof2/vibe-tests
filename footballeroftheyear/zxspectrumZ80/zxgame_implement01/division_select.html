@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Division Selection - Football Management Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .screen-title {
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .division-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            width: 500px;
+            margin-bottom: 40px;
+        }
+        
+        .division-item {
+            width: 220px;
+            height: 180px;
+            background-color: #333;
+            border: 2px solid #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .division-item:hover {
+            background-color: #444;
+            transform: scale(1.05);
+        }
+        
+        .division-item.selected {
+            background-color: #00ffff;
+            border-color: #ffff00;
+        }
+        
+        .division-logo {
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        
+        .division-name {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .division-info {
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .button {
+            background-color: #00ffff;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.2s;
+        }
+        
+        .button:hover {
+            background-color: #ffff00;
+            transform: scale(1.05);
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff0000;
+        }
+        
+        .instructions {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .selected-division {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            border: 2px solid #00ffff;
+            width: 300px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <button class="button back-button" onclick="goBack()">Back</button>
+        
+        <h1 class="screen-title">DIVISION SELECTION</h1>
+        
+        <div class="instructions">
+            Choose the division to start your management career
+        </div>
+        
+        <div class="division-grid" id="divisionGrid">
+            <!-- Divisions will be dynamically added here -->
+        </div>
+        
+        <div class="selected-division hidden" id="selectedDivision">
+            <div>Selected Division:</div>
+            <div id="selectedDivisionName"></div>
+        </div>
+        
+        <div style="display: flex; gap: 20px; margin-top: 20px;">
+            <button class="button" id="confirmButton" onclick="confirmSelection()" disabled>Confirm Selection</button>
+            <button class="button" onclick="resetSelection()">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        const divisions = [
+            { 
+                name: 'SUPER', 
+                logo: 'S', 
+                info: 'Top tier - Highest difficulty',
+                cardPrice: 3000,
+                teams: 20
+            },
+            { 
+                name: '1ST DIV', 
+                logo: '1', 
+                info: 'Premier League - High difficulty',
+                cardPrice: 2000,
+                teams: 20
+            },
+            { 
+                name: '2ND DIV', 
+                logo: '2', 
+                info: 'Championship - Medium difficulty',
+                cardPrice: 1500,
+                teams: 24
+            },
+            { 
+                name: '3RD DIV', 
+                logo: '3', 
+                info: 'League One - Lower difficulty',
+                cardPrice: 800,
+                teams: 24
+            },
+            { 
+                name: '4TH DIV', 
+                logo: '4', 
+                info: 'League Two - Lowest difficulty',
+                cardPrice: 400,
+                teams: 24
+            }
+        ];
+        
+        let selectedDivision = null;
+        
+        function initializeDivisions() {
+            const divisionGrid = document.getElementById('divisionGrid');
+            
+            divisions.forEach((division, index) => {
+                const divisionItem = document.createElement('div');
+                divisionItem.className = 'division-item';
+                divisionItem.dataset.divisionIndex = index;
+                
+                const divisionLogo = document.createElement('div');
+                divisionLogo.className = 'division-logo';
+                divisionLogo.textContent = division.logo;
+                
+                const divisionName = document.createElement('div');
+                divisionName.className = 'division-name';
+                divisionName.textContent = division.name;
+                
+                const divisionInfo = document.createElement('div');
+                divisionInfo.className = 'division-info';
+                divisionInfo.textContent = `${division.info} | Card Price: £${division.cardPrice}`;
+                
+                divisionItem.appendChild(divisionLogo);
+                divisionItem.appendChild(divisionName);
+                divisionItem.appendChild(divisionInfo);
+                
+                divisionItem.addEventListener('click', () => selectDivision(index));
+                
+                divisionGrid.appendChild(divisionItem);
+            });
+        }
+        
+        function selectDivision(divisionIndex) {
+            // Remove previous selection
+            document.querySelectorAll('.division-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selection to clicked division
+            const selectedDivisionItem = document.querySelector(`[data-division-index="${divisionIndex}"]`);
+            selectedDivisionItem.classList.add('selected');
+            
+            selectedDivision = divisions[divisionIndex];
+            document.getElementById('selectedDivisionName').textContent = selectedDivision.name;
+            document.getElementById('selectedDivision').classList.remove('hidden');
+            document.getElementById('confirmButton').disabled = false;
+        }
+        
+        function confirmSelection() {
+            if (selectedDivision) {
+                // Save selection to game state
+                const gameState = {
+                    selectedDivision: selectedDivision,
+                    divisionIndex: divisions.findIndex(d => d.name === selectedDivision.name)
+                };
+                
+                localStorage.setItem('gameState', JSON.stringify(gameState));
+                
+                // In a real implementation, would proceed to main game
+                alert(`Selected division: ${selectedDivision.name}`);
+                window.location.href = 'index.html';
+            }
+        }
+        
+        function resetSelection() {
+            selectedDivision = null;
+            document.querySelectorAll('.division-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.getElementById('selectedDivision').classList.add('hidden');
+            document.getElementById('confirmButton').disabled = true;
+        }
+        
+        function goBack() {
+            window.location.href = 'team_selection.html';
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeDivisions();
+            
+            // Load saved selection if exists
+            const savedState = localStorage.getItem('gameState');
+            if (savedState) {
+                const state = JSON.parse(savedState);
+                if (state.selectedDivision) {
+                    const divisionIndex = divisions.findIndex(d => d.name === state.selectedDivision.name);
+                    if (divisionIndex !== -1) {
+                        selectDivision(divisionIndex);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

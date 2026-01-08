@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Team Selection - Football Management Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .screen-title {
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .national-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 600px;
+            margin-bottom: 40px;
+        }
+        
+        .national-item {
+            width: 180px;
+            height: 150px;
+            background-color: #333;
+            border: 2px solid #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .national-item:hover {
+            background-color: #444;
+            transform: scale(1.05);
+        }
+        
+        .national-item.selected {
+            background-color: #00ffff;
+            border-color: #ffff00;
+        }
+        
+        .national-logo {
+            width: 70px;
+            height: 70px;
+            background-color: #fff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+        }
+        
+        .national-name {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .national-info {
+            font-size: 10px;
+            text-align: center;
+        }
+        
+        .button {
+            background-color: #00ffff;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.2s;
+        }
+        
+        .button:hover {
+            background-color: #ffff00;
+            transform: scale(1.05);
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff0000;
+        }
+        
+        .instructions {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .selected-national {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            border: 2px solid #00ffff;
+            width: 300px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <button class="button back-button" onclick="goBack()">Back</button>
+        
+        <h1 class="screen-title">SELECT STARTING NATIONAL TEAM</h1>
+        
+        <div class="instructions">
+            Choose your national team for international competitions
+        </div>
+        
+        <div class="national-grid" id="nationalGrid">
+            <!-- National teams will be dynamically added here -->
+        </div>
+        
+        <div class="selected-national hidden" id="selectedNational">
+            <div>Selected National Team:</div>
+            <div id="selectedNationalName"></div>
+        </div>
+        
+        <div style="display: flex; gap: 20px; margin-top: 20px;">
+            <button class="button" id="confirmButton" onclick="confirmSelection()" disabled>Confirm Selection</button>
+            <button class="button" onclick="resetSelection()">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        const nationalTeams = [
+            { name: 'ENGLAND', logo: 'EN', info: 'Three Lions' },
+            { name: 'SPAIN', logo: 'ES', info: 'La Roja' },
+            { name: 'GERMANY', logo: 'DE', info: 'Die Mannschaft' },
+            { name: 'FRANCE', logo: 'FR', info: 'Les Bleus' },
+            { name: 'ITALY', logo: 'IT', info: 'Azzurri' },
+            { name: 'BRAZIL', logo: 'BR', info: 'Seleção' },
+            { name: 'ARGENTINA', logo: 'AR', info: 'Albiceleste' },
+            { name: 'PORTUGAL', logo: 'PT', info: 'Seleção' },
+            { name: 'NETHERLANDS', logo: 'NL', info: 'Oranje' }
+        ];
+        
+        let selectedNational = null;
+        
+        function initializeNationalTeams() {
+            const nationalGrid = document.getElementById('nationalGrid');
+            
+            nationalTeams.forEach((team, index) => {
+                const nationalItem = document.createElement('div');
+                nationalItem.className = 'national-item';
+                nationalItem.dataset.nationalIndex = index;
+                
+                const nationalLogo = document.createElement('div');
+                nationalLogo.className = 'national-logo';
+                nationalLogo.textContent = team.logo;
+                
+                const nationalName = document.createElement('div');
+                nationalName.className = 'national-name';
+                nationalName.textContent = team.name;
+                
+                const nationalInfo = document.createElement('div');
+                nationalInfo.className = 'national-info';
+                nationalInfo.textContent = team.info;
+                
+                nationalItem.appendChild(nationalLogo);
+                nationalItem.appendChild(nationalName);
+                nationalItem.appendChild(nationalInfo);
+                
+                nationalItem.addEventListener('click', () => selectNational(index));
+                
+                nationalGrid.appendChild(nationalItem);
+            });
+        }
+        
+        function selectNational(nationalIndex) {
+            // Remove previous selection
+            document.querySelectorAll('.national-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selection to clicked national team
+            const selectedNationalItem = document.querySelector(`[data-national-index="${nationalIndex}"]`);
+            selectedNationalItem.classList.add('selected');
+            
+            selectedNational = nationalTeams[nationalIndex];
+            document.getElementById('selectedNationalName').textContent = selectedNational.name;
+            document.getElementById('selectedNational').classList.remove('hidden');
+            document.getElementById('confirmButton').disabled = false;
+        }
+        
+        function confirmSelection() {
+            if (selectedNational) {
+                // Save selection to game state
+                const gameState = {
+                    selectedNational: selectedNational,
+                    nationalIndex: nationalTeams.findIndex(t => t.name === selectedNational.name)
+                };
+                
+                localStorage.setItem('gameState', JSON.stringify(gameState));
+                
+                // In a real implementation, would proceed to main game
+                alert(`Selected national team: ${selectedNational.name}`);
+                window.location.href = 'index.html';
+            }
+        }
+        
+        function resetSelection() {
+            selectedNational = null;
+            document.querySelectorAll('.national-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.getElementById('selectedNational').classList.add('hidden');
+            document.getElementById('confirmButton').disabled = true;
+        }
+        
+        function goBack() {
+            window.location.href = 'division_select.html';
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeNationalTeams();
+            
+            // Load saved selection if exists
+            const savedState = localStorage.getItem('gameState');
+            if (savedState) {
+                const state = JSON.parse(savedState);
+                if (state.selectedNational) {
+                    const nationalIndex = nationalTeams.findIndex(t => t.name === state.selectedNational.name);
+                    if (nationalIndex !== -1) {
+                        selectNational(nationalIndex);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

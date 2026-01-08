@@ -1,0 +1,631 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbitron', monospace;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Left Panel - Game Controls */
+#leftPanel {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    border-right: 3px solid #00ff88;
+    z-index: 1001;
+    overflow-y: auto;
+}
+
+/* Right Panel - Arena Controls */
+#rightPanel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    border-left: 3px solid #00ff88;
+    z-index: 1001;
+    overflow-y: auto;
+}
+
+.control-section {
+    border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+    padding: 15px;
+}
+
+.control-section:last-child {
+    border-bottom: none;
+}
+
+.control-item {
+    text-align: center;
+}
+
+/* Panel Styling */
+#leftPanel h1,
+#rightPanel .control-item > div:first-child {
+    color: #00ff88;
+    font-size: 1.4em;
+    font-weight: 900;
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: glow 2s ease-in-out infinite alternate;
+    margin: 0;
+}
+
+#leftPanel button,
+#rightPanel button {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px 0;
+    font-family: 'Orbitron', monospace;
+    width: calc(100% - 30px);
+    transition: all 0.3s ease;
+}
+
+#leftPanel button:hover,
+#rightPanel button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 107, 107, 0.6);
+    background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+}
+
+#leftPanel button:active,
+#rightPanel button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(255, 107, 107, 0.4);
+}
+
+#leftPanel a,
+#rightPanel a {
+    color: #00ff88;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    display: block;
+    padding: 10px;
+    font-size: 0.8em;
+}
+
+#leftPanel a:hover,
+#rightPanel a:hover {
+    opacity: 1;
+}
+
+
+
+.header-left h1 {
+    color: #00ff88;
+    margin: 0;
+    font-size: 2.2em;
+    font-weight: 900;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+
+
+@keyframes glow {
+    from { text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
+    to { text-shadow: 0 0 30px rgba(0, 255, 136, 0.8), 0 0 40px rgba(0, 255, 136, 0.4); }
+}
+
+#fightbtn {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-left: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', monospace;
+}
+
+#fightbtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 107, 107, 0.6);
+    background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+}
+
+#fightbtn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(255, 107, 107, 0.4);
+}
+
+div#arena a {
+    color: #00ff88;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 0.8em;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+div#arena a:hover {
+    opacity: 1;
+}
+
+/* Arena - Center Area */
+div#arena {
+    position: absolute;
+    left: 200px;  /* Left panel width */
+    right: 200px;  /* Right panel width */
+    top: 0;
+    height: 85%;  /* Controlled by slider */
+    overflow: auto;
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%);
+    border: 3px solid #00ff88;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+}
+
+div#arena canvas {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    max-height: 95%;
+    border: 3px solid #00ff88;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+    background: #000;
+}
+
+/* Code Areas - Bottom Section */
+div#turtle1,
+div#turtle2 {
+    position: absolute;
+    width: 50%;
+    height: 15%;  /* Fixed bottom area */
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,40,0.9) 100%);
+    padding: 1em;
+    overflow: auto;
+    border-top: 2px solid #00ff88;
+    box-shadow: 0 -4px 20px rgba(0, 255, 136, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Account for side panels */
+div#turtle1 {
+    left: 0;
+    border-right: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+div#turtle2 {
+    right: 200px;  /* Account for right panel */
+    left: auto;
+    border-left: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+div#turtle1 {
+    left: 0;
+    border-right: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+div#turtle2 {
+    right: 0;
+    border-left: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+div#turtle1:hover,
+div#turtle2:hover {
+    background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(30,30,50,0.95) 100%);
+}
+
+.turtle-label {
+    color: #00ff88;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.turtle-status {
+    display: flex;
+    align-items: center;
+}
+
+.turtle-status span {
+    margin-left: 10px;
+}
+
+.health-bar {
+    width: 100px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 136, 0.5);
+}
+
+.health-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ff88, #00cc6a);
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+textarea {
+    overflow: auto;
+    width: 100%;
+    height: calc(100% - 30px);
+    background: rgba(0, 0, 0, 0.7);
+    color: #00ff88;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 5px;
+    padding: 10px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    resize: none;
+    transition: all 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #00ff88;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+    background: rgba(0, 0, 0, 0.8);
+}
+
+textarea::placeholder {
+    color: rgba(0, 255, 136, 0.5);
+}
+
+.game-status {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #00ff88;
+    font-size: 3em;
+    font-weight: 900;
+    text-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.game-status.show {
+    opacity: 1;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+
+
+.control-section {
+    border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+    padding: 15px;
+}
+
+.control-section:first-child {
+    border-bottom: 2px solid rgba(0, 255, 136, 0.5);
+}
+
+.control-section:last-child {
+    border-bottom: none;
+}
+
+.control-item {
+    text-align: center;
+}
+
+#sidePanel h1 {
+    color: #00ff88;
+    font-size: 1.4em;
+    font-weight: 900;
+    text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: glow 2s ease-in-out infinite alternate;
+    margin: 0;
+}
+
+#sidePanel button {
+    background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px 0;
+    font-family: 'Orbitron', monospace;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+#sidePanel button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 107, 107, 0.6);
+    background: linear-gradient(45deg, #ff8e53, #ff6b6b);
+}
+
+#sidePanel button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(255, 107, 107, 0.4);
+}
+
+#sidePanel a {
+    color: #00ff88;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    display: block;
+    padding: 10px;
+    font-size: 0.8em;
+}
+
+#sidePanel a:hover {
+    opacity: 1;
+}
+
+
+
+.splitter-bar:hover {
+    background: linear-gradient(180deg, #00ffaa, #00ff88);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.splitter-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(0,0,0,0.8);
+    font-size: 12px;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+/* Resize Controls Styles */
+
+
+.preset-buttons {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.preset-buttons button {
+    background: linear-gradient(45deg, rgba(0, 255, 136, 0.2), rgba(0, 204, 106, 0.2));
+    color: #00ff88;
+    border: 1px solid #00ff88;
+    padding: 8px 12px;
+    font-size: 0.8em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Orbitron', monospace;
+    font-weight: 600;
+    margin: 5px 0;
+    width: 100%;
+    display: block;
+}
+
+.preset-buttons button:hover {
+    background: linear-gradient(45deg, rgba(0, 255, 136, 0.4), rgba(0, 204, 106, 0.4));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+}
+
+.preset-buttons button.active {
+    background: linear-gradient(45deg, #00ff88, #00cc6a);
+    color: #000;
+}
+
+.slider-control {
+    text-align: center;
+}
+
+.slider-control label {
+    color: #00ff88;
+    font-size: 0.9em;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Orbitron', monospace;
+}
+
+#resizeSlider {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 255, 136, 0.2);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+#resizeSlider::-webkit-slider-thumb {
+    width: 18px;
+    height: 18px;
+    background: #00ff88;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    margin: 0; /* Chrome 61 compatibility */
+}
+
+#resizeSlider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+}
+
+#resizeSlider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #00ff88;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+#resizeSlider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+}
+
+/* Old browser fallbacks */
+.old-browser .preset-buttons button,
+.old-browser #resizeSlider {
+    transition: none;
+}
+
+.old-browser .splitter-bar {
+    transition: none;
+}
+
+/* Old browser fallbacks */
+.old-browser .preset-buttons button,
+.old-browser #resizeSlider {
+    /* Remove transition property for Chrome 61 */
+}
+
+.old-browser .splitter-bar {
+    transition: none;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    #leftPanel, #rightPanel {
+        width: 150px;
+    }
+    
+    div#arena {
+        left: 150px;
+        right: 150px;
+    }
+    
+    #leftPanel h1,
+    #rightPanel .control-item > div:first-child {
+        font-size: 1.2em;
+    }
+    
+    div#turtle2 {
+        right: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    #leftPanel, #rightPanel {
+        width: 120px;
+    }
+    
+    div#arena {
+        left: 120px;
+        right: 120px;
+        height: 70%; /* Give more code space on mobile */
+    }
+    
+    #leftPanel h1,
+    #rightPanel .control-item > div:first-child {
+        font-size: 1em;
+    }
+    
+    textarea {
+        font-size: 12px;
+    }
+    
+    .turtle-label {
+        font-size: 0.8em;
+    }
+    
+    .preset-buttons button {
+        padding: 6px 10px;
+        font-size: 0.7em;
+    }
+    
+    div#turtle1, div#turtle2 {
+        height: 30%; /* Larger code area on mobile */
+    }
+    
+    div#turtle2 {
+        right: 120px;
+    }
+}
+
+/* Small screens - hide right panel */
+@media (max-width: 600px) {
+    #rightPanel {
+        display: none; /* Hide right panel to maximize space */
+    }
+    
+    div#arena {
+        left: 120px;
+        right: 0;
+        height: 60%; /* Give more code space on mobile */
+    }
+    
+    #leftPanel {
+        width: 120px;
+    }
+    
+    #leftPanel h1 {
+        font-size: 0.9em;
+    }
+    
+    textarea {
+        font-size: 12px;
+    }
+    
+    .turtle-label {
+        font-size: 0.8em;
+    }
+    
+    .preset-buttons button {
+        padding: 6px 10px;
+        font-size: 0.7em;
+    }
+    
+    div#turtle1, div#turtle2 {
+        width: 100%;
+        height: 40%; /* Much larger code areas */
+    }
+    
+    div#turtle1 {
+        top: 10%;
+    }
+    
+    div#turtle2 {
+        top: 55%;
+        right: 0;
+        left: 0;
+    }
+}

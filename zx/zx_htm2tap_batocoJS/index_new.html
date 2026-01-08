@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Basic EDITOR</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
+
+	<!-- Changes:
+	-230122 - Added PC number selection combo to form
+	-220214 - Edit-Area test002
+	-201019 - hidesubmit option
+	-250126 - Replaced PHP backend with JavaScript (batoco.js)
+	-->
+	<script language="javascript" type="text/javascript" src="edit_area/edit_area_full.js"></script>
+
+	<script>
+	editAreaLoader.init({
+		id : "text_entered",
+		syntax: "basicsinclair",
+		start_highlight: true,
+		allow_resize: "both",
+		toolbar: "search, go_to_line, fullscreen, |, undo, redo, |, select_font, |, change_smooth_selection, highlight, reset_highlight, word_wrap, syntax_selection, |, help",
+		min_height: 500,
+		min_width: 800,
+		font_size: 18
+	});
+
+	function myFunction() {
+		window.convertBasic();
+	}
+	</script>
+</head>
+<body>
+	<div style="background: #e8f5e8; border-left: 4px solid #00aa00; padding: 15px; margin-bottom: 20px;">
+		<strong>How to use:</strong> Enter your ZX Spectrum BASIC code in the editor below, fill in the school/class information, then click "ΥΠΟΒΟΛΗ" to convert and download the .tap file. The file will automatically load in the emulator.
+	</div>
+
+	<form id="theForm">
+		<textarea name="text_entered" id="text_entered" wrap="hard">
+10 PRINT "HELLO"
+</textarea>
+		
+		<button type="button" onclick="myFunction()" style="background: #00aa00; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; margin: 10px 0;">ΥΠΟΒΟΛΗ</button><br>
+		
+		<!-- School and Student Information -->
+		<label for="schoolname" style="display: block; margin: 10px 0 5px; font-weight: bold; color: #555;">ΟΝΟΜΑ ΣΧΟΛΕΙΟΥ:</label>
+		<input type="text" id="schoolname" name="schoolname" size="15" style="padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
+		<br>
+		<br>
+		
+		<div style="margin-bottom: 10px;">
+			<label for="taksi" style="font-weight: bold; color: #555;">ΤΑΞΗ:</label>
+			<select name="taksi" id="taksi" style="padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
+				<option value="Α">Α</option>
+				<option value="Β">Β</option>
+				<option value="Γ">Γ</option>
+				<option value="Δ">Δ</option>
+				<option value="Ε">Ε</option>
+				<option value="ΣΤ">ΣΤ</option>
+			</select>
+			
+			<label for="tmima" style="font-weight: bold; color: #555; margin-left: 20px;">ΤΜΗΜΑ:</label>
+			<select name="tmima" id="tmima" style="padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
+				<option value="1">1</option>
+				<option value="2">2</option>
+			</select>
+		</div>
+		
+		<div style="margin-bottom: 10px;">
+			<label for="pc" style="font-weight: bold; color: #555;">PC Αριθμός:</label>
+			<select name="pc" id="pc" style="padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
+				<option value="00">ΕΠΙΛΕΞΤΕ</option>
+				<option value="01">1</option>
+				<option value="02">2</option>
+				<option value="03">3</option>
+				<option value="04">4</option>
+				<option value="05">5</option>
+				<option value="06">6</option>
+				<option value="07">7</option>
+				<option value="08">8</option>
+				<option value="09">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+				<option value="13">13</option>
+				<option value="14">14</option>
+				<option value="15">15</option>
+				<option value="16">16</option>
+			</select>
+		</div>
+		
+		<label for="name" style="display: block; margin: 10px 0 5px; font-weight: bold; color: #555;">ΟΝΟΜΑ(ΤΑ):</label>
+		<input type="text" id="name" name="name" size="60" style="padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
+		<br>
+		
+		<br>
+		<input type="button" value="ΥΠΟΒΟΛΗ" onclick="myFunction()" style="background: #00aa00; color: white; border: none; padding: 12px 30px; font-size: 16px; border-radius: 4px; cursor: pointer;">
+	</form>
+	
+	<div id="status" style="margin-top: 20px; padding: 15px; border-radius: 4px; font-weight: bold; display: none;"></div>
+	
+	<hr>
+	
+	<div style="background: #fff3e0; border-left: 4px solid #ff9800; padding: 15px; margin-top: 20px;">
+		<strong>Note:</strong> This version uses JavaScript (batoco.js) for conversion. The .tap file will be downloaded to your computer automatically, and the emulator will open in a new tab. You may need to manually load the .tap file into the emulator if automatic loading doesn't work.
+	</div>
+
+	<script src="batoco.js"></script>
+</body>
+</html>

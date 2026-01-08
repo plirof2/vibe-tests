@@ -1,0 +1,12 @@
+class_id,day,slot,teacher_id,course_id
+A,Mon,1,T01,
+A,Mon,2,T01,
+A,Mon,3,T01,
+B1,Mon,1,T02,
+B1,Thu,1,T01,
+B1,Mon,3,T02,
+B2,Tue,2,T03,
+C,Wed,4,T04,
+D,Fri,5,T05,
+E,Fri,7,T01,
+F,Thu,8,T02,

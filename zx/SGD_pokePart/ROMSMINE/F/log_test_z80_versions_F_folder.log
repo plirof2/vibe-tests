@@ -1,0 +1,562 @@
+Timestamp: 2026-01-03 08:50:44
+Scanning: /opt/spectrum/spectrum41mine_z80/F
+========================================================================================================================
+File                                     | Version  | Compression     | Status         
+------------------------------------------------------------------------------------------------------------------------
+F/!FEUD.Z80                              | v3       | Compressed (RLE) | OK             
+F/!FINDERS.Z80                           | v3       | Uncompressed (raw) | OK             
+F/!FIRELOR.Z80                           | v3       | Compressed (RLE) | OK             
+F/!FIST3.Z80                             | v3       | Compressed (RLE) | OK             
+F/!FOX_FB.Z80                            | v3       | Compressed (RLE) | OK             
+F/!FROST.Z80                             | v3       | Compressed (RLE) | OK             
+F/!FUTUREK.Z80                           | v3       | Compressed (RLE) | OK             
+F/!fknight.z80                           | v2.01    | Compressed (RLE) | OK             
+F/&FKNIGHT.Z80                           | v1.45    | Compressed      | OK             
+F/F&forget.z80                           | v2.01    | Compressed (RLE) | OK             
+F/F-15.z80                               | v1.45    | Compressed      | OK             
+F/F-19.z80                               | v1.45    | Compressed      | OK             
+F/F-PILOTD.Z80                           | v1.45    | Compressed      | OK             
+F/F-angel0.z80                           | v1.45    | Compressed      | OK             
+F/F-angel1.z80                           | v1.45    | Compressed      | OK             
+F/F-angel2.z80                           | v1.45    | Compressed      | OK             
+F/F-angel3.z80                           | v1.45    | Compressed      | OK             
+F/F-compil.z80                           | v2.01    | Compressed (RLE) | OK             
+F/F-gordon.z80                           | v3       | Compressed (RLE) | OK             
+F/F-planet.z80                           | v3       | Compressed (RLE) | OK             
+F/F-simula.z80                           | v1.45    | Compressed      | OK             
+F/F-soccer.z80                           | v2.01    | Compressed (RLE) | OK             
+F/F-worlds.z80                           | v1.45    | Compressed      | OK             
+F/F1.Z80                                 | v1.45    | Compressed      | OK             
+F/F15_EAGL.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/F16remix.z80                           | v2.01    | Compressed (RLE) | OK             
+F/F19-1.z80                              | v1.45    | Compressed      | OK             
+F/F19-2.z80                              | v1.45    | Compressed      | OK             
+F/F19-3.z80                              | v1.45    | Compressed      | OK             
+F/F19-4.z80                              | v1.45    | Compressed      | OK             
+F/F1SIM.Z80                              | v1.45    | Compressed      | OK             
+F/F1TORNAD.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/F1_SIM.Z80                             | v1.45    | Compressed      | OK             
+F/F1_maste.z80                           | v3       | Compressed (RLE) | OK             
+F/F4_1.Z80                               | v2.01    | Compressed (RLE) | OK             
+F/F4_2.Z80                               | v2.01    | Uncompressed (raw) | OK             
+F/F64chlne.z80                           | v3       | Compressed (RLE) | OK             
+F/FACT.Z80                               | v3       | Compressed (RLE) | OK             
+F/FAHR3000.Z80                           | v1.45    | Compressed      | OK             
+F/FAHRENHT.Z80                           | v3       | Compressed (RLE) | OK             
+F/FAIRL148.Z80                           | v3       | Compressed (RLE) | OK             
+F/FAIRLGT1.Z80                           | v3       | Uncompressed (raw) | OK             
+F/FAIRLGT2.Z80                           | v1.45    | Compressed      | OK             
+F/FAIRLI2@.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FAIRLIGH.Z80                           | v1.45    | Compressed      | OK             
+F/FALCPAT2.Z80                           | v3       | Compressed (RLE) | OK             
+F/FALC_PA2.Z80                           | v1.45    | Compressed      | OK             
+F/FALLGUY.Z80                            | v2.01    | Compressed (RLE) | OK             
+F/FALLOUT.Z80                            | v2.01    | Compressed (RLE) | OK             
+F/FALLROME.Z80                           | v3       | Compressed (RLE) | OK             
+F/FALL_GUY.Z80                           | v1.45    | Compressed      | OK             
+F/FALPAT2.Z80                            | v2.01    | Compressed (RLE) | OK             
+F/FAMOUS5.Z80                            | v2.01    | Uncompressed (raw) | OK             
+F/FANTASMI.Z80                           | v3       | Compressed (RLE) | OK             
+F/FANTASYX.Z80                           | v1.45    | Compressed      | OK             
+F/FANTVOYA.Z80                           | v3       | Compressed (RLE) | OK             
+F/FAST&FUR.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FAST128.Z80                            | v2.01    | Compressed (RLE) | OK             
+F/FASTFOOD.Z80                           | v1.45    | Compressed      | OK             
+F/FAST_FUR.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FATWEND.Z80                            | v1.45    | Compressed      | OK             
+F/FATWORM.Z80                            | v3       | Compressed (RLE) | OK             
+F/FAT_WORM.Z80                           | v3       | Compressed (RLE) | OK             
+F/FA_CUP.Z80                             | v3       | Compressed (RLE) | OK             
+F/FBM.Z80                                | v1.45    | Compressed      | OK             
+F/FB_YEAR2.Z80                           | v3       | Compressed (RLE) | OK             
+F/FDM1.Z80                               | v3       | Compressed (RLE) | OK             
+F/FDM2.Z80                               | v3       | Compressed (RLE) | OK             
+F/FDM3.Z80                               | v3       | Compressed (RLE) | OK             
+F/FDM4.Z80                               | v3       | Compressed (RLE) | OK             
+F/FDM5.Z80                               | v3       | Compressed (RLE) | OK             
+F/FDTP.Z80                               | v2.01    | Compressed (RLE) | OK             
+F/FEASIBIL.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FED.Z80                                | v1.45    | Compressed      | OK             
+F/FEDERATI.Z80                           | v1.45    | Compressed      | OK             
+F/FERNANDZ.Z80                           | v3       | Compressed (RLE) | OK             
+F/FEUD.Z80                               | v1.45    | Compressed      | OK             
+F/FFOBC1.Z80                             | v3       | Compressed (RLE) | OK             
+F/FFOBC2.Z80                             | v3       | Compressed (RLE) | OK             
+F/FFOBC3.Z80                             | v3       | Compressed (RLE) | OK             
+F/FFOBC4.Z80                             | v3       | Compressed (RLE) | OK             
+F/FFOLLY1.Z80                            | v3       | Compressed (RLE) | OK             
+F/FFOLLY2.Z80                            | v3       | Compressed (RLE) | OK             
+F/FGTHOLLY.Z80                           | v3       | Compressed (RLE) | OK             
+F/FIDO1.Z80                              | v3       | Compressed (RLE) | OK             
+F/FIDO2.Z80                              | v3       | Compressed (RLE) | OK             
+F/FIFTH.Z80                              | v1.45    | Compressed      | OK             
+F/FIFTH_QU.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FIGCHESS.Z80                           | v3       | Compressed (RLE) | OK             
+F/FIGFORTH.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FIGHTPI.Z80                            | v3       | Compressed (RLE) | OK             
+F/FIGHTWAR.Z80                           | v3       | Uncompressed (raw) | OK             
+F/FILERA.Z80                             | v1.45    | Compressed      | OK             
+F/FILLERS.Z80                            | v2.01    | Compressed (RLE) | OK             
+F/FINALMAT.Z80                           | v2.01    | Uncompressed (raw) | OK             
+F/FINALMIS.Z80                           | v2.01    | Uncompressed (raw) | OK             
+F/FINAL_AS.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FINANMAN.Z80                           | v3       | Compressed (RLE) | OK             
+F/FINASSLT.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FINDERK2.Z80                           | v1.45    | Compressed      | OK             
+F/FINDERK3.Z80                           | v1.45    | Compressed      | OK             
+F/FINEHOUR.Z80                           | v3       | Compressed (RLE) | OK             
+F/FINHOURS.Z80                           | v1.45    | Compressed      | OK             
+F/FIRE.Z80                               | v2.01    | Compressed (RLE) | OK             
+F/FIREBIRD.Z80                           | v1.45    | Compressed      | OK             
+F/FIREFLY.Z80                            | v1.45    | Compressed      | OK             
+F/FIRELORD.Z80                           | v1.45    | Compressed      | OK             
+F/FIREMAN.Z80                            | v3       | Compressed (RLE) | OK             
+F/FIRESTOR.Z80                           | v1.45    | Compressed      | OK             
+F/FIRETERM.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FIRETE_1.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FIRETRAP.Z80                           | v1.45    | Compressed      | OK             
+F/FIRE_ADV.Z80                           | v3       | Compressed (RLE) | OK             
+F/FIRE_FOR.Z80                           | v1.45    | Compressed      | OK             
+F/FISCHEN.Z80                            | v3       | Compressed (RLE) | OK             
+F/FISH21.Z80                             | v2.01    | Uncompressed (raw) | OK             
+F/FISH22.Z80                             | v2.01    | Compressed (RLE) | OK             
+F/FISH23.Z80                             | v2.01    | Compressed (RLE) | OK             
+F/FISH24.Z80                             | v2.01    | Uncompressed (raw) | OK             
+F/FISKERI.Z80                            | v1.45    | Compressed      | OK             
+F/FISOCCER.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FIST2-1P.Z80                           | v3       | Compressed (RLE) | OK             
+F/FIST2-2P.Z80                           | v3       | Compressed (RLE) | OK             
+F/FIST22.Z80                             | v1.45    | Compressed      | OK             
+F/FIST_3PL.Z80                           | v3       | Compressed (RLE) | OK             
+F/FIST_TWO.Z80                           | v3       | Compressed (RLE) | OK             
+F/FIXSTERN.Z80                           | v3       | Compressed (RLE) | OK             
+F/FLAGGEN.Z80                            | v3       | Compressed (RLE) | OK             
+F/FLAK.Z80                               | v2.01    | Compressed (RLE) | OK             
+F/FLAME1.Z80                             | v2.01    | Compressed (RLE) | OK             
+F/FLASHG1.Z80                            | v1.45    | Compressed      | OK             
+F/FLASHG3.Z80                            | v1.45    | Compressed      | OK             
+F/FLECHT.Z80                             | v3       | Compressed (RLE) | OK             
+F/FLEXITE.Z80                            | v1.45    | Compressed      | OK             
+F/FLGORDON.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FLIGHT2.Z80                            | v1.45    | Compressed      | OK             
+F/FLIGHTSI.Z80                           | v3       | Compressed (RLE) | OK             
+F/FLIGHT_S.Z80                           | v1.45    | Compressed      | OK             
+F/FLIPPER.Z80                            | v3       | Compressed (RLE) | OK             
+F/FLIPPRGH.Z80                           | v3       | Compressed (RLE) | OK             
+F/FLNSHARK.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FLNTSTNS.Z80                           | v3       | Compressed (RLE) | OK             
+F/FLNTSTON.Z80                           | v1.45    | Compressed      | OK             
+F/FLOPPY.Z80                             | v3       | Compressed (RLE) | OK             
+F/FLOWCHAR.Z80                           | v1.45    | Compressed      | OK             
+F/FLUCHT_1.Z80                           | v1.45    | Compressed      | OK             
+F/FLUGSIMU.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FLUNKY.Z80                             | v3       | Compressed (RLE) | OK             
+F/FLYERFOX.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FLYFORMU.Z80                           | v3       | Compressed (RLE) | OK             
+F/FLYING_F.Z80                           | v3       | Compressed (RLE) | OK             
+F/FLYNGTIG.Z80                           | v3       | Compressed (RLE) | OK             
+F/FLYSHARK.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FLYTRAIN.Z80                           | v3       | Compressed (RLE) | OK             
+F/FMARTIN.Z80                            | v2.01    | Compressed (RLE) | OK             
+F/FOCUS.Z80                              | v1.45    | Compressed      | OK             
+F/FOLLY1.Z80                             | v1.45    | Compressed      | OK             
+F/FOLLY2.Z80                             | v1.45    | Compressed      | OK             
+F/FONTAS.Z80                             | v2.01    | Compressed (RLE) | OK             
+F/FONTFIND.Z80                           | v3       | Compressed (RLE) | OK             
+F/FOOADNSK.Z80                           | v1.45    | Compressed      | OK             
+F/FOOTBALL.Z80                           | v1.45    | Compressed      | OK             
+F/FOOTBMAN.Z80                           | v3       | Compressed (RLE) | OK             
+F/FOOTBM_2.Z80                           | v3       | Compressed (RLE) | OK             
+F/FOOTDIRE.Z80                           | v1.45    | Compressed      | OK             
+F/FOOTMAN3.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FOOTYEAR.Z80                           | v1.45    | Compressed      | OK             
+F/FOOT_DIR.Z80                           | v3       | Compressed (RLE) | OK             
+F/FOOT_MA2.Z80                           | v3       | Compressed (RLE) | OK             
+F/FORCEFIG.Z80                           | v1.45    | Compressed      | OK             
+F/FORCFGTR.Z80                           | v1.45    | Compressed      | OK             
+F/FOREST.Z80                             | v2.01    | Compressed (RLE) | OK             
+F/FOREST2.Z80                            | v1.45    | Compressed      | OK             
+F/FORGCITY.Z80                           | v1.45    | Compressed      | OK             
+F/FORGET.Z80                             | v3       | Uncompressed (raw) | OK             
+F/FORGWRL@.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FORM1MAN.Z80                           | v3       | Compressed (RLE) | OK             
+F/FORTHPR1.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FORTHPR2.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FORTHPR3.Z80                           | v2.01    | Uncompressed (raw) | OK             
+F/FOTCHMP.Z80                            | v1.45    | Compressed      | OK             
+F/FOUR.Z80                               | v1.45    | Compressed      | OK             
+F/FOURMANS.Z80                           | v3       | Compressed (RLE) | OK             
+F/FOURPR#2.Z80                           | v3       | Compressed (RLE) | OK             
+F/FOURTHP1.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FOURTHP2.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FOURTHP3.Z80                           | v2.01    | Uncompressed (raw) | OK             
+F/FOURTHPR/FORTHPR1.Z80                  | v2.01    | Compressed (RLE) | OK             
+F/FOURTHPR/FORTHPR2.Z80                  | v2.01    | Compressed (RLE) | OK             
+F/FOURTHPR/FORTHPR3.Z80                  | v2.01    | Uncompressed (raw) | OK             
+F/FOURTHPR/FOURTHP1.Z80                  | v2.01    | Compressed (RLE) | OK             
+F/FOURTHPR/FOURTHP2.Z80                  | v2.01    | Compressed (RLE) | OK             
+F/FOURTHPR/FOURTHP3.Z80                  | v2.01    | Uncompressed (raw) | OK             
+F/FOXBACK.Z80                            | v2.01    | Compressed (RLE) | OK             
+F/FOXES&RA.Z80                           | v1.45    | Compressed      | OK             
+F/FOXFBACK.Z80                           | v1.45    | Compressed      | OK             
+F/FP50.Z80                               | v1.45    | Compressed      | OK             
+F/FPCOMP.Z80                             | v2.01    | Compressed (RLE) | OK             
+F/FPDNEWS2.Z80                           | v1.45    | Compressed      | OK             
+F/FP_COMPI.Z80                           | v3       | Compressed (RLE) | OK             
+F/FP_FORTH.Z80                           | v3       | Compressed (RLE) | OK             
+F/FRACTAL.Z80                            | v1.45    | Compressed      | OK             
+F/FRACTALS.Z80                           | v1.45    | Compressed      | OK             
+F/FRACTALU.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FRANCE.Z80                             | v1.45    | Compressed      | OK             
+F/FRANK-N.Z80                            | v1.45    | Compressed      | OK             
+F/FRANK1.Z80                             | v1.45    | Compressed      | OK             
+F/FRANK2.Z80                             | v1.45    | Compressed      | OK             
+F/FRANK3.Z80                             | v1.45    | Compressed      | OK             
+F/FRANKEN1.Z80                           | v3       | Compressed (RLE) | OK             
+F/FRANKEN2.Z80                           | v3       | Compressed (RLE) | OK             
+F/FRANKEN3.Z80                           | v3       | Compressed (RLE) | OK             
+F/FRANK_20.Z80                           | v1.45    | Compressed      | OK             
+F/FRANSK.Z80                             | v1.45    | Compressed      | OK             
+F/FREANALY.Z80                           | v3       | Compressed (RLE) | OK             
+F/FRED-FAN.Z80                           | v3       | Compressed (RLE) | OK             
+F/FRED.Z80                               | v1.45    | Compressed      | OK             
+F/FREDDYSM.Z80                           | v1.45    | Compressed      | OK             
+F/FREEZ.Z80                              | v1.45    | Compressed      | OK             
+F/FRENZY.Z80                             | v2.01    | Compressed (RLE) | OK             
+F/FRENZYQS.Z80                           | v3       | Compressed (RLE) | OK             
+F/FRGTMARE.Z80                           | v3       | Compressed (RLE) | OK             
+F/FRIDGE.Z80                             | v3       | Compressed (RLE) | OK             
+F/FRIDGEFR.Z80                           | v3       | Compressed (RLE) | OK             
+F/FRI_13TH.Z80                           | v1.45    | Compressed      | OK             
+F/FRNKENS1.Z80                           | v1.45    | Compressed      | OK             
+F/FRNKFLEA.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FRODO.Z80                              | v2.01    | Compressed (RLE) | OK             
+F/FROG5.Z80                              | v2.01    | Compressed (RLE) | OK             
+F/FROGGER1.Z80                           | v1.45    | Compressed      | OK             
+F/FROGGER2.Z80                           | v3       | Compressed (RLE) | OK             
+F/FROGGERR.Z80                           | v3       | Compressed (RLE) | OK             
+F/FROGGY__.Z80                           | v3       | Compressed (RLE) | OK             
+F/FROGRUN.Z80                            | v1.45    | Compressed      | OK             
+F/FROGSHOT.Z80                           | v3       | Compressed (RLE) | OK             
+F/FROG_ANF.Z80                           | v3       | Compressed (RLE) | OK             
+F/FRONTENI.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FROSTBYT.Z80                           | v1.45    | Compressed      | OK             
+F/FROST_BY.Z80                           | v1.45    | Compressed      | OK             
+F/FRSKPS.Z80                             | v1.45    | Compressed      | OK             
+F/FRUIT.Z80                              | v3       | Compressed (RLE) | OK             
+F/FRUITMA2.Z80                           | v1.45    | Compressed      | OK             
+F/FRUITMA4.Z80                           | v3       | Compressed (RLE) | OK             
+F/FRUITMCH.Z80                           | v1.45    | Compressed      | OK             
+F/FRUITSIM.Z80                           | v3       | Compressed (RLE) | OK             
+F/FRUIT_DK.Z80                           | v3       | Compressed (RLE) | OK             
+F/FSTBASIC.Z80                           | v3       | Compressed (RLE) | OK             
+F/FSTEINJR.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FTKNIGHT.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FUCK_128.Z80                           | v3       | Compressed (RLE) | OK             
+F/FUGA.Z80                               | v1.45    | Compressed      | OK             
+F/FUGG_FUG.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FUKNIGHT.Z80                           | v3       | Compressed (RLE) | OK             
+F/FULLTHRO.Z80                           | v1.45    | Compressed      | OK             
+F/FULLWIDT.Z80                           | v3       | Compressed (RLE) | OK             
+F/FUNCIONS.Z80                           | v3       | Compressed (RLE) | OK             
+F/FUNKPLOT.Z80                           | v1.45    | Compressed      | OK             
+F/FUNK_KW.Z80                            | v1.45    | Compressed      | OK             
+F/FURY128K.Z80                           | v3       | Compressed (RLE) | OK             
+F/FURY48K.Z80                            | v3       | Compressed (RLE) | OK             
+F/FUSSLOAD.Z80                           | v3       | Compressed (RLE) | OK             
+F/FUTKNIGH.Z80                           | v3       | Compressed (RLE) | OK             
+F/FUTOLYM1.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FUTOLYM2.Z80                           | v2.01    | Compressed (RLE) | OK             
+F/FUZZIES.Z80                            | v3       | Compressed (RLE) | OK             
+F/FWARRIOR.Z80                           | v2.01    | Uncompressed (raw) | OK             
+F/FWDIZZY.Z80                            | v1.45    | Compressed      | OK             
+F/FYTALE.Z80                             | v1.45    | Compressed      | OK             
+F/FYTO1.Z80                              | v3       | Compressed (RLE) | OK             
+F/FYTO2.Z80                              | v3       | Compressed (RLE) | OK             
+F/F_SIM.Z80                              | v1.45    | Compressed      | OK             
+F/F_VOYAGE.Z80                           | v1.45    | Compressed      | OK             
+F/F_breed.z80                            | v3       | Compressed (RLE) | OK             
+F/F_gchess.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Facup87.z80                            | v1.45    | Compressed      | OK             
+F/Faerie.z80                             | v3       | Uncompressed (raw) | OK             
+F/Fahren3K.z80                           | v1.45    | Compressed      | OK             
+F/Fai1_128.z80                           | v3       | Compressed (RLE) | OK             
+F/Fairl128.z80                           | v3       | Compressed (RLE) | OK             
+F/Fairlig3.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fairly difficult mission a.z80         | v3       | Compressed (RLE) | OK             
+F/Fairly difficult mission b.z80         | v3       | Compressed (RLE) | OK             
+F/Fairly difficult mission c.z80         | v3       | Compressed (RLE) | OK             
+F/Fairly difficult mission d.z80         | v3       | Compressed (RLE) | OK             
+F/Fairly difficult mission e.z80         | v3       | Compressed (RLE) | OK             
+F/Fairmean.z80                           | v1.45    | Compressed      | OK             
+F/Fairsha1.z80                           | v3       | Compressed (RLE) | OK             
+F/Fairsha2.z80                           | v3       | Compressed (RLE) | OK             
+F/Falcon.z80                             | v2.01    | Compressed (RLE) | OK             
+F/Falkland.z80                           | v3       | Compressed (RLE) | OK             
+F/Fall-guy.z80                           | v1.45    | Compressed      | OK             
+F/Fallrome.z80                           | v1.45    | Compressed      | OK             
+F/Famerica.z80                           | v1.45    | Compressed      | OK             
+F/Fankpunk.z80                           | v3       | Compressed (RLE) | OK             
+F/Fantasmi(Spectres).z80                 | v3       | Compressed (RLE) | OK             
+F/Fantasy.z80                            | v2.01    | Compressed (RLE) | OK             
+F/Fantomai.z80                           | v3       | Compressed (RLE) | OK             
+F/Farmer-h.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fatwend.z80                            | v1.45    | Compressed      | OK             
+F/Faulty-t.z80                           | v3       | Compressed (RLE) | OK             
+F/FbYearGR.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fb_year1.z80                           | v3       | Compressed (RLE) | OK             
+F/Fb_year2.z80                           | v3       | Compressed (RLE) | OK             
+F/Fbboxing.z80                           | v1.45    | Compressed      | OK             
+F/Fbi128.z80                             | v3       | Compressed (RLE) | OK             
+F/Fbi48.z80                              | v3       | Uncompressed (raw) | OK             
+F/Fbreakou.z80                           | v3       | Compressed (RLE) | OK             
+F/Fd2.z80                                | v3       | Compressed (RLE) | OK             
+F/Fdiamond.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fearless.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Feasibility experiment.z80             | v2.01    | Compressed (RLE) | OK             
+F/Feitizo-.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fenix.z80                              | v2.01    | Compressed (RLE) | OK             
+F/Festung.z80                            | v3       | Compressed (RLE) | OK             
+F/Feud-128.z80                           | v2.01    | Uncompressed (raw) | OK             
+F/Ffolly1.z80                            | v3       | Compressed (RLE) | OK             
+F/Ffolly2.z80                            | v3       | Compressed (RLE) | OK             
+F/Ffra1128.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Ffra2128.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Ffra3128.z80                           | v2.01    | Uncompressed (raw) | OK             
+F/Ffurious.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fi_compe.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fifth-de.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Figchess.z80                           | v1.45    | Compressed      | OK             
+F/Figforth.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fighte_a.z80                           | v3       | Compressed (RLE) | OK             
+F/Fighter.z80                            | v3       | Compressed (RLE) | OK             
+F/Figment.z80                            | v3       | Compressed (RLE) | OK             
+F/Filemon2.z80                           | v3       | Compressed (RLE) | OK             
+F/Final128.z80                           | v3       | Compressed (RLE) | OK             
+F/Finance.z80                            | v2.01    | Compressed (RLE) | OK             
+F/Fire-128.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fire-sam.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fire48__.z80                           | v3       | Compressed (RLE) | OK             
+F/Fire_i_1.z80                           | v3       | Compressed (RLE) | OK             
+F/Firebrds.z80                           | v3       | Compressed (RLE) | OK             
+F/Firecopy.z80                           | v3       | Compressed (RLE) | OK             
+F/Fireflyo.z80                           | v3       | Compressed (RLE) | OK             
+F/Firehawk.z80                           | v3       | Compressed (RLE) | OK             
+F/Firewo_c.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Firfurci.z80                           | v1.45    | Compressed      | OK             
+F/First-pp.z80                           | v3       | Compressed (RLE) | OK             
+F/Fischen.z80                            | v3       | Compressed (RLE) | OK             
+F/Fist2-pr.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fizyka-1.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fizyka-2.z80                           | v2.01    | Uncompressed (raw) | OK             
+F/Fizyka-3.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fizyka-4.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fkni128.z80                            | v2.01    | Compressed (RLE) | OK             
+F/Fl_track.z80                           | v3       | Compressed (RLE) | OK             
+F/Flame1.z80                             | v2.01    | Compressed (RLE) | OK             
+F/Flashpoi.z80                           | v2.01    | Uncompressed (raw) | OK             
+F/Flecht.z80                             | v3       | Compressed (RLE) | OK             
+F/Flexo_.z80                             | v2.01    | Compressed (RLE) | OK             
+F/Flight2.z80                            | v1.45    | Compressed      | OK             
+F/FlightS2.z80                           | v1.45    | Compressed      | OK             
+F/Flightw.z80                            | v1.45    | Compressed      | OK             
+F/Flintsto.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Flipflap.z80                           | v1.45    | Compressed      | OK             
+F/Flipi_.z80                             | v3       | Compressed (RLE) | OK             
+F/Flipit48.z80                           | v3       | Compressed (RLE) | OK             
+F/Flipit_1.z80                           | v3       | Compressed (RLE) | OK             
+F/Flipper.z80                            | v2.01    | Compressed (RLE) | OK             
+F/Flipper2.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Flliper.z80                            | v3       | Compressed (RLE) | OK             
+F/Flow-cha.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Flucht_0.z80                           | v3       | Compressed (RLE) | OK             
+F/Flying.z80                             | v1.45    | Compressed      | OK             
+F/Fm2_128.z80                            | v3       | Compressed (RLE) | OK             
+F/Fmanager.z80                           | v3       | Compressed (RLE) | OK             
+F/Fmartin.z80                            | v1.45    | Compressed      | OK             
+F/Fminute2.z80                           | v3       | Uncompressed (raw) | OK             
+F/Fminutes.z80                           | v2.01    | Uncompressed (raw) | OK             
+F/Fo_maker.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fog_.z80                               | v2.01    | Compressed (RLE) | OK             
+F/Fokker3.z80                            | v2.01    | Compressed (RLE) | OK             
+F/FootYrGR.z80                           | v3       | Compressed (RLE) | OK             
+F/Footbal3.z80                           | v3       | Compressed (RLE) | OK             
+F/Footboli.z80                           | v3       | Compressed (RLE) | OK             
+F/For gold or glory.z80                  | v3       | Compressed (RLE) | OK             
+F/For your thighs only a.z80             | v3       | Compressed (RLE) | OK             
+F/For your thighs only b.z80             | v3       | Compressed (RLE) | OK             
+F/For_alex.z80                           | v3       | Compressed (RLE) | OK             
+F/For_peac.z80                           | v3       | Compressed (RLE) | OK             
+F/Forcfgtr.z80                           | v1.45    | Compressed      | OK             
+F/Forgotten city.z80                     | v1.45    | Compressed      | OK             
+F/Format42.z80                           | v3       | Compressed (RLE) | OK             
+F/Forth.z80                              | v1.45    | Compressed      | OK             
+F/Forth11a.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Four minutes to midnight.z80           | v1.45    | Compressed      | OK             
+F/Fox.z80                                | v1.45    | Compressed      | OK             
+F/Foxes_ra.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Foxmoz80.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fp50.z80                               | v1.45    | Compressed      | OK             
+F/Fpatrol2.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fr2000.z80                             | v3       | Compressed (RLE) | OK             
+F/Fra-jnr.z80                            | v1.45    | Compressed      | OK             
+F/Fraccion.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fractals.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Franca-v.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Frank-ns.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Franken2.z80                           | v3       | Compressed (RLE) | OK             
+F/Franken3.z80                           | v3       | Compressed (RLE) | OK             
+F/Frankenstein a.z80                     | v3       | Compressed (RLE) | OK             
+F/Frankgth.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Frazett1.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Frazett2.z80                           | v2.01    | Uncompressed (raw) | OK             
+F/Frazett3.z80                           | v2.01    | Uncompressed (raw) | OK             
+F/Freanaly.z80                           | v3       | Compressed (RLE) | OK             
+F/Freddy-3.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Freddyha.z80                           | v1.45    | Compressed      | OK             
+F/Freddyhb.z80                           | v1.45    | Compressed      | OK             
+F/Fredy.z80                              | v1.45    | Compressed      | OK             
+F/Free-c1.z80                            | v1.45    | Compressed      | OK             
+F/Free-c2.z80                            | v3       | Compressed (RLE) | OK             
+F/Free-c3.z80                            | v3       | Compressed (RLE) | OK             
+F/Freex.z80                              | v3       | Compressed (RLE) | OK             
+F/Frekdist.z80                           | v3       | Compressed (RLE) | OK             
+F/French-1.z80                           | v2.01    | Compressed (RLE) | OK             
+F/French-2.z80                           | v2.01    | Compressed (RLE) | OK             
+F/French-3.z80                           | v2.01    | Compressed (RLE) | OK             
+F/French-4.z80                           | v2.01    | Compressed (RLE) | OK             
+F/French-5.z80                           | v2.01    | Compressed (RLE) | OK             
+F/French-6.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Frenchcd.z80                           | v3       | Compressed (RLE) | OK             
+F/Frenzy.z80                             | v2.01    | Compressed (RLE) | OK             
+F/Frenzyqs.z80                           | v3       | Compressed (RLE) | OK             
+F/Frenzysg.z80                           | v3       | Compressed (RLE) | OK             
+F/Frodo.z80                              | v3       | Compressed (RLE) | OK             
+F/Frog__.z80                             | v3       | Compressed (RLE) | OK             
+F/Frogadv.z80                            | v3       | Uncompressed (raw) | OK             
+F/Frogger-.z80                           | v3       | Compressed (RLE) | OK             
+F/Froggy-1.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Froggy-2.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Froghopp.z80                           | v3       | Compressed (RLE) | OK             
+F/Frogshot.z80                           | v3       | Compressed (RLE) | OK             
+F/From out of a dark night sky.z80       | v1.45    | Compressed      | OK             
+F/Frontlin.z80                           | v1.45    | Compressed      | OK             
+F/Frozen-p.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fruit-ma.z80                           | v1.45    | Compressed      | OK             
+F/Fruit_ra.z80                           | v3       | Compressed (RLE) | OK             
+F/Fruitma1.z80                           | v3       | Compressed (RLE) | OK             
+F/Fstbasic.z80                           | v3       | Compressed (RLE) | OK             
+F/Fuck_128.z80                           | v3       | Compressed (RLE) | OK             
+F/Fuck_48.z80                            | v2.01    | Uncompressed (raw) | OK             
+F/Full-th2.z80                           | v1.45    | Compressed      | OK             
+F/Fulltrod.z80                           | v1.45    | Compressed      | OK             
+F/Fullwidt.z80                           | v3       | Compressed (RLE) | OK             
+F/Fumigato.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fungeogr.z80                           | v3       | Compressed (RLE) | OK             
+F/Funhouse.z80                           | v3       | Compressed (RLE) | OK             
+F/Funkcja.z80                            | v2.01    | Compressed (RLE) | OK             
+F/Funwit_1.z80                           | v3       | Compressed (RLE) | OK             
+F/Fury48k.z80                            | v3       | Compressed (RLE) | OK             
+F/Fussba_1.z80                           | v3       | Compressed (RLE) | OK             
+F/Future2.z80                            | v2.01    | Compressed (RLE) | OK             
+F/Fwe_lite.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fwishtle.z80                           | v2.01    | Compressed (RLE) | OK             
+F/Fxs4.z80                               | v3       | Compressed (RLE) | OK             
+F/Fy-fy.z80                              | v3       | Compressed (RLE) | OK             
+F/POKES/FROSTBYT.Z80                     | v1.45    | Compressed      | OK             
+F/The five doctors.z80                   | v1.45    | Compressed      | OK             
+F/f3000.z80                              | v2.01    | Compressed (RLE) | OK             
+F/factory.z80                            | v2.01    | Compressed (RLE) | OK             
+F/facup.z80                              | v2.01    | Compressed (RLE) | OK             
+F/fairlig2.z80                           | v2.01    | Compressed (RLE) | OK             
+F/fairligh.z80                           | v1.45    | Compressed      | OK             
+F/fallguy.z80                            | v2.01    | Compressed (RLE) | OK             
+F/fantasia.z80                           | v2.01    | Compressed (RLE) | OK             
+F/fantvoya.z80                           | v3       | Compressed (RLE) | OK             
+F/fatworm.z80                            | v3       | Compressed (RLE) | OK             
+F/feud.z80                               | v1.45    | Compressed      | OK             
+F/fformula.z80                           | v2.01    | Compressed (RLE) | OK             
+F/fighting.z80                           | v2.01    | Uncompressed (raw) | OK             
+F/figpilot.z80                           | v2.01    | Compressed (RLE) | OK             
+F/finalmis.z80                           | v2.01    | Uncompressed (raw) | OK             
+F/findkeep.z80                           | v2.01    | Uncompressed (raw) | OK             
+F/finhours.z80                           | v2.01    | Compressed (RLE) | OK             
+F/firebird.z80                           | v1.45    | Compressed      | OK             
+F/firelord.z80                           | v1.45    | Compressed      | OK             
+F/fireman.z80                            | v2.01    | Compressed (RLE) | OK             
+F/fishing.z80                            | v2.01    | Compressed (RLE) | OK             
+F/fist.z80                               | v2.01    | Compressed (RLE) | OK             
+F/fist2.z80                              | v2.01    | Compressed (RLE) | OK             
+F/fist2_ar.z80                           | v1.45    | Compressed      | OK             
+F/fistplus.z80                           | v1.45    | Compressed      | OK             
+F/fiveside.z80                           | v2.01    | Compressed (RLE) | OK             
+F/fknight.z80                            | v1.45    | Compressed      | OK             
+F/flak!.z80                              | v2.01    | Compressed (RLE) | OK             
+F/flame1.z80                             | v2.01    | Compressed (RLE) | OK             
+F/flashpnt.z80                           | v2.01    | Uncompressed (raw) | OK             
+F/fleebyte.z80                           | v1.45    | Compressed      | OK             
+F/flighsim.z80                           | v2.01    | Compressed (RLE) | OK             
+F/flintstn.z80                           | v2.01    | Compressed (RLE) | OK             
+F/flippit.z80                            | v3       | Compressed (RLE) | OK             
+F/flyshark.z80                           | v2.01    | Compressed (RLE) | OK             
+F/fm2.z80                                | v2.01    | Compressed (RLE) | OK             
+F/fmbmastr.Z80                           | v1.45    | Compressed      | OK             
+F/football.z80                           | v2.01    | Compressed (RLE) | OK             
+F/footfren.z80                           | v3       | Uncompressed (raw) | OK             
+F/footgr2.z80                            | v2.01    | Compressed (RLE) | OK             
+F/footgr2_2022teams_v01.z80              | v2.01    | Compressed (RLE) | OK             
+F/footmana.z80                           | v2.01    | Compressed (RLE) | OK             
+F/forbidde.z80                           | v2.01    | Compressed (RLE) | OK             
+F/forcefig.z80                           | v1.45    | Compressed      | OK             
+F/formul_1.z80                           | v2.01    | Compressed (RLE) | OK             
+F/formula1.z80                           | v2.01    | Compressed (RLE) | OK             
+F/fourthp1.z80                           | v1.45    | Compressed      | OK             
+F/fourthp2.z80                           | v2.01    | Compressed (RLE) | OK             
+F/fourthp3.z80                           | v2.01    | Uncompressed (raw) | OK             
+F/foxfight.z80                           | v2.01    | Compressed (RLE) | OK             
+F/fp2.z80                                | v2.01    | Compressed (RLE) | OK             
+F/frank200.z80                           | v2.01    | Compressed (RLE) | OK             
+F/frankie.z80                            | v2.01    | Compressed (RLE) | OK             
+F/franknst.z80                           | v2.01    | Compressed (RLE) | OK             
+F/fred.z80                               | v2.01    | Compressed (RLE) | OK             
+F/freddyp1.z80                           | v1.45    | Compressed      | OK             
+F/freddyp2.z80                           | v1.45    | Compressed      | OK             
+F/freezbee.z80                           | v2.01    | Compressed (RLE) | OK             
+F/friday13.z80                           | v1.45    | Compressed      | OK             
+F/frightma.z80                           | v1.45    | Compressed      | OK             
+F/frog.z80                               | v1.45    | Compressed      | OK             
+F/frog5.z80                              | v2.01    | Compressed (RLE) | OK             
+F/frogger.z80                            | v2.01    | Compressed (RLE) | OK             
+F/froggy.z80                             | v3       | Compressed (RLE) | OK             
+F/frostbyt.z80                           | v1.45    | Compressed      | OK             
+F/fruit.z80                              | v3       | Compressed (RLE) | OK             
+F/fruit2.z80                             | v2.01    | Compressed (RLE) | OK             
+F/fruittop.z80                           | v3       | Compressed (RLE) | OK             
+F/fullthrt.z80                           | v2.01    | Compressed (RLE) | OK             
+F/fury.z80                               | v1.45    | Compressed      | OK             
+F/futolym1.z80                           | v2.01    | Compressed (RLE) | OK             
+F/futolym2.z80                           | v2.01    | Compressed (RLE) | OK             
+F/fvoyage.z80                            | v2.01    | Compressed (RLE) | OK             
+F/fw.z80                                 | v2.01    | Compressed (RLE) | OK             
+------------------------------------------------------------------------------------------------------------------------
+
+Summary:
+--------
+Total Z80 files found: 535
+
+Versions detected:
+  - v1.45: 148 files
+  - v2.01: 189 files
+  - v3: 198 files
+
+Compression breakdown:
+  v1.45:
+    - Compressed: 148 files
+    - Uncompressed: 0 files
+  v2.01:
+    - Compressed: 165 files
+    - Uncompressed: 24 files
+  v3.00:
+    - Compressed: 189 files
+    - Uncompressed: 9 files
+

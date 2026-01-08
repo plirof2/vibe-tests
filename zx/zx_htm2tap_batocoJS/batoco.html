@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZX Spectrum BASIC to TAP Converter</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #00aa00;
+            padding-bottom: 10px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .panel {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .panel h2 {
+            margin-top: 0;
+            color: #00aa00;
+            font-size: 18px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        textarea {
+            width: 100%;
+            height: 400px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+        }
+        button {
+            background: #00aa00;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        button:hover {
+            background: #008800;
+        }
+        button:active {
+            background: #006600;
+        }
+        #status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+        }
+        .info-box {
+            background: #e8f5e8;
+            border-left: 4px solid #00aa00;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+        .example-code {
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ZX Spectrum BASIC to TAP Converter</h1>
+    
+    <div class="info-box">
+        <strong>How to use:</strong> Enter your ZX Spectrum BASIC code in the textarea below, configure the options, then click "Convert & Download" to generate a .tap file.
+    </div>
+    
+    <div class="container">
+        <div class="panel">
+            <h2>Input BASIC Code</h2>
+            <textarea id="inputCode" placeholder="10 PRINT "Hello, World!"
+20 FOR i=1 TO 10
+30 PRINT i
+40 NEXT i
+50 STOP"></textarea>
+            
+            <div class="example-code">
+                <strong>Example:</strong><br>
+                10 PRINT "Hello, World!"<br>
+                20 BORDER 2<br>
+                30 CLS
+            </div>
+        </div>
+        
+        <div class="panel">
+            <h2>Options</h2>
+            
+            <label for="spectrumFilename">Spectrum Filename:</label>
+            <input type="text" id="spectrumFilename" value="program" maxlength="10">
+            
+            <label for="outputFormat">Output Format:</label>
+            <select id="outputFormat">
+                <option value="TAP" selected>TAP File (Standard)</option>
+                <option value="RAW">RAW File (Headerless)</option>
+                <option value="+3">+3DOS File</option>
+                <option value="P81">ZX81 .P File</option>
+            </select>
+            
+            <label for="autostartLine">Auto-start Line (0x8000 = none):</label>
+            <input type="number" id="autostartLine" value="32768" min="0" max="9999">
+            
+            <label class="checkbox-label">
+                <input type="checkbox" id="useLabels">
+                Use Labels Mode (replace @label with line numbers)
+            </label>
+            
+            <div id="labelOptions" style="display: none; margin-top: 10px; padding-left: 20px;">
+                <label for="labelIncrement">Label Increment:</label>
+                <input type="number" id="labelIncrement" value="2" min="1" max="1000">
+                
+                <label for="labelStart">Label Start Line:</label>
+                <input type="number" id="labelStart" value="10" min="1" max="9999">
+            </div>
+            
+            <button onclick="window.convertBasic()">Convert & Download</button>
+            
+            <div id="status"></div>
+        </div>
+    </div>
+    
+    <div class="info-box" style="margin-top: 20px;">
+        <strong>Labels Mode:</strong> When enabled, you can use @label: syntax to define labels and refer to them without line numbers.<br><br>
+        Example:<br>
+        <code>@start:<br>
+10 PRINT "Hello"<br>
+20 GOTO start</code>
+    </div>
+
+    <script src="batoco.js"></script>
+    <script>
+        document.getElementById('useLabels').addEventListener('change', function() {
+            document.getElementById('labelOptions').style.display = this.checked ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html>

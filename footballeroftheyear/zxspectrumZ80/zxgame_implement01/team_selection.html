@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Selection - Football Management Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .screen-title {
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 600px;
+            margin-bottom: 40px;
+        }
+        
+        .team-item {
+            width: 120px;
+            height: 120px;
+            background-color: #333;
+            border: 2px solid #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .team-item:hover {
+            background-color: #444;
+            transform: scale(1.05);
+        }
+        
+        .team-item.selected {
+            background-color: #00ffff;
+            border-color: #ffff00;
+        }
+        
+        .team-logo {
+            width: 60px;
+            height: 60px;
+            background-color: #fff;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        
+        .team-name {
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .button {
+            background-color: #00ffff;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.2s;
+        }
+        
+        .button:hover {
+            background-color: #ffff00;
+            transform: scale(1.05);
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff0000;
+        }
+        
+        .instructions {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .selected-team {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            border: 2px solid #00ffff;
+            width: 300px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <button class="button back-button" onclick="goBack()">Back</button>
+        
+        <h1 class="screen-title">SELECT STARTING TEAM</h1>
+        
+        <div class="instructions">
+            Click on a team to select it for your management career
+        </div>
+        
+        <div class="team-grid" id="teamGrid">
+            <!-- Teams will be dynamically added here -->
+        </div>
+        
+        <div class="selected-team hidden" id="selectedTeam">
+            <div>Selected Team:</div>
+            <div id="selectedTeamName"></div>
+        </div>
+        
+        <div style="display: flex; gap: 20px; margin-top: 20px;">
+            <button class="button" id="confirmButton" onclick="confirmSelection()" disabled>Confirm Selection</button>
+            <button class="button" onclick="resetSelection()">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        const teams = [
+            { name: 'MAN. UTD', logo: 'M' },
+            { name: 'LIVERPOOL', logo: 'L' },
+            { name: 'ARSENAL', logo: 'A' },
+            { name: 'CHELSEA', logo: 'C' },
+            { name: 'MAN. CITY', logo: 'MC' },
+            { name: 'EVERTON', logo: 'E' },
+            { name: 'NEWCASTLE', logo: 'N' },
+            { name: 'TOTTENHAM', logo: 'T' },
+            { name: 'LEEDS', logo: 'LD' },
+            { name: 'SHEFFIELD UTD', logo: 'SU' },
+            { name: 'ASTON VILLA', logo: 'AV' },
+            { name: 'LEICESTER', logo: 'LC' },
+            { name: 'SOUTHAMPTON', logo: 'SH' },
+            { name: 'BRIGHTON', logo: 'B' },
+            { name: 'BURNLEY', logo: 'BN' },
+            { name: 'CRYSTAL PALACE', logo: 'CP' }
+        ];
+        
+        let selectedTeam = null;
+        
+        function initializeTeams() {
+            const teamGrid = document.getElementById('teamGrid');
+            
+            teams.forEach((team, index) => {
+                const teamItem = document.createElement('div');
+                teamItem.className = 'team-item';
+                teamItem.dataset.teamIndex = index;
+                
+                const teamLogo = document.createElement('div');
+                teamLogo.className = 'team-logo';
+                teamLogo.textContent = team.logo;
+                
+                const teamName = document.createElement('div');
+                teamName.className = 'team-name';
+                teamName.textContent = team.name;
+                
+                teamItem.appendChild(teamLogo);
+                teamItem.appendChild(teamName);
+                
+                teamItem.addEventListener('click', () => selectTeam(index));
+                
+                teamGrid.appendChild(teamItem);
+            });
+        }
+        
+        function selectTeam(teamIndex) {
+            // Remove previous selection
+            document.querySelectorAll('.team-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selection to clicked team
+            const selectedTeamItem = document.querySelector(`[data-team-index="${teamIndex}"]`);
+            selectedTeamItem.classList.add('selected');
+            
+            selectedTeam = teams[teamIndex];
+            document.getElementById('selectedTeamName').textContent = selectedTeam.name;
+            document.getElementById('selectedTeam').classList.remove('hidden');
+            document.getElementById('confirmButton').disabled = false;
+        }
+        
+        function confirmSelection() {
+            if (selectedTeam) {
+                // Save selection to game state
+                const gameState = {
+                    selectedTeam: selectedTeam,
+                    teamIndex: teams.findIndex(t => t.name === selectedTeam.name)
+                };
+                
+                localStorage.setItem('gameState', JSON.stringify(gameState));
+                
+                // In a real implementation, would proceed to next screen (division selection)
+                alert(`Selected team: ${selectedTeam.name}`);
+                window.location.href = 'division_select.html';
+            }
+        }
+        
+        function resetSelection() {
+            selectedTeam = null;
+            document.querySelectorAll('.team-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.getElementById('selectedTeam').classList.add('hidden');
+            document.getElementById('confirmButton').disabled = true;
+        }
+        
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeTeams();
+            
+            // Load saved selection if exists
+            const savedState = localStorage.getItem('gameState');
+            if (savedState) {
+                const state = JSON.parse(savedState);
+                if (state.selectedTeam) {
+                    const teamIndex = teams.findIndex(t => t.name === state.selectedTeam.name);
+                    if (teamIndex !== -1) {
+                        selectTeam(teamIndex);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

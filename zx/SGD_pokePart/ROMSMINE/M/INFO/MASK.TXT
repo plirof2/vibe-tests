@@ -1,0 +1,24 @@
+TEMP MASK text file for testing
+ MANIC MINER
+ Software Projects 1983
+
+ CONTROLS : Keyboard, Kempston
+ ---------------------------------------------------------------------
+ AIM : In his first appearance, Miner Willy is trying to strike it rich
+ and collect all the keys to the mine in which he works.
+
+ GAMEPLAY : On each of the twenty levels are several keys, which you
+ must collect before your oxygen supply runs out. Having collected the
+ keys you must then go to the exit to go on to the next level.
+
+ COMMENTS : "The all-time classic of arcade games on the Spectrum."
+            (Sinclair User)
+
+ NOW : This was the game that spawned a thousand clones. MM was the
+ original ladders and levels game from which all others are (reputedly)
+ descended and is, needless to say, a classic. It is still surprisingly
+ playable, even if the theme tune is unforgivably bad...
+ ---------------------------------------------------------------------
+ KEYS : Left            } Alternate top
+        Right           )   row keys
+        Jump            - Z to M, SPACE

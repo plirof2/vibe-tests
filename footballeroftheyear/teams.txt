@@ -1,0 +1,370 @@
+{
+  "countries": [
+    {
+      "name": "England",
+      "divisions": {
+        "1": {
+          "name": "Premier League",
+          "goalCardPrice": 1000,
+          "teams": [
+            {"name": "Manchester City", "rating": 94},
+            {"name": "Manchester United", "rating": 88},
+            {"name": "Liverpool", "rating": 86},
+            {"name": "Arsenal", "rating": 85},
+            {"name": "Chelsea", "rating": 83},
+            {"name": "Tottenham", "rating": 82},
+            {"name": "Newcastle", "rating": 80},
+            {"name": "Aston Villa", "rating": 78}
+          ]
+        },
+        "2": {
+          "name": "Championship",
+          "goalCardPrice": 1000,
+          "teams": [
+            {"name": "Leicester City", "rating": 75},
+            {"name": "Leeds United", "rating": 73},
+            {"name": "Southampton", "rating": 72},
+            {"name": "West Bromwich", "rating": 70},
+            {"name": "Ipswich Town", "rating": 68},
+            {"name": "Norwich City", "rating": 66},
+            {"name": "Coventry City", "rating": 64},
+            {"name": "Preston North", "rating": 62}
+          ]
+        },
+        "3": {
+          "name": "League One",
+          "goalCardPrice": 750,
+          "teams": [
+            {"name": "Bristol Rovers", "rating": 60},
+            {"name": "Oxford United", "rating": 58},
+            {"name": "Wycombe", "rating": 56},
+            {"name": "Fleetwood Town", "rating": 54},
+            {"name": "Port Vale", "rating": 52},
+            {"name": "Charlton", "rating": 50},
+            {"name": "Shrewsbury", "rating": 48},
+            {"name": "Burton Albion", "rating": 46}
+          ]
+        },
+        "4": {
+          "name": "League Two",
+          "goalCardPrice": 500,
+          "teams": [
+            {"name": "AFC Wimbledon", "rating": 45},
+            {"name": "Harrogate Town", "rating": 43},
+            {"name": "Barrow", "rating": 41},
+            {"name": "Accrington", "rating": 39},
+            {"name": "Crawley Town", "rating": 37},
+            {"name": "Gillingham", "rating": 35},
+            {"name": "Mansfield", "rating": 33},
+            {"name": "Sutton United", "rating": 31}
+          ]
+        }
+      }
+    },
+    {
+      "name": "Spain",
+      "divisions": {
+        "1": {
+          "name": "La Liga",
+          "goalCardPrice": 1000,
+          "teams": [
+            {"name": "Real Madrid", "rating": 95},
+            {"name": "Barcelona", "rating": 92},
+            {"name": "Atletico Madrid", "rating": 89},
+            {"name": "Sevilla", "rating": 84},
+            {"name": "Real Sociedad", "rating": 81},
+            {"name": "Real Betis", "rating": 79},
+            {"name": "Villarreal", "rating": 77},
+            {"name": "Athletic Bilbao", "rating": 76}
+          ]
+        },
+        "2": {
+          "name": "La Liga 2",
+          "goalCardPrice": 1000,
+          "teams": [
+            {"name": "Eibar", "rating": 72},
+            {"name": "Girona", "rating": 71},
+            {"name": "Almeria", "rating": 69},
+            {"name": "Leganes", "rating": 67},
+            {"name": "Elche", "rating": 65},
+            {"name": "Racing Santander", "rating": 63},
+            {"name": "Sporting Gijon", "rating": 61},
+            {"name": "Tenerife", "rating": 59}
+          ]
+        },
+        "3": {
+          "name": "Primera RFEF",
+          "goalCardPrice": 750,
+          "teams": [
+            {"name": "Cultural Leonesa", "rating": 57},
+            {"name": "Bilbao Athletic", "rating": 55},
+            {"name": "Sabadell", "rating": 53},
+            {"name": "Algeciras", "rating": 51},
+            {"name": "Linares", "rating": 49},
+            {"name": "Gimnastic", "rating": 47},
+            {"name": "San Fernando", "rating": 45},
+            {"name": "Merida", "rating": 43}
+          ]
+        },
+        "4": {
+          "name": "Segunda RFEF",
+          "goalCardPrice": 500,
+          "teams": [
+            {"name": "Villanovense", "rating": 42},
+            {"name": "Brea", "rating": 40},
+            {"name": "Sanluqueno", "rating": 38},
+            {"name": "Atletico Sanluqueno", "rating": 36},
+            {"name": "Algeciras CF", "rating": 34},
+            {"name": "Don Benito", "rating": 32},
+            {"name": "Melilla", "rating": 30},
+            {"name": "Huercal-Overa", "rating": 28}
+          ]
+        }
+      }
+    },
+    {
+      "name": "Argentina",
+      "divisions": {
+        "1": {
+          "name": "Primera Division",
+          "goalCardPrice": 1000,
+          "teams": [
+            {"name": "River Plate", "rating": 91},
+            {"name": "Boca Juniors", "rating": 89},
+            {"name": "Independiente", "rating": 84},
+            {"name": "Racing Club", "rating": 82},
+            {"name": "San Lorenzo", "rating": 80},
+            {"name": "Argentinos Juniors", "rating": 77},
+            {"name": "Estudiantes LP", "rating": 75},
+            {"name": "Talleres Cordoba", "rating": 73}
+          ]
+        },
+        "2": {
+          "name": "Primera Nacional",
+          "goalCardPrice": 1000,
+          "teams": [
+            {"name": "Gimnasia LP", "rating": 70},
+            {"name": "Quilmes", "rating": 68},
+            {"name": "Atl. Tucuman", "rating": 66},
+            {"name": "Almagro", "rating": 64},
+            {"name": "Deportivo Maipu", "rating": 62},
+            {"name": "Temperley", "rating": 60},
+            {"name": "All Boys", "rating": 58},
+            {"name": "Sacachispas", "rating": 56}
+          ]
+        },
+        "3": {
+          "name": "Torneo Federal A",
+          "goalCardPrice": 750,
+          "teams": [
+            {"name": "Chaco For Ever", "rating": 55},
+            {"name": "Deportivo Madryn", "rating": 53},
+            {"name": "Guarani Antonio", "rating": 51},
+            {"name": "Racing Cordoba", "rating": 49},
+            {"name": "San Martin Mendoza", "rating": 47},
+            {"name": "Sol de Mayo", "rating": 45},
+            {"name": "Juventud Unida", "rating": 43},
+            {"name": "Defensores Belgrano", "rating": 41}
+          ]
+        },
+        "4": {
+          "name": "Torneo Federal B",
+          "goalCardPrice": 500,
+          "teams": [
+            {"name": "Sportivo Belgrano", "rating": 40},
+            {"name": "Central Norte", "rating": 38},
+            {"name": "Deportivo Roca", "rating": 36},
+            {"name": "Gimnasia y Tiro", "rating": 34},
+            {"name": "Huracan Las Heras", "rating": 32},
+            {"name": "Independiente Chivilcoy", "rating": 30},
+            {"name": "Libertad", "rating": 28},
+            {"name": "Real Pilar", "rating": 26}
+          ]
+        }
+      }
+    },
+    {
+      "name": "France",
+      "divisions": {
+        "1": {
+          "name": "Ligue 1",
+          "goalCardPrice": 1000,
+          "teams": [
+            {"name": "PSG", "rating": 93},
+            {"name": "Monaco", "rating": 85},
+            {"name": "Marseille", "rating": 83},
+            {"name": "Lyon", "rating": 81},
+            {"name": "Lille", "rating": 80},
+            {"name": "Nice", "rating": 78},
+            {"name": "Rennes", "rating": 76},
+            {"name": "Lens", "rating": 74}
+          ]
+        },
+        "2": {
+          "name": "Ligue 2",
+          "goalCardPrice": 1000,
+          "teams": [
+            {"name": "Saint-Etienne", "rating": 71},
+            {"name": "Guingamp", "rating": 69},
+            {"name": "Caen", "rating": 67},
+            {"name": "Bordeaux", "rating": 65},
+            {"name": "Ajaccio", "rating": 63},
+            {"name": "Pau", "rating": 61},
+            {"name": "Grenoble", "rating": 59},
+            {"name": "Amiens", "rating": 57}
+          ]
+        },
+        "3": {
+          "name": "National",
+          "goalCardPrice": 750,
+          "teams": [
+            {"name": "Orleans", "rating": 56},
+            {"name": "Sochaux", "rating": 54},
+            {"name": "Villefranche", "rating": 52},
+            {"name": "Concarneau", "rating": 50},
+            {"name": "Dijon", "rating": 48},
+            {"name": "Niort", "rating": 46},
+            {"name": "Avranches", "rating": 44},
+            {"name": "Red Star", "rating": 42}
+          ]
+        },
+        "4": {
+          "name": "National 2",
+          "goalCardPrice": 500,
+          "teams": [
+            {"name": "Stade Briochin", "rating": 41},
+            {"name": "Marignane", "rating": 39},
+            {"name": "Concarneau", "rating": 37},
+            {"name": "Rouen", "rating": 35},
+            {"name": "Poissy", "rating": 33},
+            {"name": "Beziers", "rating": 31},
+            {"name": "Schiltigheim", "rating": 29},
+            {"name": "Wasquehal", "rating": 27}
+          ]
+        }
+      }
+    },
+    {
+      "name": "Germany",
+      "divisions": {
+        "1": {
+          "name": "Bundesliga",
+          "goalCardPrice": 1000,
+          "teams": [
+            {"name": "Bayern Munich", "rating": 96},
+            {"name": "Borussia Dortmund", "rating": 90},
+            {"name": "RB Leipzig", "rating": 87},
+            {"name": "Bayer Leverkusen", "rating": 85},
+            {"name": "Union Berlin", "rating": 82},
+            {"name": "Freiburg", "rating": 80},
+            {"name": "Eintracht Frankfurt", "rating": 78},
+            {"name": "Wolfsburg", "rating": 77}
+          ]
+        },
+        "2": {
+          "name": "2. Bundesliga",
+          "goalCardPrice": 1000,
+          "teams": [
+            {"name": "Hamburg SV", "rating": 74},
+            {"name": "Hertha Berlin", "rating": 72},
+            {"name": "St. Pauli", "rating": 70},
+            {"name": "Darmstadt", "rating": 68},
+            {"name": "Hannover", "rating": 66},
+            {"name": "Karlsruher", "rating": 64},
+            {"name": "Paderborn", "rating": 62},
+            {"name": "Greuther Furth", "rating": 60}
+          ]
+        },
+        "3": {
+          "name": "3. Liga",
+          "goalCardPrice": 750,
+          "teams": [
+            {"name": "Dynamo Dresden", "rating": 59},
+            {"name": "Erzgebirge Aue", "rating": 57},
+            {"name": "Saarbrucken", "rating": 55},
+            {"name": "1860 Munich", "rating": 53},
+            {"name": "Unterhaching", "rating": 51},
+            {"name": "Waldhof Mannheim", "rating": 49},
+            {"name": "Verl", "rating": 47},
+            {"name": "Lubeck", "rating": 45}
+          ]
+        },
+        "4": {
+          "name": "Regionalliga",
+          "goalCardPrice": 500,
+          "teams": [
+            {"name": "Chemnitzer FC", "rating": 44},
+            {"name": "Rot-Weiss Erfurt", "rating": 42},
+            {"name": "Carl Zeiss Jena", "rating": 40},
+            {"name": "Halle", "rating": 38},
+            {"name": "Zwickau", "rating": 36},
+            {"name": "Eilenburg", "rating": 34},
+            {"name": "Lokomotive Leipzig", "rating": 32},
+            {"name": "Babelsberg", "rating": 30}
+          ]
+        }
+      }
+    },
+    {
+      "name": "Greece",
+      "divisions": {
+        "1": {
+          "name": "Super League",
+          "goalCardPrice": 1000,
+          "teams": [
+            {"name": "Olympiacos", "rating": 86},
+            {"name": "PAOK", "rating": 82},
+            {"name": "Panathinaikos", "rating": 80},
+            {"name": "AEK Athens", "rating": 79},
+            {"name": "Aris Thessaloniki", "rating": 76},
+            {"name": "Volos", "rating": 73},
+            {"name": "Lamia", "rating": 70},
+            {"name": "PAS Giannina", "rating": 68}
+          ]
+        },
+        "2": {
+          "name": "Super League 2",
+          "goalCardPrice": 1000,
+          "teams": [
+            {"name": "OFI Crete", "rating": 66},
+            {"name": "Panetolikos", "rating": 64},
+            {"name": "Kalamata", "rating": 62},
+            {"name": "AEL Larissa", "rating": 60},
+            {"name": "Ergotelis", "rating": 58},
+            {"name": "Diagoras", "rating": 56},
+            {"name": "Irodotos", "rating": 54},
+            {"name": "Kallithea", "rating": 52}
+          ]
+        },
+        "3": {
+          "name": "Gamma Ethniki",
+          "goalCardPrice": 750,
+          "teams": [
+            {"name": "AEL Limassol", "rating": 51},
+            {"name": "Almopos", "rating": 49},
+            {"name": "Anagennisi Karditsas", "rating": 47},
+            {"name": "Apollon Smyrnis", "rating": 45},
+            {"name": "Asteras Tripolis", "rating": 43},
+            {"name": "Episkopi", "rating": 41},
+            {"name": "Fostiras", "rating": 39},
+            {"name": "Glyfada", "rating": 37}
+          ]
+        },
+        "4": {
+          "name": "Gamma Ethniki B",
+          "goalCardPrice": 500,
+          "teams": [
+            {"name": "Acharnaikos", "rating": 36},
+            {"name": "Aetos Makrychori", "rating": 34},
+            {"name": "Agios Ierotheos", "rating": 32},
+            {"name": "Akadimia Platonos", "rating": 30},
+            {"name": "Anagennisi Arta", "rating": 28},
+            {"name": "Apollon Paralimniou", "rating": 26},
+            {"name": "Atromitos", "rating": 24},
+            {"name": "Ethnikos Gazoros", "rating": 22}
+          ]
+        }
+      }
+    }
+  ]
+}

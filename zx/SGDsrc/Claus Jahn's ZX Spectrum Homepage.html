@@ -1,0 +1,1130 @@
+
+<!-- saved from url=(0065)https://worldofspectrum.net/zx-modules/fileformats/z80format.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<title>Claus Jahn's ZX Spectrum Homepage</title>
+<!--<base target="_self">--><base href="." target="_self">
+</head>
+
+<body background="./Claus Jahn&#39;s ZX Spectrum Homepage_files/backgrnd.jpg" bgcolor="#33CCCC" style="font-family: Arial">
+
+<p align="center"><b><u><font size="4">Z80 snapshot format</font></u></b></p>
+
+<p align="left">The Z80 format is one of the most popular snapshot formats for
+ZX-Spectrum emulators. It comes in different versions and with some odd
+variations. It's supported by nearly all Spectrum emulators. It comes in 3
+different major version formats:</p>
+
+<p align="left"><span style="background-color: #FFFF00"><b>Version 1:</b></span></p>
+
+<div align="center">
+  <center>
+  <center>
+    </center><center>
+    </center><center>
+  </center><center>
+  </center><center>
+  </center><table border="3" cellspacing="0" bgcolor="#CCFFFF">
+    <tbody><tr>
+      <td align="center" colspan="6" bgcolor="#00FFFF"><font color="#0000FF"><b>Z80
+        (version 1) file format:</b></font></td>
+    </tr>
+    <tr>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Offset:</b></font></td>
+      <td align="left" nowrap=""><font color="#0000FF"><b>Field type:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Length:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Description:</b></font></td>
+      <td align="center" colspan="2"><font color="#0000FF"><b>Additional
+        information:</b></font></td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">0</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+      <td align="center" nowrap="">1</td>
+      <td align="center" nowrap="">a register</td>
+  
+      <td align="center" colspan="2">
+        <p align="left">accumulator</p>
+    </td>
+    </tr>
+  <tr>
+      <td align="center" nowrap="">1</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+      <td align="center" nowrap="">1</td>
+      <td align="center" nowrap="">f register</td>
+  
+      <td align="center" colspan="2">
+        <p align="left">flags register</p></td>
+    </tr>
+  <tr>
+      <td align="center" nowrap="">2</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+      <td align="center" nowrap="">2</td>
+      <td align="center" nowrap="">bc</td>
+      <td align="left" colspan="2">bc register pair, c=LSB, b=MSB</td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">4</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+      <td align="center" nowrap="">2</td>
+      <td align="center" nowrap="">hl</td>
+      <td align="left" colspan="2">hl register pair, l=LSB, h=MSB</td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">6</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+      <td align="center" nowrap="">2</td>
+      <td align="center" nowrap="">pc</td>
+      <td align="left" colspan="2">program counter</td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">8</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+      <td align="center" nowrap="">2</td>
+      <td align="center" nowrap="">sp</td>
+      <td align="left" colspan="2">stack pointer</td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">10</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+      <td align="center" nowrap="">1</td>
+      <td align="center" nowrap="">i</td>
+      <td align="left" colspan="2">interrupt register</td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">11</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+      <td align="center" nowrap="">1</td>
+      <td align="center" nowrap="">r</td>
+  
+      <td align="center" colspan="2">
+        <p align="left">refresh register, bit 7 is not significant</p>
+  </td>
+    </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" rowspan="5" nowrap="">12</td>
+    <td align="left" bgcolor="#CCFFFF" rowspan="5" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" bgcolor="#CCFFFF" rowspan="5" nowrap="">1</td>
+    <td align="center" bgcolor="#CCFFFF" rowspan="5" nowrap="">additional info; if the&nbsp;<br>
+      byte= 255, it has to be&nbsp;<br>
+      interpreted as&nbsp;<br>
+ being = 1</td>
+  
+  <td align="center" bgcolor="#CCFFFF">
+    <p align="left">bit 0:</p></td>
+  <td align="center" bgcolor="#CCFFFF">
+    <p align="left">bit 7 of refresh register r</p></td>
+  </tr>
+  <tr>
+    <td align="left" bgcolor="#CCFFFF">bit 1..3:</td>
+    <td align="left" bgcolor="#CCFFFF">border colour (0..7)</td>
+  </tr>
+  <tr>
+    <td align="left" bgcolor="#CCFFFF">bit 4:</td>
+    <td align="left" bgcolor="#CCFFFF">1=Basic SamRom switched in</td>
+  </tr>
+  <tr>
+    <td align="left" bgcolor="#CCFFFF">bit 5:</td>
+    <td align="left" bgcolor="#CCFFFF">1=datablock is compressed</td>
+  </tr>
+  <tr>
+    <td align="left" bgcolor="#CCFFFF">bit 6..7</td>
+    <td align="left" bgcolor="#CCFFFF">not used, always zero</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">13</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">de</td>
+    <td align="left" colspan="2">de register pair, e=LSB, d=MSB</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">15</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">bc´</td>
+    <td align="left" colspan="2">bc´ register pair, c´=LSB, b´=MSB</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">17</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">de´</td>
+    <td align="left" colspan="2">de´ register pair, e´=LSB, d´=MSB</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">19</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">hl´</td>
+    <td align="left" colspan="2">hl´ register pair, l´=LSB, h´=MSB</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">21</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">a´</td>
+    <td align="left" colspan="2">a´ register</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">22</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">f´</td>
+    <td align="left" colspan="2">f´ register</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">23</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">iy</td>
+    <td align="left" colspan="2">index register iy</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">25</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">ix</td>
+    <td align="left" colspan="2">index register ix</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">27</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">iff1</td>
+  
+  <td align="left" colspan="2">
+    <p align="left">interrupt flipflop, (0=di, &lt;&gt;0 =ei)</p></td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">28</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">iff2</td>
+    <td align="left" colspan="2">interrupt 2 flipflop (0=di, &lt;&gt;0 =ei)</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" rowspan="5" nowrap="">29</td>
+    <td align="left" bgcolor="#CCFFFF" rowspan="5" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" bgcolor="#CCFFFF" rowspan="5" nowrap="">1</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">im</td>
+  
+  <td align="left" bgcolor="#CCFFFF">bit 0..1:</td>
+  <td align="left" bgcolor="#CCFFFF">interrupt mode (0, 1 or 2)</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">Issue 2 emulation</td>
+    <td align="left" bgcolor="#CCFFFF">bit 2</td>
+    <td align="left" bgcolor="#CCFFFF">1=Issue 2 emulation on</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">Interrupt frequency</td>
+    <td align="left" bgcolor="#CCFFFF">bit 3:</td>
+    <td align="left" bgcolor="#CCFFFF">1=double interrupt frequency</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">video synchronization</td>
+    <td align="left" bgcolor="#CCFFFF">bit 4..5:</td>
+    <td align="left" bgcolor="#CCFFFF">00b=normal,&nbsp;<br>
+      01b=high,&nbsp;<br>
+      10b=normal,&nbsp;<br>
+      11b=low</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">joystick type</td>
+    <td align="left" bgcolor="#CCFFFF">bit 6..7:</td>
+    <td align="left" bgcolor="#CCFFFF">00b=Cursor/Protek/AGF<br>
+      01b=Kempston,&nbsp;<br>
+      10b=Sinclair 2 left<br>
+      11b=Sinclair 2 right</td>
+  </tr>
+<tr>
+      <td align="center" colspan="6" bgcolor="#FFFF00"><font color="#0000FF"><b>48k
+        memory:</b></font></td>
+</tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">30</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-case.gif" width="50" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/array-left.gif" width="20" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/array-addition.gif" width="50" height="20"></td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">49152</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">uncompressed data</td>
+    <td align="left" bgcolor="#CCFFFF" colspan="2">case 1, if bit 5 of byte 12
+      is =0</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">30</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-case.gif" width="50" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/array-left.gif" width="20" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/array-addition.gif" width="50" height="20"></td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">???</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">compressed data</td>
+    <td align="left" bgcolor="#CCFFFF" colspan="2">case 2, if bit 5 of byte 12
+      is =1</td>
+  </tr>
+  </tbody></table>
+</center></div>
+
+<p align="center">After the 30 bytes header the 48k Spectrum RAM follows. If the
+RAM data is compressed, follow these instructions to interpret the compressed
+data:<br>
+If the sequence EDh EDh occurs, and if 2 bytes follow, they must be interpreted
+as a <b><i>repeater</i></b>, where the 4-byte-sequence <b>EDh, EDh, x, y</b>
+means "byte y repeated x times". Usually, a <b>repeater</b> occurs on
+at least 5 bytes to compress, so <b>EDh, EDh, 02h, C9h</b> should not occur. The
+only exception is for compressed sequencies of the EDh byte itself, where even 2
+bytes are compressed using the <b>repeater</b> (what unfortunately could
+increase the size of the data after 'compression'). The compressed block is
+terminated by the end marker <b>00h, EDh, EDh, 00h</b>.</p>
+
+  <p align="left"><span style="background-color: #FFFF00"><b>Version 2:</b></span></p>
+
+  <div align="center">
+    <center>
+
+  <center>
+</center><table border="3" cellspacing="0" bgcolor="#CCFFFF">
+    <tbody><tr>
+      <td align="center" colspan="5" bgcolor="#00FFFF"><b><a name="z80version2format"><font color="#0000FF"></font></a><font color="#0000FF"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/z80_version2format.jpg" align="absmiddle" width="160" height="20">:</font></b></td>
+    </tr>
+    <tr>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Offset:</b></font></td>
+      <td align="left" nowrap=""><font color="#0000FF"><b>Field type:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Length:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Description:</b></font></td>
+      <td align="center"><font color="#0000FF"><b>Additional
+        information:</b></font></td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">0</td>
+      <td align="left" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#base%20header"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/baseheader.jpg" width="160" height="20"></a></td>
+      <td align="center" nowrap="">30</td>
+      <td align="center" nowrap="">registers and emulator settings</td>
+      <td align="left">equal for version 2 and 3 files</td>
+    </tr>
+    <tr>
+    <td align="center" nowrap="">30</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">additional header length</td>
+    <td align="center">
+      <p align="left">value 23 for version 2</p></td>
+    </tr>
+    <tr>
+    <td align="center" nowrap="">32</td>
+    <td align="left" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#additional%20header"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/additionalheader.jpg" width="160" height="20"></a></td>
+    <td align="center" nowrap="">23</td>
+    <td align="center" nowrap="">more settings</td>
+    
+    <td align="center">
+      <p align="left">details see below</p></td>
+    </tr>
+    <tr>
+      <td align="center" colspan="5" bgcolor="#FFFF00"><font color="#0000FF"><b>list
+        of datablocks:</b></font></td>
+</tr>
+  <tr>
+    <td align="center" nowrap="">55</td>
+    <td align="left" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#datablock"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/datablock.jpg" align="absmiddle" width="160" height="20"></a>
+      #1</td>
+    <td align="center" nowrap="">???</td>
+    <td align="center" nowrap="">first data block</td>
+    <td align="left" rowspan="4">list of datablocks.</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">???</td>
+    <td align="left" bgcolor="#CCFFFF" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#datablock"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/datablock.jpg" align="absmiddle" width="160" height="20"></a>
+      #2</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">???</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">second data block</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" colspan="4" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-gap.gif" width="64" height="32"></td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">???</td>
+    <td align="left" bgcolor="#CCFFFF" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#datablock"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/datablock.jpg" align="absmiddle" width="160" height="20"></a>
+      #N</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">???</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">last (Nth) data block</td>
+  </tr>
+  </tbody></table>
+
+    </center>
+  </div>
+  <p align="center">The datablock compression follows the rules described for
+  the version 1 format, except that the end marker is missing.</p>
+
+  <p align="left"><b><span style="background-color: #FFFF00">Version 3:</span></b></p>
+
+  <div align="center">
+    <center>
+
+  <center>
+    </center><center>
+</center><table border="3" cellspacing="0" bgcolor="#CCFFFF">
+    <tbody><tr>
+      <td align="center" colspan="5" bgcolor="#00FFFF"><b><a name="z80version3format"><font color="#0000FF"></font></a><font color="#0000FF"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/z80_version3format.jpg" align="absmiddle" width="160" height="20">:</font></b></td>
+    </tr>
+    <tr>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Offset:</b></font></td>
+      <td align="left" nowrap=""><font color="#0000FF"><b>Field type:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Length:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Description:</b></font></td>
+      <td align="center"><font color="#0000FF"><b>Additional
+        information:</b></font></td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">0</td>
+      <td align="left" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#base%20header"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/baseheader.jpg" width="160" height="20"></a></td>
+      <td align="center" nowrap="">30</td>
+      <td align="center" nowrap="">regs + emul. settings</td>
+      <td align="left">details see below</td>
+    </tr>
+    <tr>
+    <td align="center" nowrap="">30</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">addit. header length</td>
+    <td align="center">
+      <p align="left">value 54 or 55 for version 3</p></td>
+    </tr>
+    <tr>
+    <td align="center" nowrap="">32</td>
+    <td align="left" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#additional%20header"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/additionalheader.jpg" width="160" height="20"></a></td>
+    <td align="center" nowrap="">23</td>
+    <td align="center" nowrap="">more settings</td>
+    
+    <td align="center">
+      <p align="left">details see below</p></td>
+    </tr>
+    <tr>
+    <td align="center" nowrap="">55</td>
+    <td align="left" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#extended%20header"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/extendedheader.jpg" width="160" height="20"></a></td>
+    <td align="center" nowrap="">31 or 32</td>
+    <td align="center" nowrap="">some more settings</td>
+    
+    <td align="center">
+      <p align="left">may contain an extra byte,&nbsp;<br>
+ depending on&nbsp;<br>
+      the variation (see below)</p></td>
+    </tr>
+    <tr>
+      <td align="center" colspan="5" bgcolor="#FFFF00"><font color="#0000FF"><b>list
+        of datablocks:</b></font></td>
+</tr>
+  <tr>
+    <td align="center" nowrap="">86 or 87</td>
+    <td align="left" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#datablock"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/datablock.jpg" align="absmiddle" width="160" height="20"></a>
+      #1</td>
+    <td align="center" nowrap="">???</td>
+    <td align="center" nowrap="">first data block</td>
+    <td align="left" rowspan="4">list of datablocks.</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">???</td>
+    <td align="left" bgcolor="#CCFFFF" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#datablock"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/datablock.jpg" align="absmiddle" width="160" height="20"></a>
+      #2</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">???</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">second data block</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" colspan="4" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-gap.gif" width="64" height="32"></td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">???</td>
+    <td align="left" bgcolor="#CCFFFF" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#datablock"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/datablock.jpg" align="absmiddle" width="160" height="20"></a>
+      #N</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">???</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">last (Nth) data block</td>
+  </tr>
+  </tbody></table>
+
+    </center>
+  </div>
+  <p align="center">The datablock compression follows the rules described for
+  the version 1 format, except that the end marker is missing.</p>
+
+  <p align="center">The Z80 files version 2 and 3 use the following headers:</p>
+
+  <div align="center">
+    <center>
+
+  <table border="3" cellspacing="0" bgcolor="#CCFFFF">
+    <tbody><tr>
+      <td align="center" colspan="6" bgcolor="#FFFF00"><b><a name="base header"><font color="#0000FF"></font></a><font color="#0000FF"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/baseheader.jpg" align="absmiddle" width="160" height="20">
+        (30 bytes):</font></b></td>
+    </tr>
+    <tr>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Offset:</b></font></td>
+      <td align="left" nowrap=""><font color="#0000FF"><b>Field type:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Length:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Description:</b></font></td>
+      <td align="center" colspan="2"><font color="#0000FF"><b>Additional
+        information:</b></font></td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">0</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+      <td align="center" nowrap="">1</td>
+      <td align="center" nowrap="">a</td>
+      <td align="left" colspan="2">a register</td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">1</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+      <td align="center" nowrap="">1</td>
+      <td align="center" nowrap="">f</td>
+      <td align="left" colspan="2">flags register</td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">2</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+      <td align="center" nowrap="">2</td>
+      <td align="center" nowrap="">bc</td>
+      <td align="left" colspan="2">bc register pair, c=LSB, b=MSB</td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">4</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+      <td align="center" nowrap="">2</td>
+      <td align="center" nowrap="">hl</td>
+      <td align="left" colspan="2">hl register pair, l=LSB, h=MSB</td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">6</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/0-byte.jpg" width="40" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/0-byte.jpg" width="40" height="20"></td>
+      <td align="center" nowrap="">2</td>
+      <td align="center" nowrap="">indicator</td>
+      <td align="center" colspan="2">
+        <p align="left">value 0 indicates version 2 or later</p></td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">8</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+      <td align="center" nowrap="">2</td>
+      <td align="center" nowrap="">sp</td>
+      <td align="left" colspan="2">stack pointer</td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">10</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+      <td align="center" nowrap="">1</td>
+      <td align="center" nowrap="">i</td>
+      <td align="left" colspan="2">interrupt register</td>
+    </tr>
+    <tr>
+      <td align="center" nowrap="">11</td>
+      <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+      <td align="center" nowrap="">1</td>
+      <td align="center" nowrap="">r (bits 0..6)</td>
+      <td align="left" colspan="2">refresh register (bit 7 is not significant)</td>
+    </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" rowspan="3" nowrap="">12</td>
+    <td align="left" bgcolor="#CCFFFF" rowspan="3" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" bgcolor="#CCFFFF" rowspan="3" nowrap="">1</td>
+    <td align="center" bgcolor="#CCFFFF" rowspan="3" nowrap="">additional info; if the
+      byte<br>
+      = 255, it has to be&nbsp;<br>
+      interpreted as being = 1</td>
+  <td align="center" bgcolor="#CCFFFF">
+    <p align="left">bit 0:</p></td>
+  <td align="center" bgcolor="#CCFFFF">
+    <p align="left">bit 7 of register r</p></td>
+  </tr>
+  <tr>
+    <td align="left" bgcolor="#CCFFFF">bit 1..3:</td>
+    <td align="left" bgcolor="#CCFFFF">border colour (0..7)</td>
+  </tr>
+  <tr>
+    <td align="left" bgcolor="#CCFFFF">bit 4..7</td>
+    <td align="left" bgcolor="#CCFFFF">not used (set to zero)</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">13</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">de</td>
+    <td align="left" colspan="2">de register pair, e=LSB, d=MSB</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">15</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">bc´</td>
+    <td align="left" colspan="2">bc´ register pair, c´=LSB, b´=MSB</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">17</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">de´</td>
+    <td align="left" colspan="2">de´ register pair, e´=LSB, d´=MSB</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">19</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">hl´</td>
+    <td align="left" colspan="2">hl´ register pair, l´=LSB, h´=MSB</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">21</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">a´</td>
+    <td align="left" colspan="2">a´ register</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">22</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">f´</td>
+    <td align="left" colspan="2">f´ register</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">23</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">iy</td>
+    <td align="left" colspan="2">index register iy</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">25</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">ix</td>
+    <td align="left" colspan="2">index register ix</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">27</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">iff1</td>
+  <td align="center" colspan="2">
+    <p align="left">interrupt flipflop (0=di, &lt;&gt;0 = ei)</p></td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">28</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">iff2</td>
+    <td align="center" colspan="2">
+      <p align="left">interrupt flipflop 2 (0=di, &lt;&gt;0 = ei)</p>
+  </td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" rowspan="5" nowrap="">29</td>
+    <td align="left" bgcolor="#CCFFFF" rowspan="5" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" bgcolor="#CCFFFF" rowspan="5" nowrap="">1</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">im</td>
+  <td align="left" bgcolor="#CCFFFF">bit 0..1:</td>
+  <td align="left" bgcolor="#CCFFFF">interrupt mode (0, 1 or 2)</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">Issue 2 emulation</td>
+    <td align="left" bgcolor="#CCFFFF">bit 2</td>
+    <td align="left" bgcolor="#CCFFFF">1=Issue 2 emulation on</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">Interrupt frequency</td>
+    <td align="left" bgcolor="#CCFFFF">bit 3:</td>
+    <td align="left" bgcolor="#CCFFFF">1=double int. frequency</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">video synchronization</td>
+    <td align="left" bgcolor="#CCFFFF">bit 4..5:</td>
+    <td align="left" bgcolor="#CCFFFF">00b=normal,&nbsp;<br>
+      01b=high,&nbsp;<br>
+      10b=normal,&nbsp;<br>
+      11b=low</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">joystick type</td>
+    <td align="left" bgcolor="#CCFFFF">bit 6..7:</td>
+    <td align="left" bgcolor="#CCFFFF">00b=Cursor/Protek/AGF,&nbsp;<br>
+      01b=Kempston,&nbsp;<br>
+      10b=Sinclair 2 left,&nbsp;<br>
+      11b=Sinclair 2 right</td>
+  </tr>
+  </tbody></table>
+
+    </center>
+  </div>
+
+  <p align="center">&nbsp;</p>
+
+  <table border="3" cellspacing="0" bgcolor="#CCFFFF">
+  <tbody><tr>
+      <td align="center" colspan="6" bgcolor="#FFFF00"><b><a name="additional header"><font color="#0000FF"></font></a><font color="#0000FF"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/additionalheader.jpg" align="absmiddle" width="160" height="20">
+        (23 bytes):</font></b></td>
+  </tr>
+    <tr>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Offset:</b></font></td>
+      <td align="left" nowrap=""><font color="#0000FF"><b>Field type:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Length:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Description:</b></font></td>
+      <td align="center" colspan="2"><font color="#0000FF"><b>Additional
+        information:</b></font></td>
+    </tr>
+  <tr>
+    <td align="center" nowrap="">0</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">pc</td>
+    <td align="center" colspan="2">
+      <p align="left">program counter</p></td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" rowspan="2" nowrap="">2</td>
+    <td align="left" bgcolor="#CCFFFF" rowspan="2" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" bgcolor="#CCFFFF" rowspan="2" nowrap="">1</td>
+    <td align="center" bgcolor="#CCFFFF" rowspan="2" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#hardware%20modes">hardware mode</a></td>
+  </tr>
+<tr>
+    <td align="left" colspan="2">
+      refer to <a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#hardware%20modes">table</a> below</td>
+</tr>
+  <tr>
+    <td align="center" rowspan="3" nowrap="">3</td>
+    <td align="left" rowspan="3" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" rowspan="3" nowrap="">1</td>
+    <td align="center" rowspan="3" nowrap="">different output states,<br>
+      &nbsp;depending of the&nbsp;<br>
+      hardware mode</td>
+    <td align="left">
+      <p align="left"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-case.gif" width="50" height="20">SamRam:</p></td>
+    <td align="center">
+ bitwise state of 74LS259 chip;</td>
+  </tr>
+  <tr>
+    <td align="left">
+      <img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-case.gif" width="50" height="20">128k:</td>
+    <td align="center">
+ last OUT to 7FFDh (bits 0..3&nbsp;<br>
+ contain the current switched RAM bank)</td>
+  </tr>
+  <tr>
+    <td align="left">
+      <img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-case.gif" width="50" height="20">Timex:</td>
+    <td align="center">
+      last OUT to port F4h</td>
+  </tr>
+  <tr>
+    <td align="center" rowspan="2" nowrap="">4</td>
+    <td align="left" rowspan="2" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" rowspan="2" nowrap="">1</td>
+    <td align="center" rowspan="2" nowrap="">Interface 1 Rom paged?&nbsp;<br>
+ or Timex output state</td>
+    <td align="center">
+      <p align="left"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-case.gif" width="50" height="20">non-Timex:</p>
+    </td>
+    <td align="center">
+      value 255 for yes, otherwise no
+    </td>
+  </tr>
+<tr>
+    <td align="center">
+      <p align="left"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-case.gif" width="50" height="20">Timex:
+    </p></td>
+    <td align="center">
+      last OUT to port FFh
+    </td>
+</tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" rowspan="4" nowrap="">5</td>
+    <td align="left" bgcolor="#CCFFFF" rowspan="4" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" bgcolor="#CCFFFF" rowspan="4" nowrap="">1</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">r register emulation?</td>
+    <td align="left" bgcolor="#CCFFFF">bit 0:</td>
+    <td align="left" bgcolor="#CCFFFF">1=yes, 0=no</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">ldir emulation?</td>
+    <td align="left" bgcolor="#CCFFFF">bit 1:</td>
+    <td align="left" bgcolor="#CCFFFF">1=yes, 1=no</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap=""><a href="https://worldofspectrum.net/zx-modules/fileformats/z80format.html#hardware%20modes">hardware modification</a>?</td>
+    <td align="center">
+      <p align="left">bit 7:
+    </p></td>
+    <td align="center">
+      <p align="left">1=hardware modification, see below</p></td>
+  </tr>
+<tr>
+    <td align="center" nowrap="">---</td>
+    <td align="center">
+      <p align="left">other bits:</p>
+    </td>
+    <td align="center">
+      <p align="left">set to zero</p></td>
+</tr>
+  <tr>
+    <td align="center" nowrap="">6</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">last out to FFFDh</td>
+    <td align="left" colspan="2">last OUT to FFFDh (sound chip reg. number)</td>
+  </tr>
+  <tr>
+    <td align="center" nowrap="">7</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/array-left.gif" width="20" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/array-addition.gif" width="50" height="20"></td>
+    <td align="center" nowrap="">16</td>
+    <td align="center" nowrap="">sound chip registers</td>
+    <td align="left" colspan="2">contents of the sound chip register</td>
+  </tr>
+  </tbody></table>
+
+<p align="center">The Z80 file format 3 uses another extended header:</p>
+  <table border="3" cellspacing="0" bgcolor="#CCFFFF">
+    <tbody><tr>
+      <td align="center" colspan="5" bgcolor="#FFFF00"><b><a name="extended header"><font color="#0000FF"></font></a><font color="#0000FF"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/extendedheader.jpg" align="absmiddle" width="160" height="20">
+        (version 3 only, 31 or 32 bytes):</font></b></td>
+    </tr>
+    <tr>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Offset:</b></font></td>
+      <td align="left" nowrap=""><font color="#0000FF"><b>Field type:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Length:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Description:</b></font></td>
+      <td align="center"><font color="#0000FF"><b>Additional
+        information:</b></font></td>
+    </tr>
+<tr>
+    <td align="center" nowrap="">0</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">Low T-State counter</td>
+    <td align="left">lower 2 bytes of 3-byte-Time counter</td>
+</tr>
+<tr>
+    <td align="center" nowrap="">2</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">High T-State counter</td>
+    <td align="left">high byte of 3-byte-Time counter</td>
+</tr>
+<tr>
+    <td align="center" nowrap="">3</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/0-byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">ignored</td>
+    <td align="center">
+      <p align="left">value 0 for Spectrum emulators,&nbsp;<br>
+ flag&nbsp;byte for QL Spectrum
+      emulator</p></td>
+</tr>
+<tr>
+    <td align="center" nowrap="">4</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">M.G.T: Rom paged?</td>
+    <td align="left">value 255 for yes, otherwise no</td>
+</tr>
+<tr>
+    <td align="center" nowrap="">5</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">Multiface Rom paged?</td>
+    <td align="left">value 255 for yes, otherwise no;&nbsp;<u><br>
+      </u>should always be zero as the Multiface ROM is not working without the
+      Multiface RAM, that is not stored in the snapshot</td>
+</tr>
+<tr>
+    <td align="center" nowrap="">6</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">memory 0000h..1FFFh</td>
+    <td align="left">value 255 for ROM-area, 0 for RAM</td>
+</tr>
+<tr>
+    <td align="center" nowrap="">7</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">memory 2000h..3FFFh</td>
+    <td align="left">value 255 for ROM-area, 0 for RAM</td>
+</tr>
+<tr>
+    <td align="center" nowrap="">8</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/array-left.gif" width="20" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/array-addition.gif" width="50" height="20"></td>
+    <td align="center" nowrap="">10</td>
+    <td align="center" nowrap="">5x keyboard mappings</td>
+    <td align="left">for user-defined joysticks (default=103h,&nbsp;<br>
+ 203h,
+      403h, 803h, 1003h)</td>
+</tr>
+<tr>
+    <td align="center" nowrap="">18</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/array-left.gif" width="20" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/array-addition.gif" width="50" height="20"></td>
+    <td align="center" nowrap="">10</td>
+    <td align="center" nowrap="">5x ascii values</td>
+    <td align="left">correspond to keybd.mappings (default=31h,&nbsp;<br>
+ 32h,
+      33h, 34h, 35h), MSB-byte is always zero.</td>
+</tr>
+<tr>
+    <td align="center" nowrap="">28</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">M.G.T. type</td>
+    <td align="center">
+      <p align="left">0=Disciple+Epson, 1=Disciple+HP, 16=Plus D</p></td>
+</tr>
+<tr>
+    <td align="center" nowrap="">29</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">Disciple inhibitor button</td>
+    <td align="left">value 255 for in (enabled), 0 for out
+      (disabled)</td>
+</tr>
+<tr>
+    <td align="center" nowrap="">30</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">Disciple inhibitor flag</td>
+    <td align="left">value 255 for Rom not pageable,&nbsp;<br>
+ 0 for Rom
+      pageable</td>
+</tr>
+<tr>
+      <td align="center" colspan="5" bgcolor="#FFFF00"><font color="#0000FF"><b><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-case.gif" align="absmiddle" width="50" height="20">extra
+        information if the 'additional header length' (byte at file offset 30) is
+        55:</b></font></td>
+</tr>
+<tr>
+    <td align="center" nowrap="">31</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" nowrap="">1</td>
+    <td align="center" nowrap="">last out to port 1FFDh</td>
+    <td align="left">control register for Scorpion 256k: Bit no. 4 controls
+      whether RAM pages 0..7 (bit=0) or 8..15 (bit=1) are used.&nbsp;</td>
+</tr>
+  </tbody></table>
+
+<p align="center">The keyboard mapping words represent the joystick definitions for left,
+right, down, up and fire and describe the keyboard row (low byte), and the
+keyboard column (high byte) of the keyboard. The following ascii values
+correspond to the keyboard mappings in the same order.</p>
+
+  <p align="center">The Z80 file versions 2 and 3 use the following sub-block for
+  storing RAM memory:</p>
+<div align="center">
+  <center>
+  <table border="3" cellspacing="0" bgcolor="#CCFFFF">
+  <tbody><tr>
+      <td align="center" colspan="6" bgcolor="#FFFF00"><b><a name="datablock"><font color="#0000FF"></font></a><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/datablock.jpg" align="absmiddle" width="160" height="20"><font color="#0000FF">:</font></b></td>
+  </tr>
+    <tr>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Offset:</b></font></td>
+      <td align="left" nowrap=""><font color="#0000FF"><b>Field type:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Length:</b></font></td>
+      <td align="center" nowrap=""><font color="#0000FF"><b>Description:</b></font></td>
+      <td align="center" colspan="2"><font color="#0000FF"><b>Additional
+        information:</b></font></td>
+    </tr>
+  <tr>
+    <td align="center" nowrap="">+0</td>
+    <td align="left" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/word.jpg" width="80" height="20"></td>
+    <td align="center" nowrap="">2</td>
+    <td align="center" nowrap="">length of datablock<br>
+      value 65535&nbsp;<br>
+ means "uncompressed"</td>
+    <td align="left" colspan="2">may be compressed.&nbsp;<br>
+ uncompressed&nbsp;block
+      size=16384 bytes</td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" rowspan="4" nowrap="">+2</td>
+    <td align="left" bgcolor="#CCFFFF" rowspan="4" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"></td>
+    <td align="center" bgcolor="#CCFFFF" rowspan="4" nowrap="">1</td>
+    <td align="center" bgcolor="#CCFFFF" rowspan="4" nowrap="">page number of&nbsp;<br>
+ RAM block</td>
+    <td align="left" bgcolor="#CCFFFF"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-case.gif" width="50" height="20">48k:</td>
+    <td align="left" bgcolor="#CCFFFF">4=(8000h..BFFFh),&nbsp;<br>
+ 5=(C000h..FFFFh),&nbsp;<br>
+      8=(4000h..7FFFh)</td>
+  </tr>
+  <tr>
+    <td align="left" bgcolor="#CCFFFF"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-case.gif" width="50" height="20">128k:<br>
+      (also Pentagon)</td>
+    <td align="left" bgcolor="#CCFFFF">3..10 = Ram pages 0 to 7</td>
+  </tr>
+  <tr>
+    <td align="left" bgcolor="#CCFFFF"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-case.gif" width="50" height="20">SamRam:</td>
+    <td align="left" bgcolor="#CCFFFF">4=(8000h..BFFFh),&nbsp;<br>
+ 5=(C000h..FFFFh),<br>
+      6=(8000h..BFFFh shadow),&nbsp;<br>
+ 7=(C000h..FFFFh shadow),<br>
+      8=(4000h..7FFFh)</td>
+  </tr>
+  <tr>
+    <td align="left" bgcolor="#CCFFFF"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/arrow-case.gif" width="50" height="20">Scorpion:</td>
+    <td align="left" bgcolor="#CCFFFF">3..18 = Ram pages 0..15 or<br>
+      <span style="background-color: #FFFF00">
+      0..15 = Ram pages 0..15 (!)</span></td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">+3</td>
+    <td align="left" bgcolor="#CCFFFF" nowrap=""><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/byte.jpg" width="40" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/array-left.gif" width="20" height="20"><img border="0" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/array-addition.gif" width="50" height="20"></td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">blocklength</td>
+    <td align="center" bgcolor="#CCFFFF" nowrap="">compressed data</td>
+    <td align="left" bgcolor="#CCFFFF" colspan="2">compression method see
+      version 1 files, but end marker is missing.</td>
+  </tr>
+  </tbody></table>
+  </center>
+</div>
+
+  <p align="center"><a name="hardware modes"></a>Hardware modes (depending on
+  versions):</p>
+  <div align="center">
+    <center>
+    <table border="1" bgcolor="#FFFFFF">
+      <tbody><tr>
+        <td align="center" bgcolor="#FFFF00" rowspan="2"><b>byte
+          value:</b></td>
+        <td align="center" bgcolor="#FFFF00" colspan="2"><b>version
+          2:</b></td>
+        <td align="center" bgcolor="#FFFF00" colspan="2"><b>version
+          3:</b></td>
+      </tr>
+      <tr>
+        <td align="center" bgcolor="#FFFF00">without
+          hardware modification</td>
+        <td align="center" bgcolor="#FFFF00">with
+          hardware <br>
+          modification</td>
+        <td align="center" bgcolor="#FFFF00">without
+          hardware modification</td>
+        <td align="center" bgcolor="#FFFF00">with
+          hardware<br>
+          &nbsp;modification</td>
+      </tr>
+      <tr>
+        <td align="center">0</td>
+        <td align="center">Spectrum 48k</td>
+        <td align="center">Spectrum 16k</td>
+        <td align="center">Spectrum 48k</td>
+        <td align="center">Spectrum 16k</td>
+      </tr>
+      <tr>
+        <td align="center">1</td>
+        <td align="center">Spectrum 48k
+          + IF1</td>
+        <td align="center">Spectrum
+          16k+IF1</td>
+        <td align="center">Spectrum 48k
+          + IF1</td>
+        <td align="center">Spectrum 16k
+          + IF1</td>
+      </tr>
+      <tr>
+        <td align="center">2</td>
+        <td align="center" colspan="4">SamRam</td>
+      </tr>
+      <tr>
+        <td align="center">3</td>
+        <td align="center">Spectrum 128k</td>
+        <td align="center">Spectrum +2</td>
+        <td align="center">Spectrum 48k
+          + M.G.T.</td>
+        <td align="center">Spectrum +2 +
+          M.G.T.</td>
+      </tr>
+      <tr>
+        <td align="center">4</td>
+        <td align="center">Spectrum 128k
+          + IF1</td>
+        <td align="center">Spectrum +2 +
+          IF1</td>
+        <td align="center">Spectrum 128k</td>
+        <td align="center">Spectrum +2</td>
+      </tr>
+      <tr>
+        <td align="center">5</td>
+        <td align="center">(Spectrum
+          128k + IF1) *</td>
+        <td align="center">(Spectrum +2
+          + IF1) *</td>
+        <td align="center">Spectrum 128k
+          + IF1</td>
+        <td align="center">Spectrum +2 +
+          IF1</td>
+      </tr>
+      <tr>
+        <td align="center">6</td>
+        <td align="center">(Spectrum
+          128k + M.G.T.) *</td>
+        <td align="center">(Spectrum +2
+          + M.G.T.) *</td>
+        <td align="center">Spectrum 128k
+          + M.G.T.</td>
+        <td align="center">Spectrum +2 +
+          M.G.T.</td>
+      </tr>
+      <tr>
+        <td align="center">7</td>
+        <td align="center">Spectrum +3</td>
+        <td align="center">Spectrum +2A</td>
+        <td align="center">Spectrum +3</td>
+        <td align="center">Spectrum +2A</td>
+      </tr>
+      <tr>
+        <td align="center">8</td>
+        <td align="center">(Spectrum +3)
+          **</td>
+        <td align="center">(Spectrum
+          +2A) **</td>
+        <td align="center">(Spectrum +3)
+          **</td>
+        <td align="center">(Spectrum
+          +2A) **</td>
+      </tr>
+      <tr>
+        <td align="center">9</td>
+        <td align="center" colspan="4">Pentagon
+          128k</td>
+      </tr>
+      <tr>
+        <td align="center">10</td>
+        <td align="center" colspan="4">Scorpion
+          256k</td>
+      </tr>
+      <tr>
+        <td align="center">11</td>
+        <td align="center" colspan="4">Didaktik+Kompakt</td>
+      </tr>
+      <tr>
+        <td align="center">12</td>
+        <td align="center" colspan="4">Spectrum
+          +2</td>
+      </tr>
+      <tr>
+        <td align="center">13</td>
+        <td align="center" colspan="4">Spectrum
+          +2A</td>
+      </tr>
+      <tr>
+        <td align="center">14</td>
+        <td align="center" colspan="4">Timex
+          TC 2048</td>
+      </tr>
+      <tr>
+        <td align="center">15</td>
+        <td align="center" colspan="4">Timex
+          TC 2068</td>
+      </tr>
+      <tr>
+        <td align="center">128</td>
+        <td align="center" colspan="4">Timex
+          TS 2068</td>
+      </tr>
+    </tbody></table>
+    </center>
+  </div>
+  <p align="center">* = mistakenly used by XZX-PRO; <br>
+  ** = should not appear - but <u>may</u> occur in odd versions</p>
+
+<script defer="" src="./Claus Jahn&#39;s ZX Spectrum Homepage_files/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;6170489f1d134c23919b33bbe042bf7a&quot;,&quot;r&quot;:1,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+
+</body></html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Cards - Football Management Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .screen-title {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .game-content {
+            width: 100%;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .info-text {
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .league-prices {
+            width: 80%;
+            margin: 20px 0;
+        }
+        
+        .league-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .league-name {
+            width: 120px;
+            text-align: left;
+        }
+        
+        .league-cost {
+            width: 100px;
+            text-align: right;
+        }
+        
+        .button {
+            background-color: #00ffff;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.2s;
+        }
+        
+        .button:hover {
+            background-color: #ffff00;
+            transform: scale(1.05);
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff0000;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <button class="button back-button" onclick="goBack()">Back</button>
+        
+        <h1 class="screen-title">GOAL CARDS</h1>
+        
+        <div class="game-content" id="goalCardsScreen">
+            <div class="info-text">
+                IN CASH YOU HAVE £4800
+            </div>
+            
+            <div class="info-text">
+                DEPENDING ON WHICH DIVISION YOUR TEAM IS IN, GOAL CARDS CAN BE PURCHASED AT THE FOLLOWING PRICES:-
+            </div>
+            
+            <div class="league-prices">
+                <div class="league-row">
+                    <div class="league-name">LEAGUE</div>
+                    <div class="league-cost">COST</div>
+                </div>
+                <div class="league-row">
+                    <div class="league-name">SUPER</div>
+                    <div class="league-cost">£ 3,000</div>
+                </div>
+                <div class="league-row">
+                    <div class="league-name">1ST DIV</div>
+                    <div class="league-cost">£ 2,000</div>
+                </div>
+                <div class="league-row">
+                    <div class="league-name">2ND DIV</div>
+                    <div class="league-cost">£ 1,500</div>
+                </div>
+                <div class="league-row">
+                    <div class="league-name">3RD DIV</div>
+                    <div class="league-cost">£ 800</div>
+                </div>
+                <div class="league-row">
+                    <div class="league-name">4TH DIV</div>
+                    <div class="league-cost">£ 400</div>
+                </div>
+            </div>
+            
+            <div class="info-text">
+                AT PRESENT YOU OWN 10 GOAL CARDS
+            </div>
+            
+            <div class="info-text">
+                DO YOU WISH TO BUY EXTRA CARDS (Y/N)?
+            </div>
+            
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <button class="button" onclick="buyCards('yes')">Y</button>
+                <button class="button" onclick="buyCards('no')">N</button>
+            </div>
+        </div>
+        
+        <div class="game-content hidden" id="useCardsScreen">
+            <h1 class="screen-title">GOAL CARDS</h1>
+            
+            <div class="info-text">
+                YOU ARE 10 GOAL CARDS IN CREDIT
+            </div>
+            
+            <div class="info-text">
+                DO YOU WISH TO ADD A GOAL CARD TO ANY OF THE FORTHCOMING GAMES?
+            </div>
+            
+            <div class="info-text">
+                NEXT GOAL CARD VALUE = 2
+            </div>
+            
+            <div class="info-text">
+                LEAGUE.
+            </div>
+            
+            <div class="info-text" style="margin-top: 20px;">
+                MAN. UTD HOME (Y/N)?
+            </div>
+            
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+                <button class="button" onclick="useCard('yes')">Y</button>
+                <button class="button" onclick="useCard('no')">N</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScreen = 'goalCards';
+        let playerCards = 10;
+        let nextCardValue = 2;
+        
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+        
+        function buyCards(choice) {
+            if (choice === 'yes') {
+                // In a real game, would implement buying logic here
+                alert('Buying cards would reduce your cash and increase your card count');
+                currentScreen = 'useCards';
+                showUseCardsScreen();
+            } else {
+                currentScreen = 'useCards';
+                showUseCardsScreen();
+            }
+        }
+        
+        function useCard(choice) {
+            if (choice === 'yes') {
+                if (playerCards > 0) {
+                    playerCards--;
+                    alert(`Goal card used! You have ${playerCards} cards remaining.`);
+                    // In a real game, would proceed to penalty minigame
+                } else {
+                    alert('No goal cards available!');
+                }
+            }
+            // Return to main menu or proceed to next screen
+            setTimeout(() => goBack(), 2000);
+        }
+        
+        function showUseCardsScreen() {
+            document.getElementById('goalCardsScreen').classList.add('hidden');
+            document.getElementById('useCardsScreen').classList.remove('hidden');
+        }
+        
+        // Initialize game state from localStorage or backend
+        function initializeGame() {
+            // In a real implementation, would load from PHP backend
+            const savedState = localStorage.getItem('gameState');
+            if (savedState) {
+                const state = JSON.parse(savedState);
+                playerCards = state.playerCards || 10;
+                nextCardValue = state.nextCardValue || 2;
+            }
+        }
+        
+        // Save game state
+        function saveGameState() {
+            const gameState = {
+                playerCards: playerCards,
+                nextCardValue: nextCardValue,
+                currentScreen: currentScreen
+            };
+            localStorage.setItem('gameState', JSON.stringify(gameState));
+            
+            // In a real implementation, would also save to PHP backend
+            fetch('game_save.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: 'save',
+                    user_id: 1,
+                    save_name: 'Football Game Save',
+                    game_data: gameState
+                })
+            });
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeGame();
+        });
+        
+        // Save state when leaving screen
+        window.addEventListener('beforeunload', () => {
+            saveGameState();
+        });
+    </script>
+</body>
+</html>

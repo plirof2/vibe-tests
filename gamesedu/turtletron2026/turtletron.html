@@ -1,0 +1,962 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Turtletron Enhanced - Graphics Edition</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/styles/main.css">
+    <script src="assets/scripts/graphics.js"></script>
+</head>
+<body>
+    <div class="container fade-in">
+        <header class="header">
+            <h1 class="title">Turtletron Enhanced</h1>
+            <p class="subtitle">Interactive Turtle Graphics Programming Game</p>
+        </header>
+        
+        <div class="game-area">
+            <div class="canvas-container">
+                <div class="canvas-wrapper">
+                    <canvas id="myCanvas" width="600" height="600">
+                        Your browser does not support the HTML5 canvas element.
+                    </canvas>
+                </div>
+                
+                <div class="commands-reference">
+                    <h3>Quick Commands Reference</h3>
+                    <div class="command-list">
+                        <div class="command-item">fd(distance) - Forward</div>
+                        <div class="command-item">lt(angle) - Turn Left</div>
+                        <div class="command-item">rt(angle) - Turn Right</div>
+                        <div class="command-item">cs() - Clear Screen</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="status-panel">
+                <div class="status-display">
+                    <div id="label1">Initializing game...</div>
+                </div>
+                
+                <div class="controls-section">
+                    <h3 class="section-title">Command Input</h3>
+                    <div class="command-input">
+                        <input type="text" id="command" placeholder="Enter command..." />
+                        <button class="btn btn-primary" onclick="evaluate2()">Execute</button>
+                        <button class="btn btn-danger" onclick="cs()">Clear</button>
+                    </div>
+                </div>
+                
+                <div class="controls-section">
+                    <h3 class="section-title">Quick Controls</h3>
+                    <div class="quick-controls">
+                        <div class="quick-control-group">
+                            <label>Forward:</label>
+                            <input type="text" value="100" id="fdammount" />
+                            <button class="btn btn-primary" onclick="fdbutton()">Go</button>
+                        </div>
+                        <div class="quick-control-group">
+                            <label>Right:</label>
+                            <input type="text" value="90" id="rtammount" />
+                            <button class="btn btn-primary" onclick="rtbutton()">Turn</button>
+                        </div>
+                        <div class="quick-control-group">
+                            <label>Left:</label>
+                            <input type="text" value="90" id="ltammount" />
+                            <button class="btn btn-primary" onclick="ltbutton()">Turn</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="textarea-container">
+            <div class="controls-section">
+                <h3 class="section-title">Command History</h3>
+                <textarea rows="8" id="history" readonly>
+COMMAND HISTORY:
+                </textarea>
+            </div>
+        </div>
+        
+        <div class="textarea-container">
+            <div class="controls-section">
+                <h3 class="section-title">Function Editor (JavaScript)</h3>
+                <textarea rows="12" id="funct">
+// Ready Functions (enter functions in JavaScript)
+function square(l) {
+   ΜΠΡΟΣΤΑ(l);
+   ΔΕΞΙΑ(90);
+   ΜΠΡΟΣΤΑ(l);
+   ΔΕΞΙΑ(90);
+   ΜΠΡΟΣΤΑ(l);
+   ΔΕΞΙΑ(90);
+   ΜΠΡΟΣΤΑ(l);
+   ΔΕΞΙΑ(90);
+}
+
+function chair(l){
+   square(l);
+   ΜΠΡΟΣΤΑ(l*2);
+}
+
+function house() {
+    ΜΠΡΟΣΤΑ(100);
+    ΑΡΙΣΤΕΡΑ(135);
+    ΜΠΡΟΣΤΑ(100);
+    ΑΡΙΣΤΕΡΑ(90);
+    ΜΠΡΟΣΤΑ(30);
+    ΑΡΙΣΤΕΡΑ(45);
+    square(150);
+}
+
+function stair() {
+   for(foobar=0;foobar<5;foobar++) {
+       ΔΕΞΙΑ(90);
+       ΜΠΡΟΣΤΑ(10);
+       ΑΡΙΣΤΕΡΑ(90);
+       ΜΠΡΟΣΤΑ(10);
+   }
+}
+
+function chairchain(l){
+   ΔΕΞΙΑ(20);
+   ΜΠΡΟΣΤΑ(l);
+   for(foo=1;foo<=10;foo++){
+      ΔΕΞΙΑ(20);
+       chair(foo);
+   }
+}
+                </textarea>
+            </div>
+        </div>
+        
+        <div class="settings-panel">
+            <div class="setting-group">
+                <label for="ppt">Pixels per turn:</label>
+                <input type="text" id="ppt" value="100" />
+                <button class="btn btn-secondary" onclick="set_ppt()">Set</button>
+            </div>
+            
+            <div class="setting-group">
+                <label for="cd">Collision detection:</label>
+                <input type="checkbox" id="cd" checked="checked" />
+            </div>
+            
+            <div class="mode-buttons">
+                <button class="btn btn-primary" onclick="two_player_mode()">Two Player Mode</button>
+                <button class="btn btn-secondary" onclick="single_player_mode()">Single Player Mode</button>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p>Turtletron Enhanced - Educational Programming Game</p>
+            <p>Please add any interesting functions you create to the comments section below.</p>
+        </footer>
+    </div>
+
+
+<script type="text/javascript">
+function DrawRect(x,y,width,height,Color){
+    //var cxt=c.getContext("2d");
+    cxt.fillStyle=Color;
+    cxt.fillRect(x,y,width,height);
+}
+/*
+function CCW(p1,p2,p3) {//Counter Clock Wise
+                        // three points are counter clock wise if ccw > 0
+                        //clockwise if ccw < 0 and colinear if ccw==0
+                        //because ccw is a determinant that gives the 
+                        //signed area of the tirangle formed by p1, p2 and p3.
+    return (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
+}
+
+function general_line_intersection(a,b,c,d) {
+    if((CCW(a,c,d)>0) == (CCW(b,c,d)>0)){
+        return false;
+    } else {
+        if((CCW(a,b,c)>0)== (CCW(a,b,d)>0)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+function points_equal(a,b){
+    return ((a.x == b.x) && (a.y == b.y));
+}
+
+function overlapping_end_point(a,b,c,d) {
+    if(points_equal(a,c) || points_equal(a,d) 
+            || points_equal(b,c) || points_equal(b,d))
+    {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function colinear(a,b,c,d){
+    return ((CCW(a,b,d)== 0)  && (CCW(a,b,d)== 0));
+}
+
+function overlapping_interval(left1, right1, left2, right2){
+    return (left1 <= right2) && (left2 <= right1);
+}
+
+
+
+
+function overlapping_colinear(a,b,c,d){
+    var left_ab  = Math.min(a.x, b.x);
+    var top_ab   = Math.min(a.y, b.y);
+    var right_ab = Math.max(a.x, b.x);
+    var bot_ab  = Math.max(a.y, b.y);
+    var left_cd  = Math.min(c.x, d.x);
+    var top_cd   = Math.min(c.y, d.y);
+    var right_cd = Math.max(c.x, d.x);
+    var bot_cd  = Math.max(c.y, d.y);
+    
+    return (colinear(a,b,c,d)
+    && overlapping_interval(left_ab, right_ab, left_cd, right_cd)
+    && overlapping_interval(top_ab, bot_ab, top_cd, bot_cd)
+           );
+}
+
+function between(low,mid,high){
+    //returns true if mid is between low and high.
+    return (low <= mid) && (mid <= high);
+}
+
+function inside(a,c,b){
+    //returns true if c is inside a and b.
+    if(CCW(a,b,c) == 0){
+        var left  = Math.min(a.x, b.x);
+        var right = Math.max(a.x, b.x);
+        var top   = Math.min(a.y, b.y);
+        var bot   = Math.max(a.y, b.y);
+        return (between(left,c.x,right) && between(top,c.y,bot));
+    } else {
+        return false;
+    }    
+}
+
+function endpoint_inside_segment(a,b,c,d){
+    return (inside(a,c,b) || inside(a,d,b)
+            || inside(c,a,d) ||  inside(c,b,d));
+}
+
+
+
+function line_intersection(a,b,c,d) {
+    return (general_line_intersection(a,b,c,d)
+      || overlapping_end_point(a,b,c,d)
+      || overlapping_colinear(a,b,c,d)
+      || endpoint_inside_segment(a,b,c,d)
+      );
+}
+*/
+
+//---------------------------------------------------------------
+//Checks for intersection of Segment if as_seg is true.
+//Checks for intersection of Line if as_seg is false.
+//Return intersection of Segment AB and Segment EF as a Point
+//Return null if there is no intersection
+//---------------------------------------------------------------
+function lineIntersectLine(A,B,E,F,as_seg) {
+    var ip= new Object();
+    var a1=0;
+    var a2=0;
+    var b1=0;
+    var b2=0;
+    var c1=0;
+    var c2=0;
+ 
+    a1= B.y-A.y;
+    b1= A.x-B.x;
+    c1= B.x*A.y - A.x*B.y;
+    a2= F.y-E.y;
+    b2= E.x-F.x;
+    c2= F.x*E.y - E.x*F.y;
+ 
+    var denom=a1*b2 - a2*b1;
+    if (denom == 0) {
+        return null;
+    }
+    ip.x=(b1*c2 - b2*c1)/denom;
+    ip.y=(a2*c1 - a1*c2)/denom;
+ 
+    //---------------------------------------------------
+    //Do checks to see if intersection to endpoints
+    //distance is longer than actual Segments.
+    //Return null if it is with any.
+    //---------------------------------------------------
+    if(as_seg){
+        if(Math.pow(ip.x - B.x, 2) + Math.pow(ip.y - B.y, 2) > Math.pow(A.x - B.x, 2) + Math.pow(A.y - B.y, 2))
+        {
+           return null;
+        }
+        if(Math.pow(ip.x - A.x, 2) + Math.pow(ip.y - A.y, 2) > Math.pow(A.x - B.x, 2) + Math.pow(A.y - B.y, 2))
+        {
+           return null;
+        }
+ 
+        if(Math.pow(ip.x - F.x, 2) + Math.pow(ip.y - F.y, 2) > Math.pow(E.x - F.x, 2) + Math.pow(E.y - F.y, 2))
+        {
+           return null;
+        }
+        if(Math.pow(ip.x - E.x, 2) + Math.pow(ip.y - E.y, 2) > Math.pow(E.x - F.x, 2) + Math.pow(E.y - F.y, 2))
+        {
+           return null;
+        }
+    }
+    return ip;
+}
+
+// Returns 1 if the lines intersect, otherwise 0. In addition, if the lines 
+// intersect the intersection point may be stored in the floats i_x and i_y
+/*.
+function get_line_intersection(p0_x, p0_y, p1_x, p1_y, 
+    p2_x, p2_y, p3_x,  p3_y) {
+    var s1_x=0, s1_y=0, s2_x=0, s2_y=0;
+    s1_x = p1_x - p0_x;     s1_y = p1_y - p0_y;
+    s2_x = p3_x - p2_x;     s2_y = p3_y - p2_y;
+
+    var s_=0, t_=0;
+    s_ = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
+    t_ = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
+
+    if (s_ >= 0 && s_ <= 1 && t_ >= 0 && t_ <= 1)
+    {
+        // Collision detected
+        //if (i_x != null)
+            var i_x = p0_x + (t_ * s1_x);
+        //if (i_y != null)
+            var i_y = p0_y + (t_ * s1_y);
+        return 1;
+    }
+
+    return 0; // No collision
+}
+*/
+        
+function fd_(distance,obj) {//primitive for drawing forward
+    cxt.moveTo(obj.x,obj.y);
+    angle_radians=obj.angle*Math.PI/180;//converts degrees to radians
+    var newx=obj.x+distance*Math.cos(angle_radians);
+    var newy=obj.y+distance*Math.sin(angle_radians);
+    obj.x=newx;
+    obj.y=newy;
+    cxt.lineTo(newx,newy);
+    
+    // Enhanced line styling
+    cxt.lineWidth = 2;
+    cxt.lineCap = 'round';
+    
+    // Set color based on player
+    if(obj==player1) {
+        cxt.strokeStyle="#00FF00"; // Bright green
+    } else if(obj==player2) {
+        cxt.strokeStyle="#FF0000"; // Bright red
+    } else {
+        cxt.strokeStyle="#0066FF"; // Default blue
+    }
+    
+    cxt.stroke();
+    cxt.beginPath();
+}
+function fd__(distance) {//drawing foward with distance calculations
+	var x=0,y=0,angle=0;
+    if(pixels_left-distance<0) {
+        // Visual feedback instead of alert
+        var playerName = turn === "player1" ? "Player 1" : "Player 2";
+        update_label1();
+        document.getElementById('label1').innerHTML += "<br><span style='color: #FF6600;'>⚠ " + playerName + " - Not enough pixels!</span>";
+        return;
+    }
+    if(turn=="player1") {
+        x=player1.x;
+        y=player1.y;
+        angle=player1.angle;
+    } else {
+        x=player2.x;
+        y=player2.y;
+        angle=player2.angle;
+    }        
+    cxt.moveTo(x,y);
+    angle_radians=angle*Math.PI/180;//converts degrees to radians
+    var newx=x+distance*Math.cos(angle_radians);
+    var newy=y+distance*Math.sin(angle_radians);
+    if(turn=="player1") {
+        player1.x=newx;
+        player1.y=newy;
+    } else {
+        player2.x=newx;
+        player2.y=newy;
+    }        
+    cxt.lineTo(newx,newy);
+    cxt.stroke();
+    cxt.beginPath();
+    //collision detection
+    //compare collision with every line in the array
+    for (l in line_array) {
+        //if(l==line_array.length-1) break;//skip the last line
+		//skip last line(to prevent collision with it next move)
+		if(turn=="player1") {
+			if(l==player1.prev_line_number-1) continue;
+		} else {
+			if(l==player2.prev_line_number-1) continue;
+		}        
+
+        a_= new Object();
+        a_.x=line_array[l].startx;
+        a_.y=line_array[l].starty;
+        b_= new Object();
+        b_.x=line_array[l].endx;
+        b_.y=line_array[l].endy;
+        c_= new Object();
+        c_.x=x;
+        c_.y=y;
+        d_= new Object();
+        d_.x=newx;
+        d_.y=newy;
+        //if(line_intersection(a,b,c_,d)) alert("line intersects");
+        if(lineIntersectLine(a_,b_,c_,d_,true)){
+			// Collision detected - show visual feedback
+			
+			// Highlight intersecting lines
+			cxt.moveTo(a_.x,a_.y);
+			cxt.lineTo(b_.x,b_.y);
+			cxt.strokeStyle="#00FF00";
+			cxt.lineWidth = 4;
+			cxt.stroke();
+			cxt.beginPath();    
+			cxt.moveTo(c_.x,c_.y);
+			cxt.lineTo(d_.x,d_.y);
+			cxt.strokeStyle="#FF0000";
+			cxt.lineWidth = 4;
+			cxt.stroke();
+			cxt.beginPath();
+			
+			// Add collision effect if graphics system is available
+			if (window.turtleGraphics) {
+				// Calculate intersection point for effect
+				var intersection = lineIntersectLine(a_,b_,c_,d_,true);
+				if (intersection) {
+					turtleGraphics.showCollisionEffect(cxt, intersection.x, intersection.y);
+				}
+			}
+			
+			if(document.getElementById('cd').checked==true){//if collision detection is enabled
+				// Visual feedback instead of alert
+                var canvas = document.getElementById('myCanvas');
+                canvas.style.animation = 'pulse 0.5s';
+                canvas.style.borderColor = '#FF6600';
+                setTimeout(() => {
+                    canvas.style.animation = '';
+                    canvas.style.borderColor = '';
+                }, 1000);
+                
+                // Show collision message
+                var playerName = turn === "player1" ? "Player 1" : "Player 2";
+                update_label1();
+                document.getElementById('label1').innerHTML += "<br><span style='color: #FF6600;'>💥 " + playerName + " collided!</span>";
+			}
+		}
+        //if(get_line_intersection(a.x, a.y, b.x, b.y, c_.x, c_.y, d.x,  d.y)==1) alert("line intersects");
+    }
+
+    
+    //add line to array of llines
+    lineobj= new Object();
+    lineobj.startx=x;lineobj.starty=y;
+    lineobj.endx=newx;lineobj.endy=newy;
+    line_array.push(lineobj);
+	//store last line(to prevent collision with it next move)
+	if(turn=="player1") {
+        player1.prev_line_number=line_array.length;
+    } else {
+        player2.prev_line_number=line_array.length;
+    }        
+    
+	//check to see if turtle is out of the area
+    if(newx>c.width || newy>c.height || newx<0 || newy<0) {
+        // Visual feedback instead of alert
+        var canvas = document.getElementById('myCanvas');
+        canvas.style.animation = 'pulse 0.5s';
+        setTimeout(() => {
+            canvas.style.animation = '';
+        }, 500);
+        
+        // Also show a more user-friendly message
+        var playerName = turn === "player1" ? "Player 1" : "Player 2";
+        update_label1();
+        document.getElementById('label1').innerHTML += "<br><span style='color: #FF6600;'>⚠ " + playerName + " went out of bounds!</span>";
+    }
+    
+    //change turn if nessesary
+    pixels_left=pixels_left-distance;
+    if(pixels_left==0) {
+        pixels_left=document.getElementById('ppt').value;
+        if(turn=="player1") turn="player2"; else turn="player1";
+    }        
+    update_label1();
+}
+function fd(distance) {
+    // Clear and restore canvas
+    c.width=c.width;
+    cxt.putImageData(image,0,0);
+    
+    // Draw grid background if graphics system is available
+    if (window.turtleGraphics) {
+        turtleGraphics.drawGrid(cxt, c.width, c.height, 30);
+    }
+    
+    // Store old position for effects
+    var oldX = turn === "player1" ? player1.x : player2.x;
+    var oldY = turn === "player1" ? player1.y : player2.y;
+    
+    fd__(distance);
+    
+    // Add line drawing effect
+    if (window.turtleGraphics) {
+        var newX = turn === "player1" ? player1.x : player2.x;
+        var newY = turn === "player1" ? player1.y : player2.y;
+        var lineColor = turn === "player1" ? '#00FF00' : '#FF0000';
+        turtleGraphics.showLineEffect(cxt, oldX, oldY, newX, newY, lineColor);
+    }
+    
+    image=cxt.getImageData(0,0,c.width,c.height);
+    
+    // Draw turtles
+    draw_turtle(player1);
+    draw_turtle(player2);
+    
+    // Update particles if graphics system is available
+    if (window.turtleGraphics) {
+        turtleGraphics.updateParticles(cxt);
+    }
+    
+    // Add to history
+    var playerName = turn === "player1" ? "P1" : "P2";
+    document.getElementById('history').value=document.getElementById('history').value+playerName+": FORWARD("+distance+");\n";
+}
+function ΜΠ(distance) { fd(distance);}
+function ΜΠΡΟΣΤΑ(distance) { fd(distance);}
+
+
+function cs() {
+    //DrawRect(0,0,c.width,c.height,"#FFFFFF");//cxt.clearRect(0,0,c.width,c.height);//
+    //cxt.clearRect(0,0,c.width,c.height);//should clear canvas, but doesn't
+    c.width=c.width;//clear canvas
+    
+    //cxt.fillStyle="#FF0000";
+    //cxt.fillRect(0,0,c.width,c.height);
+    //DrawRect(0,0,c.width,c.height,"#FF0000");
+    for (l in line_array) {
+        //if(l==line_array.length-1) break;//skip the current line
+        a_= new Object();
+        a_.x=line_array[l].startx;
+        a_.y=line_array[l].starty;
+        b_= new Object();
+        b_.x=line_array[l].endx;
+        b_.y=line_array[l].endy;
+        
+		cxt.moveTo(a_.x,a_.y);
+		cxt.lineTo(b_.x,b_.y);
+		cxt.strokeStyle="#0000FF";
+		cxt.stroke();
+		cxt.beginPath();    
+    }
+		cxt.moveTo(150,50);
+		cxt.lineTo(244,84);
+		cxt.strokeStyle="#00FF00";
+		cxt.stroke();
+		cxt.beginPath();    
+		cxt.moveTo(244,84);
+		cxt.lineTo(294,170);
+		cxt.strokeStyle="#FF0000";
+		cxt.stroke();
+		cxt.beginPath();    
+	
+
+    //DrawRect(0,0,c.width,c.height,"#FFFFFF");
+    //draw_turtle(player1);
+    //draw_turtle(player2);
+    //document.getElementById('history').value=document.getElementById('history').value+turn+": cs();\n";//add to history
+}
+
+
+function lt(degrees_left) {
+    // Clear and restore canvas
+    c.width=c.width;
+    cxt.putImageData(image,0,0);
+    
+    // Draw grid background if graphics system is available
+    if (window.turtleGraphics) {
+        turtleGraphics.drawGrid(cxt, c.width, c.height, 30);
+    }
+    
+    if(turn=="player1") {
+        lt_(degrees_left,player1);
+    } else {
+        lt_(degrees_left,player2);
+    }        
+    image=cxt.getImageData(0,0,c.width,c.height);
+    
+    // Draw turtles
+    draw_turtle(player1);
+    draw_turtle(player2);
+    
+    // Update particles if graphics system is available
+    if (window.turtleGraphics) {
+        turtleGraphics.updateParticles(cxt);
+    }
+    
+    // Add to history
+    var playerName = turn === "player1" ? "P1" : "P2";
+    document.getElementById('history').value=document.getElementById('history').value+playerName+": LEFT("+degrees_left+");\n";
+}
+function ΑΡ(degrees_left) { lt(degrees_left);}
+function ΑΡΙΣΤΕΡΑ(degrees_left) { lt(degrees_left);}
+
+function rt(degrees_right) {
+    // Clear and restore canvas
+    c.width=c.width;
+    cxt.putImageData(image,0,0);
+    
+    // Draw grid background if graphics system is available
+    if (window.turtleGraphics) {
+        turtleGraphics.drawGrid(cxt, c.width, c.height, 30);
+    }
+    
+    if(turn=="player1") {
+        rt_(degrees_right,player1);
+    } else {
+        rt_(degrees_right,player2);
+    }        
+    image=cxt.getImageData(0,0,c.width,c.height);
+    
+    // Draw turtles
+    draw_turtle(player1);
+    draw_turtle(player2);
+    
+    // Update particles if graphics system is available
+    if (window.turtleGraphics) {
+        turtleGraphics.updateParticles(cxt);
+    }
+    
+    // Add to history
+    var playerName = turn === "player1" ? "P1" : "P2";
+    document.getElementById('history').value=document.getElementById('history').value+playerName+": RIGHT("+degrees_right+");\n";
+}
+function ΔΕ(degrees_left) { rt(degrees_left);}
+function ΔΕΞΙΑ(degrees_left) { rt(degrees_left);}
+
+
+function lt_(degrees_left,obj) {
+    obj.angle=obj.angle-degrees_left;
+}
+
+function rt_(degrees_right,obj) {
+    obj.angle=obj.angle+degrees_right;
+}
+
+function draw_turtle(obj) {
+    // Use the enhanced graphics system
+    if (window.turtleGraphics) {
+        turtleGraphics.drawTurtle(cxt, obj);
+    } else {
+        // Fallback to basic rendering if graphics system not loaded
+        draw_turtle_fallback(obj);
+    }
+}
+
+// Fallback turtle rendering function
+function draw_turtle_fallback(obj) {
+    cxt.save();
+    
+    // Set turtle color based on player
+    if(obj == player1) {
+        cxt.strokeStyle = '#00FF00';
+        cxt.fillStyle = '#00FF00';
+    } else {
+        cxt.strokeStyle = '#FF0000';
+        cxt.fillStyle = '#FF0000';
+    }
+    
+    // Draw turtle as a more detailed triangle
+    cxt.lineWidth = 2;
+    cxt.beginPath();
+    
+    // Calculate triangle points
+    var tipDistance = turtle_size;
+    var baseDistance = turtle_size * 0.6;
+    var angleRad = obj.angle * Math.PI / 180;
+    
+    // Tip of turtle (pointing in direction of movement)
+    var tipX = obj.x + tipDistance * Math.cos(angleRad);
+    var tipY = obj.y + tipDistance * Math.sin(angleRad);
+    
+    // Base corners
+    var baseAngle1 = angleRad + (2.5 * Math.PI / 3);  // 150 degrees
+    var baseAngle2 = angleRad - (2.5 * Math.PI / 3);  // -150 degrees
+    
+    var base1X = obj.x + baseDistance * Math.cos(baseAngle1);
+    var base1Y = obj.y + baseDistance * Math.sin(baseAngle1);
+    
+    var base2X = obj.x + baseDistance * Math.cos(baseAngle2);
+    var base2Y = obj.y + baseDistance * Math.sin(baseAngle2);
+    
+    // Draw triangle
+    cxt.moveTo(tipX, tipY);
+    cxt.lineTo(base1X, base1Y);
+    cxt.lineTo(base2X, base2Y);
+    cxt.closePath();
+    
+    // Fill and stroke
+    cxt.globalAlpha = 0.8;
+    cxt.fill();
+    cxt.globalAlpha = 1.0;
+    cxt.stroke();
+    
+    // Draw center dot
+    cxt.beginPath();
+    cxt.arc(obj.x, obj.y, 2, 0, 2 * Math.PI);
+    cxt.fill();
+    
+    cxt.restore();
+}
+
+function evaluate2() {
+	try {
+	    //alert(document.getElementById('command').value);
+	    eval(document.getElementById('funct').value+" "+document.getElementById('command').value);
+	} catch(err) {
+		txt="There was an error in your statement/program.\n";
+		txt+="Error description: " + err.description + "\n";
+		alert(txt);
+		result="Error.";
+	}
+}    
+
+function evaluate1() {
+    //alert(document.getElementById('funct').value);
+    eval(document.getElementById('funct').value);
+}    
+function update_label1() {
+    var playerName = turn === "player1" ? "Player 1 (Green)" : "Player 2 (Red)";
+    var playerColor = turn === "player1" ? "#00FF00" : "#FF0000";
+    document.getElementById('label1').innerHTML = 
+        "<span style='font-size: 1.2em; font-weight: bold; color: " + playerColor + "'>" + playerName + "</span><br>" +
+        "<span style='font-size: 1em;'>Turn Active - " + pixels_left + " pixels remaining</span>";
+}
+
+function load() {
+        //document.getElementById('label1').innerHTML=turn+"'s turn";
+}
+window.onload = load;
+
+function set_ppt() {
+    pixels_left=document.getElementById('ppt').value;
+    update_label1();
+}
+function fdbutton() {
+	//eval("fd("+document.getElementById('fdammount').value+");");
+	fd(document.getElementById('fdammount').value);
+}
+function rtbutton() {
+	eval("rt("+document.getElementById('rtammount').value+");");
+	//rt(document.getElementById('rtammount').value);
+	//alert(document.getElementById('rtammount').value);
+	//rt(document.getElementById('rtammount').value);
+}
+function ltbutton() {
+	lt(document.getElementById('ltammount').value);
+}
+function single_player_mode() {
+	document.getElementById('cd').checked=false;
+	document.getElementById('ppt').value="10000000000";
+	set_ppt();
+}
+function two_player_mode() {
+	document.getElementById('cd').checked=true;
+	document.getElementById('ppt').value="100";
+	set_ppt();
+}
+
+
+var c=document.getElementById("myCanvas");
+var cxt=c.getContext("2d");
+var turtle_size = 15; // Increased for better visibility on larger canvas
+
+// Scale factor for larger canvas (600x600 vs original 300x300)
+var scale = 2;
+
+// Validate player positions are within canvas bounds (600x600)
+function validatePosition(x, y, canvasWidth = 600, canvasHeight = 600) {
+    return {
+        x: Math.max(20, Math.min(x, canvasWidth - 20)),
+        y: Math.max(20, Math.min(y, canvasHeight - 20))
+    };
+}
+
+player1 = {
+    x : 100 * scale,  // Scaled position
+    y : 100 * scale,
+    angle : 0,
+    prev_line_number : 0,
+    color: '#00FF00'  // Green
+};
+
+// Ensure Player 2 starts within canvas bounds
+player2 = {
+    x : 450,  // Within 600x600 canvas
+    y : 450,  // Within 600x600 canvas
+    angle : 180,
+    prev_line_number : 0,
+    color: '#FF0000'  // Red
+};
+
+// Validate both player positions
+const pos1 = validatePosition(player1.x, player1.y, c.width, c.height);
+const pos2 = validatePosition(player2.x, player2.y, c.width, c.height);
+player1.x = pos1.x;
+player1.y = pos1.y;
+player2.x = pos2.x;
+player2.y = pos2.y;
+
+
+// Initialize game
+var image=cxt.getImageData(0,0,c.width,c.height);
+
+// Draw initial grid background
+if (window.turtleGraphics) {
+    turtleGraphics.drawGrid(cxt, c.width, c.height, 30);
+}
+
+draw_turtle(player1);
+draw_turtle(player2);
+var pixels_left=100;
+var turn="player1";
+update_label1();
+var line_array = [];
+
+// Start animation loop for particles if graphics system is available
+if (window.turtleGraphics) {
+    function animate() {
+        // Only update particles if there are any
+        if (turtleGraphics.particles.length > 0) {
+            // Save current canvas state
+            var tempImage = cxt.getImageData(0,0,c.width,c.height);
+            
+            // Clear and restore
+            c.width=c.width;
+            cxt.putImageData(tempImage,0,0);
+            
+            // Redraw grid
+            turtleGraphics.drawGrid(cxt, c.width, c.height, 30);
+            
+            // Update and draw particles
+            turtleGraphics.updateParticles(cxt);
+            
+            // Redraw turtles
+            draw_turtle(player1);
+            draw_turtle(player2);
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+</script>
+<BR>
+<BR>fd(distance)   foward
+<BR>lt(angle) turn left degrees
+<BR>rt(angle) turn right degrees
+<BR>
+<input type="text" ID="command"> <input type="button" value="ΕΚΤΕΛΕΣΗ" onclick="evaluate2()">
+<input type="button" value="cs()" onclick="cs()">
+<BR>
+<table border="1">
+	<tr>
+		<td>
+			ΜΠΡΟΣΤΑ(<input type="text" value="100" id="fdammount" style="width: 25px;">);<input type="button" value="ΕΚΤΕΛΕΣΗ" onclick="fdbutton()">;
+		</td>
+		<td>
+			ΔΕΞΙΑ(<input type="text" value="90" id="rtammount" style="width: 25px;">);<input type="button" value="ΕΚΤΕΛΕΣΗ" onclick="rtbutton()">;
+		</td>
+		<td>
+			ΑΡΙΣΤΕΡΑ(<input type="text" value="90" id="ltammount" style="width: 25px;">);<input type="button" value="ΕΚΤΕΛΕΣΗ" onclick="ltbutton()">;
+		</td>
+	</tr>
+</table>
+<BR>
+<textarea rows="10" cols="62" ID="funct">
+//ΕΤΟΙΜΕΣ ΣΥΝΑΡΤΗΣΕΙΣ (enter functions in JavaScript)
+function square(l) {
+   ΜΠΡΟΣΤΑ(l);
+   ΔΕΞΙΑ(90);
+   ΜΠΡΟΣΤΑ(l);
+   ΔΕΞΙΑ(90);
+   ΜΠΡΟΣΤΑ(l);
+   ΔΕΞΙΑ(90);
+   ΜΠΡΟΣΤΑ(l);
+   ΔΕΞΙΑ(90);
+}
+function chair(l){
+   square(l);
+   ΜΠΡΟΣΤΑ(l*2);
+}
+function house() {
+	ΜΠΡΟΣΤΑ(100);
+	ΑΡΙΣΤΕΡΑ(135);
+	ΜΠΡΟΣΤΑ(100);
+	ΑΡΙΣΤΕΡΑ(90);
+	ΜΠΡΟΣΤΑ(30);
+	ΑΡΙΣΤΕΡΑ(45);
+	square(150);
+}
+function stair() {
+   for(foobar=0;foobar<5;foobar++) {
+       ΔΕΞΙΑ(90);
+       ΜΠΡΟΣΤΑ(10);
+       ΑΡΙΣΤΕΡΑ(90);
+       ΜΠΡΟΣΤΑ(10);
+   }
+}
+function chairchain(l){
+   ΔΕΞΙΑ(20);
+   ΜΠΡΟΣΤΑ(l);
+   for(foo=1;foo<=10;foo++){
+      ΔΕΞΙΑ(20);
+       chair(foo);
+   }
+}
+
+
+
+
+</textarea>
+<BR>
+pixels per turn:<input type="text" ID="ppt" value="100"> <input type="button" value="set" onclick="set_ppt()">
+collision detection on:<input type="checkbox" ID="cd" checked="checked">
+<input type="button" value="two player mode" onclick="two_player_mode()">
+<input type="button" value="single player mode" onclick="single_player_mode()">
+<BR>Please add any interesting functions you create to the comments section below. if they dont fit in one comment use <a href="http://pastebin.com" target="_blank">http://pastebin.com</a> and paste the link
+<!-- begin htmlcommentbox.com -->
+ <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">HTML Comment Box</a> is loading comments...</div>
+ <link rel="stylesheet" type="text/css" href="http://www.htmlcommentbox.com/static/skins/simple/skin.css" />
+ <script type="text/javascript" language="javascript" id="hcb"> /*<!--*/ if(!window.hcb_user){hcb_user={  };} (function(){s=document.createElement("script");s.setAttribute("type","text/javascript");s.setAttribute("src", "http://www.htmlcommentbox.com/jread?page="+escape((window.hcb_user && hcb_user.PAGE)||(""+window.location)).replace("+","%2B")+"&mod=%241%24wq1rdBcg%24Jz6kdIcrNrVLA6vgjX5/z0"+"&opts=478&num=10");if (typeof s!="undefined") document.getElementsByTagName("head")[0].appendChild(s);})(); /*-->*/ </script>
+<!-- end htmlcommentbox.com -->
+
+<center><!--
+<script type="text/javascript" src="http://ss.webring.com/navbar?f=j;y=usmpadow;u=defurl"></script> 
+Navigation by <a href="http://dir.webring.com/rw" target=_top>WebRing</a>.</center> -->
+<!--optional--> 
+<!--<noscript><center><table bgcolor=gray cellspacing=0 border=2 bordercolor=red> <tr><td><table cellpadding=2 cellspacing=0 border=0><tr><td align=center> This site is a member of WebRing. Visit <a href="http://ss.webring.com/navbar?f=l;y=usmpadow;u=defurl"> here</a>.</td></tr></table></td></tr></table></center></noscript> -->
+</body>
+</html>
+
+

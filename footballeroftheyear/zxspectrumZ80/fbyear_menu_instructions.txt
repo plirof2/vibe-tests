@@ -1,0 +1,8 @@
+Up of screen : Control menu (title)
+Up Left : Globe - Team standing (fbyear_07_UpLeft_Globe_standings_gamemenu.png)
+Up : Footballer portrait - Player Status (fbyear_07_Up_portrait_player_status.png)
+Up Right : Contract - Ability to buy a transfer card.If you buy a transfer card you have a chance to get a contract for a trasfer to another team. If yes , you see the offer and then have the option to accept/reject
+Down Left: Question mark - Buy incident cards (fbyear_07_DownLeft_QuestionMark_randomIncidents1.png) . If you buy an incident card you encounter a random incident -good or bad
+Down : Fallen Footballer - Quit
+Down Right : Disk/Tape - Load/save menu
+Center : Shoe - Buy goal cards (fbyear_08_Down_shoe_BuyGoalCards_and_play.png) . You start the game with 10 goal cards. If you have a goal card , in the next screen (fbyear_09_Down_shoe_UseCard_for_a_chanceTosScore.png) , you have a chance to play the penalty minigame and score a goal for your team.The price of the goal card is related with the division of your team. 

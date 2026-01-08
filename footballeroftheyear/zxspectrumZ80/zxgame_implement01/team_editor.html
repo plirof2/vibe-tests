@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Editor - Football Management Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .screen-title {
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .editor-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            width: 500px;
+            margin-bottom: 40px;
+        }
+        
+        .editor-item {
+            width: 220px;
+            height: 180px;
+            background-color: #333;
+            border: 2px solid #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .editor-item:hover {
+            background-color: #444;
+            transform: scale(1.05);
+        }
+        
+        .editor-item.selected {
+            background-color: #00ffff;
+            border-color: #ffff00;
+        }
+        
+        .editor-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        
+        .editor-name {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .editor-description {
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .button {
+            background-color: #00ffff;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.2s;
+        }
+        
+        .button:hover {
+            background-color: #ffff00;
+            transform: scale(1.05);
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff0000;
+        }
+        
+        .instructions {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .selected-editor {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            border: 2px solid #00ffff;
+            width: 300px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <button class="button back-button" onclick="goBack()">Back</button>
+        
+        <h1 class="screen-title">TEAM EDITOR SELECTION</h1>
+        
+        <div class="instructions">
+            Choose which aspect of your team to edit
+        </div>
+        
+        <div class="editor-grid" id="editorGrid">
+            <!-- Editor options will be dynamically added here -->
+        </div>
+        
+        <div class="selected-editor hidden" id="selectedEditor">
+            <div>Selected Editor:</div>
+            <div id="selectedEditorName"></div>
+        </div>
+        
+        <div style="display: flex; gap: 20px; margin-top: 20px;">
+            <button class="button" id="confirmButton" onclick="confirmSelection()" disabled>Confirm Selection</button>
+            <button class="button" onclick="resetSelection()">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        const editorOptions = [
+            { 
+                name: 'TEAM NAME', 
+                icon: '📝', 
+                description: 'Edit your team name and details'
+            },
+            { 
+                name: 'SQUAD', 
+                icon: '⚽', 
+                description: 'Manage your player squad'
+            },
+            { 
+                name: 'FORMATION', 
+                icon: '📋', 
+                description: 'Set your team formation'
+            },
+            { 
+                name: 'TACTICS', 
+                icon: '🎯', 
+                description: 'Configure team tactics and strategy'
+            }
+        ];
+        
+        let selectedEditor = null;
+        
+        function initializeEditors() {
+            const editorGrid = document.getElementById('editorGrid');
+            
+            editorOptions.forEach((editor, index) => {
+                const editorItem = document.createElement('div');
+                editorItem.className = 'editor-item';
+                editorItem.dataset.editorIndex = index;
+                
+                const editorIcon = document.createElement('div');
+                editorIcon.className = 'editor-icon';
+                editorIcon.textContent = editor.icon;
+                
+                const editorName = document.createElement('div');
+                editorName.className = 'editor-name';
+                editorName.textContent = editor.name;
+                
+                const editorDescription = document.createElement('div');
+                editorDescription.className = 'editor-description';
+                editorDescription.textContent = editor.description;
+                
+                editorItem.appendChild(editorIcon);
+                editorItem.appendChild(editorName);
+                editorItem.appendChild(editorDescription);
+                
+                editorItem.addEventListener('click', () => selectEditor(index));
+                
+                editorGrid.appendChild(editorItem);
+            });
+        }
+        
+        function selectEditor(editorIndex) {
+            // Remove previous selection
+            document.querySelectorAll('.editor-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            
+            // Add selection to clicked editor
+            const selectedEditorItem = document.querySelector(`[data-editor-index="${editorIndex}"]`);
+            selectedEditorItem.classList.add('selected');
+            
+            selectedEditor = editorOptions[editorIndex];
+            document.getElementById('selectedEditorName').textContent = selectedEditor.name;
+            document.getElementById('selectedEditor').classList.remove('hidden');
+            document.getElementById('confirmButton').disabled = false;
+        }
+        
+        function confirmSelection() {
+            if (selectedEditor) {
+                // Save selection to game state
+                const gameState = {
+                    selectedEditor: selectedEditor,
+                    editorIndex: editorOptions.findIndex(e => e.name === selectedEditor.name)
+                };
+                
+                localStorage.setItem('gameState', JSON.stringify(gameState));
+                
+                // In a real implementation, would proceed to editor screen
+                alert(`Selected editor: ${selectedEditor.name}`);
+                window.location.href = 'index.html';
+            }
+        }
+        
+        function resetSelection() {
+            selectedEditor = null;
+            document.querySelectorAll('.editor-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            document.getElementById('selectedEditor').classList.add('hidden');
+            document.getElementById('confirmButton').disabled = true;
+        }
+        
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeEditors();
+            
+            // Load saved selection if exists
+            const savedState = localStorage.getItem('gameState');
+            if (savedState) {
+                const state = JSON.parse(savedState);
+                if (state.selectedEditor) {
+                    const editorIndex = editorOptions.findIndex(e => e.name === state.selectedEditor.name);
+                    if (editorIndex !== -1) {
+                        selectEditor(editorIndex);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

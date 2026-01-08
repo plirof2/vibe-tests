@@ -1,0 +1,18 @@
+NInfinite lives                
+Z  8 54462 201 127
+NInfinite smart bombs          
+Z  8 54379   3   0
+NNo enemies                    
+Z  8 51631 201  33
+NAll die                       
+Z  8 48082 201 237
+NImmunity                      
+M  8 48114   0 150
+Z  8 48115   1 202
+NGo to next level              
+Z  8 39997   3   0
+NSet number of lives           
+Z  8 42464 256   3
+NSet number of bombs           
+Z  8 42490 256   3
+Y

@@ -1,0 +1,90 @@
+I have some *z80 ZX SPectrum emulator files. I want to Generate pokesgd.php using as guide the C source code which contain the POKE patch methods.Files POKESGD_README.md and POKES_IMPLEMENTATION_SUMMARY.md might help. 	You may use /opt/lampp/htdocs/VIBECode_Updates/SGD_pokePart/ROMSMINE/F/FIRELORD.Z80 and /opt/lampp/htdocs/VIBECode_Updates/SGD_pokePart/ROMSMINE/F/POKES/FIRELORD.POK for your tests . 
+The script should be called like this : localhost/pokesgd.php?file=ROMSMINE/F/FIRELORD.Z80&POKES=34509,0:34984,58 . This will check Z80 version for FIRELORD.Z80, decompress it -if needed, apply the 2 POKES given and save the patched file in the same folder as FIRELORD.Z80 with the name FIRELORD_PATCHED.Z80.
+
+
+Z80_format_specification.txt is the files format of the z80 files.
+ZX Spectrum memory addressing starts from 0. The 16KB ROM occupies addresses 0x0000 to 0x3FFF (0 to 16383). RAM begins at 0x4000 (16384), with the display file (pixel data) starting there, followed by attributes at 0x5800 (22528).
+
+
+
+v1.45 file FIRELORD.Z80 worked (pokesgd.php?file=ROMSMINE/F/FIRELORD.Z80&POKES=34509,0:34984,58 )
+v2.01 file MASK.Z80 (pokesgd.php?file=ROMSMINE/M/MASK.Z80&POKES=34313,201:42187,0 ) Error : {"success":false,"error":"Cannot read Z80 additional header: ROMSMINE\/M\/MASK.Z80"}
+v2.01 file LASTDUEL.Z80 pokesgd.php?file=ROMSMINE/L/LASTDUEL.Z80&POKES=37605,0:37672,0:40063,0
+
+
+TEST versio2 check:
+pokesgd.php?file=ROMSMINE/L/LASTDUEL.Z80&POKES=37605,0:37672,0:40063,0
+pokesgd.php?file=ROMSMINE/L/LILALIEN.Z80&POKES=26627,0
+pokesgd.php?file=ROMSMINE/L/LITTLEPU.Z80&POKES=62342,201
+
+TEST version3 check:
+pokesgd.php?file=ROMSMINE/L/LIGHT128.Z80&POKES=40750,0:40754,0
+pokesgd.php?file=ROMSMINE/L/LASTVAMP.Z80&POKES=51813,0:51814,0   (infinite cash POKE)
+
+---------------------------------------
+I have some *z80 ZX SPectrum emulator files.I want to Generate pokesgd.php using as guide the C source code which contain the POKE patch methods.Files POKESGD_README.md and POKES_IMPLEMENTATION_SUMMARY.md might help.  
+
+So far,pokesgd_v001_okFirelordv1,45.php is a script that can patch with pokes the memory part of z80 files version 1.45 .
+
+I want create pokesgd_v002_for_v2.xx-3.xx.php (which is an updated version of pokesgd_v001_okFirelordv1,45.php ) to add funtions that can also patch version 2.xx and v3.xx z80 files.
+
+files that might help :
+z80_version_check2.php is a script that identifiew z80 file versions and if they are compressed or not.
+
+A sample v2.xx file is LASTDUEL.Z80 the command that should patch it is pokesgd.php?file=ROMSMINE/L/LASTDUEL.Z80&POKES=37605,0:37672,0:40063,0
+
+Z80_format_specification.txt is the files format of the z80 files.
+ZX Spectrum memory addressing starts from 0. The 16KB ROM occupies addresses 0x0000 to 0x3FFF (0 to 16383). RAM begins at 0x4000 (16384), with the display file (pixel data) starting there, followed by attributes at 0x5800 (22528).
+
+You should check the C source files and z80_version_check2.php to understand how C handles v2.xx and v3.xx file format when patching z80 memory part with POKES. Do not create your own -just migrate the C code to php.
+IMPORTANT: Do not search for new things. The C source code works in all cases (even non-standard). just base your work on the C source. Try to convert the C to php as directly as you can -especially for v2.xx and v3.xx. 
+INPORTANT: DO NOT touch v1.45 handling. v2.xx and v3.xx handling should be done seperately so you don't break v1.45.
+
+
+---------------------
+
+I have some *z80 ZX SPectrum emulator files.I want to Generate pokesgd.php using as guide the C source code which contain the POKE patch methods.Files POKESGD_README.md and POKES_IMPLEMENTATION_SUMMARY.md might help.  
+
+So far,pokesgd_v002_final_v145okONLY.php is a script that can patch with pokes the memory part of z80 files version 1.45 .
+pokesgd_v002_final_v200okONLY.php is a script that can patch with pokes the memory part of z80 files version v2.xx ONLY .
+I want create pokesgd_v003.php (which is an updated version of pokesgd_v002_final_v200okONLY.php  ) to add funtions that can also patch version v3.xx z80 files. pokesgd_v002_final_v145okONLY.php already correctly detects v1,v2 and v3 files so just expland what it does for v2 and v3.
+
+files that might help :
+z80_version_check2.php is a script that identifiew z80 file versions and if they are compressed or not.
+
+A sample v2.xx file is LASTDUEL.Z80 the command that should patch it is pokesgd.php?file=ROMSMINE/L/LASTDUEL.Z80&POKES=37605,0:37672,0:40063,0
+A sample v3.xx file is LIGHT128.Z80 the command that should patch it is pokesgd.php?file=ROMSMINE/L/LIGHT128.Z80&POKES=40750,0:40754,0
+
+Z80_format_specification.txt is the files format of the z80 files.
+ZX Spectrum memory addressing starts from 0. The 16KB ROM occupies addresses 0x0000 to 0x3FFF (0 to 16383). RAM begins at 0x4000 (16384), with the display file (pixel data) starting there, followed by attributes at 0x5800 (22528).
+
+You should check the C source files and z80_version_check2.php to understand how C handles v2.xx and v3.xx file format when patching z80 memory part with POKES. Do not create your own -just migrate the C code to php.
+IMPORTANT: Do not search for new things. The C source code works in all cases (even non-standard). just base your work on the C source. Try to convert the C to php as directly as you can -especially for v2.xx and v3.xx. 
+INPORTANT: DO NOT touch v1.45 handling. v2.xx and v3.xx handling should be done seperately so you don't break v1.45.
+
+For start try and modify only function applyPokesToMemoryV2V3() do not touch the other part of the code.
+
+---------------------
+I have 2 files related to ZX Spectrum:
+poke_v145only.php : handles z80 emulator files v1.45 correctly and applies POKEs to memory (eg command poke_v145only.php?file=ROMSMINE/F/FIRELORD.Z80&POKES=34509,0:34984,58 )
+and pokesgd_v003.php : : handles z80 emulator files v2 and v3 correctly but NOT v1.xx and applies POKEs to memory (eg for files v2.xx : pokesgd_v003.php?file=ROMSMINE/L/LASTDUEL.Z80&POKES=37605,0:37672,0:40063,0FIRELORD.Z80&POKES=34509,0:34984,58 and for files v3.xx : pokesgd_v003.php?file=ROMSMINE/L/LIGHT128.Z80&POKES=40750,0:40754,0 ) 
+
+i want to merge the two functionalities of poke_v145only.php and pokesgd_v003.php  to pokesgd_v004.php . I want pokesgd_v004.php to be based on pokesgd_v003.php and when we have file version v1.xx to call the functions of poke_v145only.php
+
+To NOT do anything extra of modify the function logic (eg do not try to optimise code). Just copy the required functions of poke_v145okly.php and call them when we have v1.xx.
+---------------------
+Can you read the C source files and generate a file pokeSNA_v01.php that handles SNA and applies POKES in SNA files (ingore z80 files) . The script will be called like that : http://localhost/VIBECode_Updates/SGD_pokePart/pokeSNA_v01.php?file=ROMSMINE/F/FIRELORD.SNA&POKES=34509,0:34984,58 . Use only the C files for implementation do not look elsewhere
+=============
+
+I have 2 files related to ZX Spectrum:
+pokesgd_v004.php : handles ALL z80 emulator files correctly and applies POKEs to memory (eg commandfor v1 pokesgd_v004.php?file=ROMSMINE/F/FIRELORD.Z80&POKES=34509,0:34984,58 
+, files v2.xx : pokesgd_v004.php?file=ROMSMINE/L/LASTDUEL.Z80&POKES=37605,0:37672,0:40063,0FIRELORD.Z80&POKES=34509,0:34984,58 and for files v3.xx : pokesgd_v004.php?file=ROMSMINE/L/LIGHT128.Z80&POKES=40750,0:40754,0 )
+
+pokeSNA_v01.php : This handles ALL SNA emulator files correctly and applies POKEs to memory (eg pokeSNA_v01.php?file=ROMSMINE/F/FIRELORD.SNA&POKES=34509,0:34984,58) 
+
+I want to merge the two functionalities of pokeSNA_v01.php and pokesgd_v004.php  to pokesgd_v005.php . I want pokesgd_v005.php to be based on pokesgd_v004.php and when we have a SNA file to call the functions of pokeSNA_v01.php.
+
+To NOT do anything extra of modify the function logic (eg do not try to optimise code). Just copy the required functions of pokeSNA_v01.php and call them when we have SNA file.
+
+
+==================

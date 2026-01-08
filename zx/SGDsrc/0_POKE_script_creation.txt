@@ -1,0 +1,465 @@
+can you check the C source files and tell me how does the POKE file works?
+puppy
+Thinking: The user wants to understand how the POKE file works in this C source codebase. I need to:
+1. First, find files related to "poke" functionality
+2. Read those files to understand how POKE files work
+3. Provide a concise explanation
+Let me start by searching for poke-related files and code.
+I'll search for poke-related files and examine the code.
+✱ Glob "**/*poke*" (2 matches)
+✱ Grep "poke|POKE" 
+Thinking: Good, I found two poke-related files: dbpoke.c and dbpoke.h. Let me read both to understand how POKE files work.
+→ Read dbpoke.h 
+→ Read dbpoke.c 
+Thinking: Now I have the code for the POKE file functionality. Let me analyze how it works:
+1. POKE File Structure: The POKE file stores game cheats/patches for Spectrum games. Each game can have multiple poke descriptions (e.g., "Infinite Lives", "Level Select"), and each description can have multiple poke entries (memory address modifications).
+2. File Format (from ReadGamePokes):
+   - Uses text format (not binary) - see line 298: O_TEXT | O_RDONLY
+   - For regular poke files:
+     - Starts with 'N' (F_NAME) followed by poke description name (30 chars max)
+     - Followed by '\n'
+     - Then multiple 'M' (F_MORE) or 'Z' (F_LASTPOKE) entries, each with:
+       - Bank (3 digits)
+       - Address (5 digits)
+       - Set value (3 digits) - the value to set (or 256 for ASK/user input)
+       - Original value (3 digits) - original value at that address
+     - Ends with 'Y' (F_LASTNAME)
+   - Format: [N/M/Z]Bank Address Set Original followed by newline
+3. Data Structures:
+   - PokeEntry_s: Single poke with Bank, Address, Set, and Original value
+   - GamePokes_s: Poke description with Name and linked list of PokeEntry_s
+4. Key Operations:
+   - ReadGamePokes(): Reads poke file into memory
+   - WriteGamePokes(): Writes poke data back to disk
+   - EditGamePokes(): UI for editing pokes
+   - InsertGamePokes(): Applies pokes to create a patched game file
+   
+I'll focus on the file patching process. The method reads a snapshot file, decodes its compressed data, and applies specific memory modifications. It works with multiple file types like Z80, SNA, and SLT, supporting both 48K and 128K memory configurations. The system handles bank selection, potentially prompting for values marked as 256, and creates a patched version of the game in a temporary directory.
+The pokes file is stored in a dedicated game directory with a .pok extension. Its location is typically configurable, allowing flexibility in game cheat management.
+/init      
+create/update AGENTS.md
+/review    
+review changes [commit|branch|pr], defaults to uncommitted
+/undo      
+undo the last message
+/redo      
+redo the last message
+/compact   
+compact the session
+/rename    
+rename session
+/copy      
+copy session transcript to clipboard
+/export    
+export session transcript to file
+/timeline  
+jump to message
+/fork      
+fork from message
+/thinking  
+toggle thinking visibility
+/share     
+share a session
+/new       
+create a new session
+/models    
+list models
+/agents    
+list agents
+/session   
+list sessions
+/status    
+show status
+/mcp       
+toggle MCPs
+/theme     
+toggle theme
+/editor    
+open editor
+/connect   
+connect to a provider
+/help      
+show help
+/commands  
+show all commands
+/exit      
+exit the app
+Plan 
+GLM-4.7
+Z.AI Coding Plan
+tab switch agent
+The POKE file system stores game cheats for Spectrum games in a simple text format:
+File Structure:
+- Stored in POKES\gamename.pok (same directory as game or separate POKES folder)
+- Each file contains multiple "poke descriptions" (e.g., "Infinite Lives")
+Format:
+N<description_name>           # New description (N = F_NAME, 30 chars max)
+M<bank> <address> <value> <org>  # More poke entries (M = F_MORE)
+Z<bank> <address> <value> <org>  # Last entry (Z = F_LASTPOKE)
+Y                             # End marker (Y = F_LASTNAME)
+Example:
+NInfinite Lives                
+  8 24576 255 0
+  8 25000 255 0
+Z  8 26000 255 0
+NLevel Select                  
+  5 30000 1 0
+Y
+Poke Entry Fields:
+- Bank: Memory bank (0-7 for 128K, 8 for 48K/no bank)
+- Address: 16-bit memory address (16384-65535)
+- Value: Value to set (0-255), or 256 to prompt user
+- Original: Original value at that address
+How it works:
+1. ReadGamePokes() reads the .pok file into linked lists (dbpoke.c:270)
+2. InsertGamePokes() creates a patched game file by:
+   - Reading the original snapshot (Z80/SNA/SLT)
+   - Decrunching compressed memory blocks
+   - Applying poke values to memory addresses (dbpoke.c:16010-16011)
+   - Recrunching and writing to TMP directory (dbpoke.c:16999)
+Bank auto-detection (AutoBank() dbpoke.c:1146):
+- 48K snapshots: Bank 8 (no paging)
+- 128K snapshots: Banks 0-7 based on address ranges
+- Handles Z80 v1.45, v2.01, v3.00 formats
+▣  Build · glm-4.7 · 1m 1s
+can you create a php script (pokesgd.php) that will apply pokes using the above method? The script will ganerate a "patched" named filename_POKED.z80 (or .sna) and take parameters.  1. using pokesgd.php?file=games/mygame.z80 the script assumes that poke file is in path games/POKES/mygame.pok and applies POKES creating the patched file. 2. pokesgd.php?file=games/mygame.z80&POKES=23423,32:43253,123:44444,222 this will use the pokes from the command line-in this case POKES are seperated by ":". I want to implement everything the POKE system does in the C sources. You have any questions?
+puppy
+Thinking: The user wants me to create a PHP script that applies game pokes using the same method as the C code I just analyzed. Let me understand the requirements:
+1. The script should be called pokesgd.php
+2. It should take a file parameter pointing to a Z80/SNA file
+3. Two modes of operation:
+   - If no POKES parameter is provided, read from a .pok file in POKES/ directory
+   - If POKES parameter is provided, parse it directly (format: address,value:address,value,...)
+The C code shows:
+- Reading the POKES file format (N=Name, M=More, Z=Last poke, Y=End marker)
+- Z80 file handling (v1.45, v2.01, v3.00)
+- SNA file handling
+- Memory bank detection for 48K vs 128K
+- Compression/decompression of Z80 blocks
+- Applying the pokes to memory addresses
+Since I'm in READ-ONLY/PLAN mode, I need to:
+1. Understand the full requirements
+2. Ask clarifying questions if needed
+3. Create a comprehensive plan for implementation
+Let me think about what questions I should ask:
+1. Z80 Compression: The C code uses DecrunchZ80Block and CrunchZ80Block functions. In PHP, we'll need to implement the Z80 compression algorithm (which is typically a simple run-length encoding). Do they want me to implement this, or do they have a PHP library for it?
+2. SLT Files: The C code handles SLT files (Spectrum Loading Tool format) with embedded pokes. Should I handle SLT files too, or just Z80/SNA?
+3. Bank Auto-detection: The C code has complex logic for determining memory banks based on Z80 version and hardware mode. Should I implement full 128K bank support, or just basic 48K support?
+4. Error handling: I'll need robust error management strategies. PHP's error handling differs significantly from C, so I'll need to carefully translate the error management approach.
+I'll focus on creating a flexible error reporting mechanism that captures and communicates potential issues during file processing. This will involve comprehensive validation of input files, checking for correct file formats, and providing clear, informative error messages to help users diagnose and resolve any problems.
+The key considerations will involve detecting file integrity, ensuring correct file parsing, and generating meaningful feedback when something goes wrong during the poke application process.
+I'll analyze the C code and create a plan for the PHP implementation. Before I proceed, I have a few clarifying questions:
+Questions:
+1. Z80 Compression Algorithm: The C code uses DecrunchZ80Block() and CrunchZ80Block() for handling compressed Z80 memory blocks. Should I implement the Z80 run-length encoding/decompression algorithm in PHP, or do you have a PHP library for this?
+2. File Formats: Should I support all file formats from the C code (Z80 v1.45/v2.01/v3.00, SNA, SLT), or just Z80 and SNA for now?
+3. Memory Banking: The C code has complex logic for 48K vs 128K snapshots with bank detection based on Z80 headers. Should I implement full 128K bank support with auto-detection, or start with 48K-only support?
+4. POKES File Format: Should I support the full POKES file format (with named poke groups that can be enabled/disabled), or just the raw poke entries? The C code allows selecting which poke descriptions to apply via a UI - should the PHP version apply ALL pokes from the file, or add a parameter like &pokelist=1,3 to select specific poke groups?
+5. Output Location: Should the patched file be saved in the same directory as the source file (with `_
+▣  Plan · glm-4.7 · 38.8s
+1. Z80 Compression:implement everything in the script. I want to be a standalone script. 2. SLT Files: Ignore SLT files-I want SNA and z80 . 3. Bank Auto-detection: Implement full support. 4. POKE file format: Default will be to apply all POKE files. If a POKE has parameter 256 or ASk then use the number 244 in it's place. If we specify parameter &pokelistselect=1,3 then use these pokes only. 5.Output location: I think the best place is the same path as the original z80.sna file. If we don't have write access then you could save at the php script folder.
+puppy
+Thinking: The user wants me to create a PHP script that implements the POKE system from the C source code. Let me analyze what needs to be implemented based on the C code and the user's requirements:
+1. Z80 Compression: Implement both compression and decompression for Z80 blocks
+2. File Formats: Support Z80 (v1.45, v2.01, v3.00) and SNA files only (ignore SLT)
+3. Bank Auto-detection: Full support for 48K vs 128K detection
+4. POKE file format: 
+   - Default: apply all POKEs from the file
+   - Parameter 256/ASK → use 244 instead
+   - &pokelistselect=1,3 → apply only specified poke groups (1-indexed)
+5. Output location: Same directory as source, fallback to script directory
+6. Error handling: Not specified, but I'll need to define this
+Let me review the C code more carefully to understand:
+1. Z80 Compression (from dbpoke.c):
+   - Lines 1598-1601: DecrunchZ80Block() - decompresses Z80 blocks
+   - Line 1615: CrunchZ80Block() - compresses Z80 blocks
+   - The Z80 format uses a simple run-length encoding scheme
+2. Z80 Header Formats:
+   - Z80 v1.45 (lines 1587-1619): Simple format with 48-byte header
+   - Z80 v2.01 (lines 1622-1632): Extended header with HWMode field
+   - Z80 v3.00 (lines 1626-1631): Additional 3.00 header
+3. Memory Banking (AutoBank function at line 1146):
+   - 48K detection: Bank 8 (no paging)
+   - 128K detection: Banks 0-7 based on address ranges
+   - Addresses < 32768 → bank 5 (ROM/Screen area in 128K)
+   - Addresses 32768-49151 → bank 2 (RAM bank 2)
+   - Addresses 49152+ → bank 0 (RAM bank 0)
+4. POKE File Parsing (ReadGamePokes at line 270):
+   - Lines 270-464: Detailed POKE file reading mechanism
+   - Supports multiple poke descriptions with linked list structures
+   - Each poke description has multiple entries with specific parsing rules
+   - Flexible reading of different file formats with error handling
+5. Applying Pokes (InsertGamePokes at line 1407):
+   - File reading and patching process involves multiple steps
+   - Header preservation and file manipulation
+   - Memory address mapping and poke value injection
+   - Handling different Z80 version complexities
+6. SNA Format (lines 1698-1724):
+   - Snapshot header and memory block management
+   - Direct poke application without compression requirements
+7. Parameter Processing:
+   - Flexible input mechanism for command-line
+Implementation Plan for pokesgd.php
+I'll analyze the C code thoroughly and create a comprehensive implementation plan.
+Key Components to Implement:
+1. Z80 Compression/Decompression Algorithm
+The C code references Z80 RLE compression. I need to implement:
+- DecrunchZ80Block(): Parse Z80's run-length encoding format (0xED, 0xED sequence + length)
+- CrunchZ80Block(): Compress 16KB memory blocks using Z80 RLE algorithm
+- Format: When byte pair 0xED 0xED is found, next byte is length counter (0-255), repeated byte follows
+2. Z80 Header Parsing
+Support three versions:
+- v1.45: 48-byte header, single 48KB/49KB memory block
+- v2.01: Extended header, hardware mode field (HWMode), banked memory format
+- v3.00: Additional v3.00 header fields
+3. Memory Bank Auto-Detection
+Based on AutoBank() function (dbpoke.c:1146):
+- 48K snapshot: Bank = 8 (no paging)
+- 128K snapshot (HWMode >= 4 for v3.00, >= 3 for v2.01):
+  * Address < 32768 → Bank 5
+  * Address 32768-49151 → Bank 2
+  * Address >= 49152 → Bank 0
+4. POKE File Parser
+Parse the text format (lines 270-464):
+N<description_name>\n           # New poke group
+M<bank> <address> <value> <org>\n  # More entries
+Z<bank> <address> <value> <org>\n  # Last entry
+Y                              # End marker
+Handle special cases:
+- Value 256 or "ASK" → Replace with 244
+- &pokelistselect=1,3 → Apply only specified poke groups (1-indexed)
+5. Command-Line POKE Parsing
+Parse &POKES=23423,32:43253,123:44444,222 format:
+- Split by : → individual poke entries
+- Split by , → address,value pairs
+- Format: address,bank,value (bank optional, auto-detected)
+6. Poke Application Logic
+For Z80:
+1. Read and parse headers
+2. Decompress memory blocks (if compressed)
+3. Apply pokes to appropriate banks/addresses
+4. Recompress memory blocks
+5. Write patched file with _POKED suffix
+For SNA:
+1. Read header
+2. Apply pokes directly to memory (no compression)
+3. Write patched file
+7. File I/O Strategy
+- Primary: Same directory as source file
+- Fallback: Script directory if no write access
+- Output: filename_POKED.z80 or filename_POKED.sna
+8. Error Handling
+- Return JSON responses: {"success": false, "error": "message"}
+- HTTP status codes: 400 for invalid input, 500 for file errors
+- Validate file existence, permissions, format
+Clarification Question:
+Z80 Compression Algorithm Details: The C code references DecrunchZ80Block() and CrunchZ80Block() but I don't see the actual algorithm implementation in dbpoke.c. I'll need to implement the standard Z80 RLE algorithm:
+Z80 RLE Format (from documentation):
+- Sequence 0xED 0xED XX indicates run-length encoding
+- XX = number of repetitions (0-255, where 0 = 256)
+- Next byte = byte to repeat
+- All other bytes are literal
+Is this the correct algorithm you want implemented, or should I use a different compression scheme?
+Additional Questions:
+1. SNA Format: Should I support both 48K (27KB) and 128K (131KB) SNA files, or just 48K?
+2. POKES Parameter Format: For command-line pokes, should the format be address,bank:value (bank optional) or address,value with auto-detect? Your example shows 23423,32:43253,123 - is this address,value pairs without bank numbers?
+3. POKES File Validation: Should I validate that addresses are within valid ranges (16384-65535) and values are 0-255, or apply as-is and let the emulator handle errors?
+4. Output Verbosity: Should the script return success/failure only, or include details like how many pokes were applied?
+Let me know your preferences and I'll proceed with the implementation!
+▣  Plan · glm-4.7 · 59.1s
+1. SNA Format:implement only 48k - I don't think I have a 128k SNA file.2. POKES Parameter Format: format will be &POKES=address1,value1:address2,value2:address3,value3 bank will be auto-detected we said above.3. POKES File Validation: Just do a simple range check. 4. Output Verbosity:The script should have a boolean parameter to save error logs on a file.
+puppy
+Thinking: I'm in plan mode, so I need to create a comprehensive plan for implementing the pokesgd.php script based on the C code analysis and the user's requirements. Let me break down what needs to be implemented.
+The user wants a PHP script that:
+1. Takes a game file (Z80 or SNA) as input
+2. Applies pokes either from a POKES file or from command-line parameters
+3. Creates a patched file with "_POKED" suffix
+4. Supports full Z80 compression/decompression
+5. Supports 48K SNA only
+6. Has full bank auto-detection
+7. Supports POKE file format with optional pokelistselect parameter
+8. Has simple range validation
+9. Has optional error logging to file
+Let me
+Final Implementation Plan for pokesgd.php
+Based on the C code analysis and your requirements, here's the comprehensive plan:
+---
+Script Architecture
+// pokesgd.php
+- Command-line accessible (CLI mode)
+- HTTP request support
+- Parameters: file, POKES, pokelistselect, logerrors
+---
+Core Functions to Implement
+1. Z80 Compression/Decompression Module
+DecrunchZ80Block($data, $length, $targetLength)
+- Parse Z80 RLE format: 0xED 0xED XX (XX = length 0-255, next byte = repeated)
+- Handle literal bytes (non-RLE sequences)
+- Return decompressed byte array
+CrunchZ80Block($data, $length, &$compressedSize)
+- Implement Z80 RLE compression:
+  - Detect repeated sequences of 2+ identical bytes
+  - Replace with 0xED 0xED XX YY format
+  - Keep single bytes and 2-byte runs as literals
+- Return compressed byte array with size
+2. Z80 Header Parsing Module
+ParseZ80Header($fileHandle)
+- Read first 30 bytes to determine version
+- Return: version (145/201/300), header data array
+ParseZ80v145Header($data) - 48 bytes
+- Extract: A, F, B', C', D', E', H', L', R, I, IFF, R', DE', HL', AF', HL', DE', BC', AF', IY, IX, IFF2, SP, PC
+- Determine if 48K (Stat1 bit 5 = 0) or 49K (Stat1 bit 5 = 1)
+ParseZ80v201Header($data) - Extended header
+- Extract all v145 fields plus: v201 specific
+- Extract HWMode for bank detection (0=48K, 1=128K, 2=Pentagon, 3=Scorpion)
+ParseZ80v300Header($data) - Additional header
+- Extract v3.00 specific fields
+3. SNA Header Parsing Module
+ParseSNAHeader($fileHandle)
+- Read 27-byte 48K SNA header
+- Extract: I, HL', DE', BC', AF', HL, DE, BC, IY, IX, IFF2, R, AF, SP, PC (optional)
+4. Bank Auto-Detection Module
+AutoBank($address, $snapshotType, $z80Version, $hwMode)
+- 48K snapshot: return 8 (no paging)
+- 128K snapshot (HWMode >= 3 for v201, >= 4 for v300):
+  * if $address < 32768: return 5
+  * if $address < 49152: return 2
+  * else: return 0
+- Z80 v1.45 (no HWMode): return 0
+5. POKE File Parser Module
+ParsePokesFile($filePath)
+- Read POKES file line by line
+- Parse format: N<name>\n, M<bank> <addr> <val> <org>\n, Z<bank> <addr> <val> <org>\n, Y
+- Return: array of poke groups (indexed 0-based)
+[
+  0 => [
+    'name' => 'Infinite Lives',
+    'pokes' => [
+      ['bank' => 8, 'address' => 24576, 'value' => 255, 'org' => 0],
+      ['bank' => 8, 'address' => 25000, 'value' => 255, 'org' => 0]
+    ]
+  ],
+  1 => [ ... ]
+]
+ParseCommandLinePokes($pokesString)
+- Split by : → individual entries
+- Parse address,value format
+- Auto-detect bank for each address
+- Return: single poke group with all entries
+6. Poke Application Module
+ApplyPokesToZ80($inputFile, $outputFile, $pokes, $fileHandleCallback)
+1. Open input file, create output file
+2. Parse Z80 header (determine version)
+3. Copy header to output (set compression bit)
+4. For Z80 v145:
+   - Read single memory block (48KB or 49KB)
+   - Decompress if needed (Stat1 bit 5 = 1)
+   - Apply pokes to decompressed memory
+   - Compress memory block
+   - Write to output
+5. For Z80 v201/v300:
+   - For each memory bank block:
+     - Read block header (3 bytes: length + bank)
+     - Read block data
+     - Decompress if length < 16384
+     - Apply pokes matching this bank
+     - Compress
+     - Write block header and data
+6. Close files
+ApplyPokesToSNA($inputFile, $outputFile, $pokes)
+1. Read 27-byte header
+2. Read 49KB memory data
+3. Apply pokes directly (no compression)
+4. Write header + patched memory
+7. Main Application Logic
+ProcessPokes($filePath, $commandLinePokes, $pokelistselect)
+1. Validate input file exists
+2. Detect file type (Z80/SNA) by extension
+3. Determine pokes to apply:
+   - If commandLinePokes provided → Parse and use
+   - Else → Parse POKES file from same directory/POKES subdirectory
+   - If pokelistselect provided → Filter to selected groups (0-based index)
+4. For each poke group:
+   - For each poke entry:
+     - Validate address (16384-65535)
+     - Validate value (0-255)
+     - Replace value 256/ASK with 244
+     - Auto-detect bank if not specified
+5. Generate output path: dirname/POKED/filename_POKED.ext
+6. Apply pokes based on file type
+7. Return success/failure
+8. Error Logging Module
+LogError($message, $logFilePath)
+- Append timestamped error messages to log file
+- Format: [YYYY-MM-DD HH:MM:SS] message\n
+---
+Parameter Handling
+// URL/CLI Parameters
+file=games/mygame.z80              // Required: input file path
+POKES=23423,32:43253,123          // Optional: command-line pokes
+pokelistselect=1,3                 // Optional: 1-based indices of poke groups
+logerrors=/path/to/logfile.log    // Optional: enable error logging
+Priority Order:
+1. If POKES parameter present → ignore POKES file, use command-line
+2. Else → read POKES file from games/POKES/mygame.pok or games/mygame.pok
+3. If pokelistselect present → apply only specified groups (convert 1-based to 0-based)
+---
+Validation Rules
+- Address range: 16384-65535 (valid Z80 memory)
+- Value range: 0-255 (byte)
+- Bank: 0-7 for 128K, 8 for 48K (auto-detected if not specified)
+- Value 256 or "ASK" → replace with 244
+- Empty POKE entries → skip
+- Out-of-range values → log error and skip
+---
+Output Handling
+Primary path: Same directory as input file
+games/mygame.z80 → games/mygame_POKED.z80
+Fallback path: Script directory (if write permission denied)
+./mygame_POKED.z80
+Return format:
+// Success
+{"success": true, "output": "games/mygame_POKED.z80", "pokes_applied": 12}
+// Failure
+{"success": false, "error": "File not found: games/mygame.z80"}
+---
+Implementation Order
+1. Core utility functions (byte handling, validation)
+2. Z80 compression/decompression algorithms
+3. Z80 header parsers (v145, v201, v300)
+4. SNA header parser
+5. Bank auto-detection logic
+6. POKE file parser
+7. Command-line POKE parser
+8. Poke application logic for SNA
+9. Poke application logic for Z80 v145
+10. Poke application logic for Z80 v201/v300
+11. Main processing logic
+12. Parameter handling and CLI/HTTP interface
+13. Error logging
+14. Testing and refinement
+---
+Testing Strategy
+1. Test Z80 compression/decompression with known samples
+2. Test Z80 header parsing for all versions
+3. Test bank auto-detection with 48K/128K snapshots
+4. Test POKE file parsing with various formats
+5. Test command-line POKE parsing
+6. Test poke application on SNA files
+7. Test poke application on Z80 v145 files
+8. Test poke application on Z80 v201/v300 files
+9. Test pokelistselect filtering
+10. Test error logging functionality
+11. Test write permission fallback
+---
+Ready to Proceed?
+This plan covers all requirements:
+- ✅ Z80 compression/decompression (standalone)
+- ✅ SNA 48K support only
+- ✅ Full bank auto-detection
+- ✅ POKE file format with ASK→244 replacement
+- ✅ Command-line pokes with bank auto-detect
+- ✅ pokelistselect parameter (1-based indices)
+- ✅ Simple range validation
+- ✅ Error logging to file
+- ✅ Output to same directory or script folder
+Do you approve this plan, or would you like any adjustments before I proceed with implementation?
